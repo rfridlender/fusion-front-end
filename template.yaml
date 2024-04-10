@@ -110,3 +110,13 @@ Resources:
             Fn::ImportValue: !Sub common-cloudformation-service-role-${AWS::Region}-arn
           Id: !Sub ${Pipeline}-target
   # Events
+
+Outputs:
+  AppBranchDomainOutput:
+    Value: !Sub
+      - http://${BranchName}.${AppDefaultDomain}
+      - BranchName: !GetAtt Branch.BranchName 
+        AppDefaultDomain:
+          Fn::ImportValue: !Sub ${FrontendName}-app-default-domain
+    Export:
+      Name: !Sub ${FrontendName}-app-branch-domain
