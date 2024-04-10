@@ -107,6 +107,30 @@ env() {
 
         echo "$KEY=$VALUE" >> .env
     done
+
+    OUTPUTS_ARRAY=($( \
+        aws cloudformation describe-stacks \
+            --stack-name $FRONTEND_NAME-$ENVIRONMENT \
+            --output text \
+            --query "Stacks[0].Outputs" \
+    ))
+
+    for (( i=0; i<${#OUTPUTS_ARRAY[@]}; i++ ));
+    do
+        if [ $((i % 3)) != 0 ]; 
+        then
+            continue
+        fi
+
+        KEY_RAW=${OUTPUTS_ARRAY[$i]}
+        KEY_SLICE=${KEY_RAW#"$FRONTEND_NAME-"}
+        KEY_UPPER=${KEY_SLICE^^}
+        KEY=${KEY_UPPER//-/_}
+
+        VALUE=${OUTPUTS_ARRAY[$((i+2))]}
+
+        echo "$KEY=$VALUE" >> .env
+    done
 }
 
 user() {
