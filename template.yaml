@@ -1,0 +1,112 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+
+Parameters:
+  FrontendName:
+    Type: String
+  Environment:
+    Type: String
+    Default: dev
+    AllowedValues:
+      - prod
+      - dev
+
+Conditions:
+  IsProd:
+    Fn::Equals:
+      - !Ref Environment
+      - prod
+
+Resources:
+  # Amplify
+  Branch:
+    Type: AWS::Amplify::Branch
+    Properties:
+      BranchName: !If [IsProd, main, dev]
+      AppId: 
+        Fn::ImportValue: 
+          !Sub ${FrontendName}-app-id
+      Stage: !If [IsProd, PRODUCTION, DEVELOPMENT]
+      EnableAutoBuild: true
+  # Amplify
+
+  # CodePipeline
+  Pipeline:
+    Type: AWS::CodePipeline::Pipeline
+    Properties:
+      Name: !Sub ${FrontendName}-pipeline-${Environment}
+      RoleArn:
+        Fn::ImportValue: !Sub common-cloudformation-service-role-${AWS::Region}-arn
+      Stages:
+        - Name: Source
+          Actions:
+            - Name: Source
+              ActionTypeId:
+                Category: Source
+                Owner: AWS
+                Version: "1"
+                Provider: CodeCommit
+              Configuration:
+                RepositoryName:
+                  Fn::ImportValue: !Sub ${FrontendName}-repository-name
+                BranchName: !If [IsProd, main, dev]
+                PollForSourceChanges: false
+              OutputArtifacts:
+                - Name: !Sub src-${Environment}
+              RunOrder: 1
+        - Name: Deploy
+          Actions:
+            - Name: Deploy
+              ActionTypeId:
+                Category: Deploy
+                Owner: AWS
+                Provider: CloudFormation
+                Version: "1"
+              Configuration:
+                ActionMode: CREATE_UPDATE
+                StackName: !Ref AWS::StackName
+                RoleArn:
+                  Fn::ImportValue: !Sub common-cloudformation-service-role-${AWS::Region}-arn
+                TemplatePath: !Sub src-${Environment}::template.yaml
+                ParameterOverrides: !Sub |
+                  {
+                    "FrontendName": "${FrontendName}",
+                    "Environment": "${Environment}"
+                  }
+                Capabilities: CAPABILITY_IAM,CAPABILITY_NAMED_IAM,CAPABILITY_AUTO_EXPAND
+              InputArtifacts:
+                - Name: !Sub src-${Environment}
+              RunOrder: 2
+      PipelineType: V2
+      ArtifactStore:
+        Type: S3
+        Location:
+          Fn::ImportValue: !Sub ${FrontendName}-artifact-store-name
+  # CodePipeline
+
+  # Events
+  Rule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: !Sub ${FrontendName}-rule-${Environment}
+      EventPattern:
+        source:
+          - aws.codecommit
+        detail-type:
+          - "CodeCommit Repository State Change"
+        resources:
+          - Fn::ImportValue: !Sub ${FrontendName}-repository-arn
+        detail:
+          event:
+            - referenceCreated
+            - referenceUpdated
+          referenceType:
+            - branch
+          referenceName:
+            - !If [IsProd, main, dev]
+      Targets:
+        - Arn: !Sub arn:aws:codepipeline:${AWS::Region}:${AWS::AccountId}:${Pipeline}
+          RoleArn:
+            Fn::ImportValue: !Sub common-cloudformation-service-role-${AWS::Region}-arn
+          Id: !Sub ${Pipeline}-target
+  # Events

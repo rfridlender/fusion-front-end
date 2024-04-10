@@ -1,0 +1,85 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+
+Parameters:
+  FrontendName:
+    Type: String
+
+Resources:
+  # Amplify
+  App:
+    Type: AWS::Amplify::App
+    Properties:
+      Name: !Sub ${FrontendName}-app
+      IAMServiceRole: 
+        Fn::ImportValue:
+          !Sub common-cloudformation-service-role-${AWS::Region}-arn
+      Platform: WEB_COMPUTE
+      Repository: !GetAtt Repository.CloneUrlHttp
+      EnvironmentVariables:
+        - Name: _CUSTOM_IMAGE
+          Value: amplify:al2023
+  # Amplify
+
+  # CodeCommit
+  Repository:
+    Type: AWS::CodeCommit::Repository
+    Properties:
+      RepositoryName: !Sub ${FrontendName}-repository
+  # CodeCommit
+
+  # CodeBuild
+  Project:
+    Type: AWS::CodeBuild::Project
+    Properties:
+      Name: !Sub ${FrontendName}-project
+      ServiceRole:
+        Fn::ImportValue: !Sub common-cloudformation-service-role-${AWS::Region}-arn
+      Artifacts:
+        Type: CODEPIPELINE
+      Environment:
+        Type: LINUX_CONTAINER
+        ComputeType: BUILD_GENERAL1_SMALL
+        Image: aws/codebuild/amazonlinux2-x86_64-standard:5.0
+      Source:
+        Type: CODEPIPELINE
+      TimeoutInMinutes: 10
+  # CodeBuild
+
+  # S3
+  ArtifactStore:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub ${FrontendName}-artifact-store
+  # S3
+
+Outputs:
+  AppIdOutput:
+    Value: !GetAtt App.AppId
+    Export:
+      Name: !Sub ${FrontendName}-app-id
+
+  AppDefaultDomainOutput:
+    Value: !GetAtt App.DefaultDomain
+    Export:
+      Name: !Sub ${FrontendName}-app-default-domain
+
+  ArtifactStoreNameOutput:
+    Value: !Ref ArtifactStore
+    Export:
+      Name: !Sub ${FrontendName}-artifact-store-name
+
+  ProjectNameOutput:
+    Value: !Ref Project
+    Export:
+      Name: !Sub ${FrontendName}-project-name
+
+  RepositoryArnOutput:
+    Value: !GetAtt Repository.Arn
+    Export:
+      Name: !Sub ${FrontendName}-repository-arn
+
+  RepositoryNameOutput:
+    Value: !GetAtt Repository.Name
+    Export:
+      Name: !Sub ${FrontendName}-repository-name

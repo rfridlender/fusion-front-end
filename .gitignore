@@ -1,0 +1,30 @@
+# AWS
+template-output.yaml
+
+# Local env files
+.env
+.env.*
+!.env.example
+
+# Logs
+logs
+*.log
+
+# Node dependencies
+node_modules
+
+# Nuxt dev/build outputs
+.output
+.data
+.nuxt
+.nitro
+.cache
+dist
+
+# Misc
+.DS_Store
+.fleet
+.idea
+
+# Temporary
+README.md

@@ -1,0 +1,150 @@
+#!/bin/bash
+
+if [ -e .env ]; 
+then
+    set -o allexport
+
+    source .env set
+fi
+
+if [[ -z $CODEBUILD_INITIATOR ]];
+then
+    FRONTEND_NAME=${PWD##*/}
+    ENVIRONMENT=$([[ $(git branch --show-current) == "main" ]] && echo "prod" || echo "dev")
+else
+    CODEPIPELINE_NAME=${CODEBUILD_INITIATOR##*/}
+    FRONTEND_NAME_ENVIRONMENT_LIST=(${CODEPIPELINE_NAME/"-pipeline-"/" "})
+
+    FRONTEND_NAME=${FRONTEND_NAME_ENVIRONMENT_LIST[0]}
+    ENVIRONMENT=${FRONTEND_NAME_ENVIRONMENT_LIST[1]}
+fi
+COMMON_NAME=${FRONTEND_NAME%-frontend}
+BACKEND_NAME=$COMMON_NAME-backend
+STACK_NAME=$FRONTEND_NAME-$ENVIRONMENT
+PARAMETER_OVERRIDES="\
+    FrontendName=$FRONTEND_NAME \
+    Environment=$ENVIRONMENT \
+"
+CAPABILITIES="CAPABILITY_NAMED_IAM CAPABILITY_IAM"
+
+build() {
+    npm run build
+}
+
+common() {
+    aws cloudformation deploy \
+        --stack-name $FRONTEND_NAME \
+        --template-file template-common.yaml \
+        --parameter-overrides $PARAMETER_OVERRIDES \
+        --capabilities $CAPABILITIES
+}
+
+delete() {
+    case $1 in
+        build)
+            rm -rf .output
+            ;;
+        common)
+            aws cloudformation delete-stack \
+		        --stack-name $FRONTEND_NAME
+            ;;
+        stack)
+            aws cloudformation delete-stack \
+		        --stack-name $STACK_NAME
+            ;;
+        user)
+            aws cognito-idp admin-delete-user \
+                --user-pool-id $USER_POOL_ID \
+                --username $2
+            ;;
+        *)
+            echo
+            echo "    ./dummy delete build"
+            echo "    ./dummy delete common"
+            echo "    ./dummy delete stack"
+            echo "    ./dummy delete user {email}"
+            echo
+            ;;
+    esac
+}
+
+deploy() {
+    aws cloudformation deploy \
+        --stack-name $STACK_NAME \
+        --template-file template.yaml \
+        --parameter-overrides $PARAMETER_OVERRIDES \
+        --capabilities $CAPABILITIES
+}
+
+env() {
+    OUTPUTS_ARRAY=($( \
+        aws cloudformation describe-stacks \
+            --stack-name $BACKEND_NAME-$ENVIRONMENT \
+            --output text \
+            --query "Stacks[0].Outputs" \
+    ))
+
+    > .env
+
+    for (( i=0; i<${#OUTPUTS_ARRAY[@]}; i++ ));
+    do
+        if [ $((i % 3)) != 0 ]; 
+        then
+            continue
+        fi
+
+        if [[ ${OUTPUTS_ARRAY[$i]} =~ "db-instance" ]];
+        then
+            continue
+        fi
+
+        KEY_RAW=${OUTPUTS_ARRAY[$i]}
+        KEY_SLICE=${KEY_RAW#"$BACKEND_NAME-"}
+        KEY_UPPER=${KEY_SLICE^^}
+        KEY=${KEY_UPPER//-/_}
+
+        VALUE=${OUTPUTS_ARRAY[$((i+2))]}
+
+        echo "$KEY=$VALUE" >> .env
+    done
+}
+
+user() {
+    aws cognito-idp admin-create-user \
+        --user-pool-id $USER_POOL_ID \
+        --username $1 \
+        --temporary-password $2 \
+        --user-attributes Name=email,Value=$1 \
+        --message-action SUPPRESS
+}
+
+case $1 in
+    build)
+        build
+        ;;
+    common)
+        common
+        ;;
+    delete)
+        delete $2 $3
+        ;;
+    deploy)
+        deploy
+        ;;
+    env)
+        env
+        ;;
+    user)
+        user $2 $3
+        ;;
+    *)
+        echo
+        echo "    ./dummy build"
+        echo "    ./dummy common"
+        echo "    ./dummy delete [build|common|stack|user]"
+        echo "    ./dummy deploy"
+        echo "    ./dummy env"
+        echo "    ./dummy user {email} {temporary-password}"
+        echo
+        ;;
+esac
