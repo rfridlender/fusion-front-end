@@ -1,56 +1,76 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue"
 
-const counter = useState("counter", () => 0)
-const message = useState("message", () => "")
-
-function decrement() {
-    if (counter.value === 0) return
-
-    if (counter.value - 1 === 0) message.value = "You're at the bottom of the barrel."
-
-    counter.value = counter.value - 1
-}
-
-function increment() {
-    if (message.value) message.value = ""
-
-    counter.value = counter.value + 1
-}
 </script>
 
 <template>
-    <div class="w-full h-screen flex flex-col justify-center items-center">
-        <Card class="w-[350px]">
-            <CardHeader>
-                <CardTitle>Create project</CardTitle>
-                <CardDescription>Deploy your new project in one-click.</CardDescription>
-            </CardHeader>
-            <CardContent>
-                <form>
-                    <div class="grid items-center w-full gap-4">
-                        <div class="flex flex-col space-y-1.5">
-                            The current count is: {{ counter }}
-                        </div>
-                        <div class="flex flex-col space-y-1.5 text-red-900">
-                            {{ message }}
-                        </div>
+    <div class="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px] bg-gray-950">
+        <div class="flex items-center justify-center py-12">
+            <div class="mx-auto grid w-[350px] gap-6">
+                <div class="grid gap-2 text-center">
+                    <h1 class="text-3xl font-bold">
+                        Sign in
+                    </h1>
+                    <p class="text-balance text-muted-foreground">
+                        Enter your email below to sign in to your account
+                    </p>
+                </div>
+                <div class="grid gap-4">
+                    <div class="grid gap-2">
+                        <Label for="email">Email</Label>
+                        <Input
+                            id="email"
+                            type="email"
+                            placeholder="username@example.com"
+                            required
+                        />
                     </div>
-                </form>
-            </CardContent>
-            <CardFooter class="flex justify-between px-6 pb-6">
-                <Button
-                    variant="outline"
-                    :disabled="counter === 0"
-                    @click="decrement"
-                >
-                    <Icon icon="ic:baseline-minus" />
-                </Button>
-                <Button @click="increment">
-                    <Icon icon="ic:twotone-plus" />
-                </Button>
-            </CardFooter>
-        </Card>
-        <ThemeToggle />
+                    <div class="grid gap-2">
+                        <div class="flex items-center">
+                            <Label for="password">Password</Label>
+                            <a
+                                href="/forgot-password"
+                                class="ml-auto inline-block text-sm underline"
+                            >
+                                Forgot your password?
+                            </a>
+                        </div>
+                        <Input
+                            id="password"
+                            type="password"
+                            placeholder="password"
+                            required
+                        />
+                    </div>
+                    <Button
+                        type="submit"
+                        class="w-full"
+                    >
+                        Sign in
+                    </Button>
+                    <Button
+                        variant="outline"
+                        class="w-full"
+                    >
+                        Sigin in with Google
+                    </Button>
+                </div>
+                <div class="mt-4 text-center text-sm">
+                    Don't have an account?
+                    <a
+                        href="#"
+                        class="underline"
+                    >
+                        Sign up
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="hidden bg-muted lg:block">
+            <img
+                src="/assets/modern-house.jpeg"
+                alt="Modern House"
+                class="h-screen w-full object-cover blur-[1.5px]"
+            >
+        </div>
     </div>
 </template>
