@@ -1,5 +1,5 @@
 <script setup lang="ts">
-
+import { LogIn } from "lucide-vue-next"
 </script>
 
 <template>
@@ -44,7 +44,9 @@
                     <Button
                         type="submit"
                         class="w-full"
+                        @click="$router.push('/dashboard')"
                     >
+                        <LogIn class="h-5 w-5 mr-2" />
                         Sign in
                     </Button>
                     <Button

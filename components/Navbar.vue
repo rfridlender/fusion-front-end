@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { CircleUser, Home, LineChart, Menu, Package, Package2, Search, ShoppingCart, Users } from "lucide-vue-next"
+import { CircleUser, Home, LineChart, LogOut, Menu, Package, Package2, Search, ShoppingCart, Users } from "lucide-vue-next"
 </script>
 
 <template>
@@ -119,5 +119,12 @@ import { CircleUser, Home, LineChart, Menu, Package, Package2, Search, ShoppingC
                 <DropdownMenuItem>Logout</DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
+        <ThemeToggle />
+        <NuxtLink to="/sign-in">
+            <Button>
+                <LogOut class="h-5 w-5 mr-2" />
+                Sign out
+            </Button>
+        </NuxtLink>
     </header>
 </template>
