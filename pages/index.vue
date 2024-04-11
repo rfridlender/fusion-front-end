@@ -39,7 +39,11 @@ function increment() {
                 </form>
             </CardContent>
             <CardFooter class="flex justify-between px-6 pb-6">
-                <Button variant="outline" :disabled="counter === 0" @click="decrement">
+                <Button
+                    variant="outline"
+                    :disabled="counter === 0"
+                    @click="decrement"
+                >
                     <Icon icon="ic:baseline-minus" />
                 </Button>
                 <Button @click="increment">
