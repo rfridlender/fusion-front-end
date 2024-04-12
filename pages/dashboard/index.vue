@@ -10,4 +10,4 @@ definePageMeta({ layout: "protected" })
             </h1>
         </div>
     </main>
-</template> 
+</template>

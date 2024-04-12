@@ -1,6 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+    colorMode: {
+        classSuffix: "",
+    },
     devtools: { enabled: true },
+    eslint: {
+        /* module options */
+    },
     modules: [
         "@formkit/auto-animate/nuxt",
         "@nuxtjs/color-mode",
@@ -9,12 +15,6 @@ export default defineNuxtConfig({
         "shadcn-nuxt",
         "@vee-validate/nuxt",
     ],
-    colorMode: {
-        classSuffix: "",
-    },
-    eslint: {
-        /* module options */
-    },
     shadcn: {
         prefix: "",
         componentDir: "./components/ui",
