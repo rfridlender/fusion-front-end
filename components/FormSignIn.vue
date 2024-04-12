@@ -2,11 +2,23 @@
 import { LogIn } from "lucide-vue-next"
 import { z } from "zod"
 
-const REGEX_PASSWORD = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\^$*.[\]{}()?\-“!@#%&/,><’:;|_~`])\S{8,99}$/
+const REGEX_FORBID_WHITESPACE = /^\S*$/
+const REGEX_REQUIRE_LOWERCASE = /[a-z]+/
+const REGEX_REQUIRE_UPPERCASE = /[A-Z]+/
+const REGEX_REQUIRE_NUMBER = /[0-9]+/
+const REGEX_REQUIRE_SYMBOL = /[\^$*.[\]{}()?\-“!@#%&/,><’:;|_~`]+/
 
 const schemaSignIn = toTypedSchema(z.object({
     email: z.string().email(),
-    password: z.string().regex(REGEX_PASSWORD),
+    password: z
+        .string()
+        .min(8)
+        .max(99)
+        .regex(REGEX_FORBID_WHITESPACE, "Must not contain whitespace.")
+        .regex(REGEX_REQUIRE_LOWERCASE, "Must contain at least (1) lowercase letter.")
+        .regex(REGEX_REQUIRE_UPPERCASE, "Must contain at least (1) uppercase letter.")
+        .regex(REGEX_REQUIRE_NUMBER, "Must contain at least (1) number.")
+        .regex(REGEX_REQUIRE_SYMBOL, "Must contain at least (1) symbol (ex. $!@#%&)."),
 }))
 
 
@@ -38,7 +50,7 @@ function onSubmit(values: any) {
                     <FormControl>
                         <Input 
                             type="email" 
-                            placeholder="username@example.com" 
+                            placeholder="john.doe@homefusioninstall.com" 
                             v-bind="componentField" 
                         />
                     </FormControl>
