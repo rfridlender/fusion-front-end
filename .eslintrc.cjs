@@ -47,6 +47,14 @@ module.exports = {
             "alignAttributesVertically": true,
             "ignores": [],
         }],
+        "vue/max-attributes-per-line": ["warning", {
+            "singleline": {
+                "max": 2,
+            },      
+            "multiline": {
+                "max": 1,
+            },
+        }],
         "vue/multi-word-component-names": "off",
         "vue/no-unused-vars": ["warn", {
             "ignorePattern": "^_",
