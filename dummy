@@ -131,6 +131,18 @@ env() {
 
         echo "$KEY=$VALUE" >> .env
     done
+
+    set -o allexport
+    source .env set
+
+    jq \
+        -n \
+        --indent 4 \
+        --arg aws_cognito_region $AWS_REGION \
+        --arg aws_project_region $AWS_REGION \
+        --arg aws_user_pools_id $USER_POOL_ID \
+        --arg aws_user_pools_web_client_id $USER_POOL_CLIENT_ID \
+        '$ARGS.named' > amplifyconfiguration.json
 }
 
 user() {
