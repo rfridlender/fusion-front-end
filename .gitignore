@@ -1,6 +1,5 @@
 # AWS
 template-output.yaml
-amplifyconfiguration.json
 
 # Local env files
 .env

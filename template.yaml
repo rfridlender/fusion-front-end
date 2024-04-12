@@ -4,6 +4,8 @@ Transform: AWS::Serverless-2016-10-31
 Parameters:
   FrontendName:
     Type: String
+  BackendName:
+    Type: String
   Environment:
     Type: String
     Default: dev
@@ -24,10 +26,16 @@ Resources:
     Properties:
       BranchName: !If [IsProd, main, dev]
       AppId: 
-        Fn::ImportValue: 
-          !Sub ${FrontendName}-app-id
+        Fn::ImportValue: !Sub ${FrontendName}-app-id
       Stage: !If [IsProd, PRODUCTION, DEVELOPMENT]
       EnableAutoBuild: true
+      EnvironmentVariables:
+        - Name: NUXT_PUBLIC_USER_POOL_ID
+          Value: 
+            Fn::ImportValue: !Sub ${BackendName}-user-pool-id
+        - Name: NUXT_PUBLIC_USER_POOL_CLIENT_ID
+          Value: 
+            Fn::ImportValue: !Sub ${BackendName}-user-pool-client-id
   # Amplify
 
   # CodePipeline
@@ -71,6 +79,7 @@ Resources:
                 ParameterOverrides: !Sub |
                   {
                     "FrontendName": "${FrontendName}",
+                    "BackendName": "${BackendName}",
                     "Environment": "${Environment}"
                   }
                 Capabilities: CAPABILITY_IAM,CAPABILITY_NAMED_IAM,CAPABILITY_AUTO_EXPAND

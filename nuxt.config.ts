@@ -15,6 +15,12 @@ export default defineNuxtConfig({
         "shadcn-nuxt",
         "@vee-validate/nuxt",
     ],
+    runtimeConfig: {
+        public: {
+            USER_POOL_CLIENT_ID: "",
+            USER_POOL_ID: "",
+        },
+    },
     shadcn: {
         prefix: "",
         componentDir: "./components/ui",
