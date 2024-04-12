@@ -16,6 +16,7 @@
         "@vee-validate/nuxt": "^4.12.6",
         "@vee-validate/zod": "^4.12.6",
         "@vueuse/core": "^10.9.0",
+        "aws-amplify": "^6.0.28",
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.0",
         "lucide-vue-next": "^0.367.0",

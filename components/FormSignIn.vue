@@ -8,6 +8,8 @@ const REGEX_REQUIRE_UPPERCASE = /[A-Z]+/
 const REGEX_REQUIRE_NUMBER = /[0-9]+/
 const REGEX_REQUIRE_SYMBOL = /[\^$*.[\]{}()?\-“!@#%&/,><’:;|_~`]+/
 
+
+
 const schemaSignIn = toTypedSchema(z.object({
     email: z.string().email(),
     password: z
@@ -21,15 +23,30 @@ const schemaSignIn = toTypedSchema(z.object({
         .regex(REGEX_REQUIRE_SYMBOL, "Must contain at least (1) symbol (ex. $!@#%&)."),
 }))
 
+async function onSubmit({ email, password }: any) {
+    console.log("email ", email)
+    console.log("password ", password)
 
-function onSubmit(values: any) {
-    console.log("values ", values)
+    try {
+        const { isSignedIn, nextStep } = await useNuxtApp().$Amplify.Auth.signIn({ username: email, password: password })
+
+        console.log("isSignedIn ", isSignedIn)
+        console.log("nextStep ", nextStep)
+
+        if (isSignedIn) return navigateTo("/dashboard")
+
+        if (nextStep.signInStep === "CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED") return navigateTo("/confirm-sign-in")
+
+        throw new Error("Something went wrong.")
+    } catch (error) {
+        console.log(error)
+    }
 }
 </script>
 
 <template>
     <Form 
-        class="mx-auto grid w-[350px] gap-6"
+        class="w-72 mx-auto grid gap-6"
         :validation-schema="schemaSignIn" 
         @submit="onSubmit"
     >
@@ -79,12 +96,6 @@ function onSubmit(values: any) {
                 <LogIn class="h-5 w-5 gap-2 mr-2" />
                 Sign in
             </Button>
-        </div>
-        <div class="mt-4 text-center text-sm">
-            Don't have an account?
-            <a class="underline" href="#">
-                Sign up
-            </a>
         </div>
     </Form>
 </template>
