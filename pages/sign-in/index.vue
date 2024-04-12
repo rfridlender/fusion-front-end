@@ -5,6 +5,7 @@ import { LogIn } from "lucide-vue-next"
 <template>
     <div class="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px] bg-gray-950">
         <div class="flex items-center justify-center py-12">
+            <<<<<<< Updated upstream
             <div class="mx-auto grid w-[350px] gap-6">
                 <div class="grid gap-2 text-center">
                     <h1 class="text-3xl font-bold">
@@ -66,12 +67,15 @@ import { LogIn } from "lucide-vue-next"
                     </a>
                 </div>
             </div>
+            =======
+            <FormSignIn />
+            >>>>>>> Stashed changes
         </div>
         <div class="hidden bg-muted lg:block">
             <img
                 src="/assets/modern-house.jpeg"
                 alt="Modern House"
-                class="h-screen w-full object-cover blur-[1.5px]"
+                class="h-screen w-full object-cover border-l"
             >
         </div>
     </div>
