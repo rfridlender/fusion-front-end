@@ -1,5 +1,14 @@
 <script setup lang="ts">
 import { LogIn } from "lucide-vue-next"
+import { z } from "zod"
+
+const REGEX_PASSWORD = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\^$*.[\]{}()?\-“!@#%&/,><’:;|_~`])\S{8,99}$/
+
+const schemaSignIn = toTypedSchema(z.object({
+    email: z.string().email(),
+    password: z.string().regex(REGEX_PASSWORD),
+}))
+
 
 function onSubmit(values: any) {
     console.log("values ", values)
