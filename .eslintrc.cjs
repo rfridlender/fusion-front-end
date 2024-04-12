@@ -47,7 +47,7 @@ module.exports = {
             "alignAttributesVertically": true,
             "ignores": [],
         }],
-        "vue/max-attributes-per-line": ["warning", {
+        "vue/max-attributes-per-line": ["warn", {
             "singleline": {
                 "max": 2,
             },      
