@@ -5,57 +5,41 @@ import {
     createAWSCredentialsAndIdentityIdProvider,
     runWithAmplifyServerContext,
 } from "aws-amplify/adapter-core"
-import { parseAmplifyConfig } from "aws-amplify/utils"
 import {
     fetchAuthSession,
     fetchUserAttributes,
     getCurrentUser,
 } from "aws-amplify/auth/server"
-import { list } from "aws-amplify/storage/server"
-import { generateClient } from "aws-amplify/api/server"
-import type { ListPaginateInput } from "aws-amplify/storage"
 import type {
     LibraryOptions,
     FetchAuthSessionOptions,
 } from "@aws-amplify/core"
-import type {
-    GraphQLOptionsV6,
-    GraphQLResponseV6,
-} from "@aws-amplify/api-graphql"
 
-import config from "../amplifyconfiguration.json"
-
-// parse the content of `amplifyconfiguration.json` into the shape of ResourceConfig
-const amplifyConfig = parseAmplifyConfig(config)
-
-// create the Amplify used token cookies names array
-const userPoolClientId = amplifyConfig.Auth!.Cognito.userPoolClientId
-const lastAuthUserCookieName = `CognitoIdentityServiceProvider.${userPoolClientId}.LastAuthUser`
-
-// create a GraphQL client that can be used in a server context
-const gqlServerClient = generateClient({ config: amplifyConfig })
-
-const getAmplifyAuthKeys = (lastAuthUser: string) =>
-    ["idToken", "accessToken", "refreshToken", "clockDrift"]
-        .map(
-            (key) =>
-                `CognitoIdentityServiceProvider.${userPoolClientId}.${lastAuthUser}.${key}`,
-        )
-        .concat(lastAuthUserCookieName)
+const getAmplifyAuthKeys = (userPoolClientId: string, lastAuthUser: string, lastAuthUserCookieName: string) =>
+    ["idToken", "accessToken", "refreshToken", "clockDrift"].map((key) =>
+        `CognitoIdentityServiceProvider.${userPoolClientId}.${lastAuthUser}.${key}`,
+    ).concat(lastAuthUserCookieName)
 
 // define the plugin
 export default defineNuxtPlugin({
     name: "AmplifyAPIs",
     enforce: "pre",
     setup() {
-    // The Nuxt composable `useCookie` is capable of sending cookies to the
-    // client via the `SetCookie` header. If the `expires` option is left empty,
-    // it sets a cookie as a session cookie. If you need to persist the cookie
-    // on the client side after your end user closes your Web app, you need to
-    // specify an `expires` value.
-    //
-    // We use 30 days here as an example (the default Cognito refreshToken
-    // expiration time).
+        const runtimeConfig = useRuntimeConfig()
+        const amplifyConfig = constructAmplifyConfig(runtimeConfig)
+
+        // create the Amplify used token cookies names array
+        const userPoolClientId = amplifyConfig.Auth!.Cognito.userPoolClientId ?? ""
+        const lastAuthUserCookieName = `CognitoIdentityServiceProvider.${userPoolClientId}.LastAuthUser`
+    
+        // The Nuxt composable `useCookie` is capable of sending cookies to the
+        // client via the `SetCookie` header. If the `expires` option is left empty,
+        // it sets a cookie as a session cookie. If you need to persist the cookie
+        // on the client side after your end user closes your Web app, you need to
+        // specify an `expires` value.
+        //
+        // We use 30 days here as an example (the default Cognito refreshToken
+        // expiration time).
         const expires = new Date()
         expires.setDate(expires.getDate() + 30)
 
@@ -73,7 +57,7 @@ export default defineNuxtPlugin({
 
         // Get all Amplify auth token cookie names
         const authKeys = lastAuthUserCookie.value
-            ? getAmplifyAuthKeys(lastAuthUserCookie.value)
+            ? getAmplifyAuthKeys(userPoolClientId, lastAuthUserCookie.value, lastAuthUserCookieName)
             : []
 
         // Create a key-value map of cookie name => cookie ref
@@ -188,36 +172,6 @@ export default defineNuxtPlugin({
                                 libraryOptions,
                                 (contextSpec) => getCurrentUser(contextSpec),
                             ),
-                    },
-                    Storage: {
-                        list: (input: ListPaginateInput) =>
-                            runWithAmplifyServerContext(
-                                amplifyConfig,
-                                libraryOptions,
-                                (contextSpec) => list(contextSpec, input),
-                            ),
-                    },
-                    GraphQL: {
-                        client: {
-                            // Follow this typing to ensure the`graphql` API return type can
-                            // be inferred correctly according to your queries and mutations
-                            graphql: <
-                FALLBACK_TYPES = unknown,
-                TYPED_GQL_STRING extends string = string
-              >(
-                                options: GraphQLOptionsV6<FALLBACK_TYPES, TYPED_GQL_STRING>,
-                                additionalHeaders?: Record<string, string>,
-                            ) =>
-                                runWithAmplifyServerContext<
-                  GraphQLResponseV6<FALLBACK_TYPES, TYPED_GQL_STRING>
-                >(amplifyConfig, libraryOptions, (contextSpec) =>
-                    gqlServerClient.graphql(
-                        contextSpec,
-                        options,
-                        additionalHeaders,
-                    ),
-                ),
-                        },
                     },
                 },
             },

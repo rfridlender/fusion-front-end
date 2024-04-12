@@ -5,19 +5,15 @@ import {
     signIn,
     signOut,
 } from "aws-amplify/auth"
-import { list } from "aws-amplify/storage"
-import { generateClient } from "aws-amplify/api"
-import config from "@/amplifyconfiguration.json"
-
-const client = generateClient()
 
 export default defineNuxtPlugin({
     name: "AmplifyAPIs",
     enforce: "pre",
-
     setup() {
-    // This configures Amplify on the client side of your Nuxt app
-        Amplify.configure(config, { ssr: true })
+        const runtimeConfig = useRuntimeConfig()
+        
+        // This configures Amplify on the client side of your Nuxt app
+        Amplify.configure(constructAmplifyConfig(runtimeConfig), { ssr: true })
 
         return {
             provide: {
@@ -32,12 +28,6 @@ export default defineNuxtPlugin({
                         fetchUserAttributes,
                         signIn,
                         signOut,
-                    },
-                    Storage: {
-                        list,
-                    },
-                    GraphQL: {
-                        client,
                     },
                 },
             },

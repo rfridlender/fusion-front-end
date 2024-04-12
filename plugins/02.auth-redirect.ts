@@ -1,15 +1,14 @@
 import { Amplify } from "aws-amplify"
-import config from "@/amplifyconfiguration.json"
-
-// Amplify.configure() only needs to be called on the client side
-if (process.client) {
-    Amplify.configure(config, { ssr: true })
-}
 
 export default defineNuxtPlugin({
     name: "AmplifyAuthRedirect",
     enforce: "pre",
     setup() {
+        const runtimeConfig = useRuntimeConfig()
+        
+        // This configures Amplify on the client side of your Nuxt app
+        Amplify.configure(constructAmplifyConfig(runtimeConfig), { ssr: true })
+
         addRouteMiddleware(
             "AmplifyAuthMiddleware",
             defineNuxtRouteMiddleware(async (to) => {
