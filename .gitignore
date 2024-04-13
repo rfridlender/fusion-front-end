@@ -25,6 +25,3 @@ dist
 .DS_Store
 .fleet
 .idea
-
-# Temporary
-README.md
