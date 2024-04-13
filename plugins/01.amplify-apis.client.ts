@@ -1,5 +1,6 @@
 import { Amplify } from "aws-amplify"
 import {
+    confirmSignIn,
     fetchAuthSession,
     fetchUserAttributes,
     signIn,
@@ -24,6 +25,7 @@ export default defineNuxtPlugin({
                 // `useNuxtApp().$Amplify.Auth.fetchAuthSession()`
                 Amplify: {
                     Auth: {
+                        confirmSignIn,
                         fetchAuthSession,
                         fetchUserAttributes,
                         signIn,

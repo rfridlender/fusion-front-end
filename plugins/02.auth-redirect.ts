@@ -1,5 +1,10 @@
 import { Amplify } from "aws-amplify"
 
+const routesUnprotected = [
+    "/confirm-sign-in",
+    "/sign-in",
+]
+
 export default defineNuxtPlugin({
     name: "AmplifyAuthRedirect",
     enforce: "pre",
@@ -18,7 +23,7 @@ export default defineNuxtPlugin({
                     // If the request is not associated with a valid user session
                     // redirect to the `/sign-in` route.
                     // You can also add route match rules against `to.path`
-                    if (session.tokens === undefined && to.path !== "/sign-in") {
+                    if (session.tokens === undefined && !routesUnprotected.includes(to.path)) {
                         return navigateTo("/sign-in")
                     }
 
@@ -26,7 +31,7 @@ export default defineNuxtPlugin({
                         return navigateTo("/")
                     }
                 } catch (_) {
-                    if (to.path !== "/sign-in") {
+                    if (!routesUnprotected.includes(to.path)) {
                         return navigateTo("/sign-in")
                     }
                 }
