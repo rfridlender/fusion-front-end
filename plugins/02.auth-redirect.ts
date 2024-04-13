@@ -2,6 +2,8 @@ import { Amplify } from "aws-amplify"
 
 const routesUnprotected = [
     "/confirm-sign-in",
+    "/confirm-reset-password",
+    "/reset-password",
     "/sign-in",
 ]
 
@@ -27,8 +29,8 @@ export default defineNuxtPlugin({
                         return navigateTo("/sign-in")
                     }
 
-                    if (session.tokens !== undefined && to.path === "/sign-in") {
-                        return navigateTo("/")
+                    if (session.tokens !== undefined && routesUnprotected.includes(to.path)) {
+                        return navigateTo("/dashboard")
                     }
                 } catch (_) {
                     if (!routesUnprotected.includes(to.path)) {

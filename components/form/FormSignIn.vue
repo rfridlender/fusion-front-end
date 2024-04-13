@@ -90,9 +90,9 @@ const onSubmit = handleSubmit(async ({ email, password }) => {
                     <LoaderCircle v-else class="size-5 gap-2 mr-2 animate-spin" />
                     Sign in
                 </Button>
-                <a class="inline-block ml-auto mt-4  text-sm underline" href="/forgot-password">
+                <NuxtLink class="inline-block ml-auto mt-4 text-sm underline" to="/reset-password">
                     Forgot your password?
-                </a>
+                </NuxtLink>
             </CardFooter>
         </Card>
     </form>
