@@ -55,9 +55,9 @@ const onSubmit = handleSubmit(async ({ email, password }) => {
                         </div>
                         <FormControl>
                             <Input 
+                                v-bind="componentField" 
                                 type="email" 
                                 placeholder="john.doe@homefusioninstall.com" 
-                                v-bind="componentField" 
                             />
                         </FormControl>
                         <FormMessage />

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { LogIn } from "lucide-vue-next"
+import { CircleCheckBig, LoaderCircle } from "lucide-vue-next"
 import { z } from "zod"
 
 const schemaConfirmSignIn = toTypedSchema(z
@@ -14,26 +14,49 @@ const schemaConfirmSignIn = toTypedSchema(z
     }),
 )
 
-async function onSubmit({ name, phoneNumber, password, passwordConfirmation }: any) {
+const { handleSubmit, isSubmitting } = useForm({ validationSchema: schemaConfirmSignIn })
+
+const onSubmit = handleSubmit(async ({ name, phoneNumber, password }) => {
     try {
-        const { isSignedIn, nextStep } = await useNuxtApp().$Amplify.Auth.confirmSignIn({ challengeResponse: password })
+        const { isSignedIn, nextStep } = await useNuxtApp().$Amplify.Auth.confirmSignIn({ 
+            challengeResponse: password,
+            options: { 
+                userAttributes: {
+                    name: name,
+                    phone_number: phoneNumber,
+                },
+            },
+        })
         
         console.log("isSignedIn ", isSignedIn)
         console.log("nextStep ", nextStep)
         
-        // if (isSignedIn) return navigateTo("/dashboard")
+        if (isSignedIn) {
+            return navigateTo("/dashboard")
+        }
         
-        // if (nextStep.signInStep === "CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED") return navigateTo("/confirm-sign-in")
-        
-        // throw new Error("Something went wrong.")
-    } catch (error) {
+        switch (nextStep.signInStep) {
+        default: throw new Error("Something went wrong")
+        }
+    } catch (error: Error) {
         console.log(error)
+
+        let messageError: string
+        switch (error.name) {
+        case "SignInException": messageError = "Your previous session has expired"; break
+        default: messageError = error.message
+        }
+        
+        return navigateTo({
+            path: "/sign-in",
+            query: { "message-error": messageError },
+        })
     }
-}
+})
 </script>
 
 <template>
-    <Form :validation-schema="schemaConfirmSignIn" @submit="onSubmit">
+    <form @submit="onSubmit">
         <Card class="w-84">
             <CardHeader class="grid gap-2 text-center">
                 <CardTitle class="text-3xl font-bold">
@@ -48,10 +71,7 @@ async function onSubmit({ name, phoneNumber, password, passwordConfirmation }: a
                     <FormItem v-auto-animate>
                         <FormLabel>Name</FormLabel>
                         <FormControl>
-                            <Input 
-                                placeholder="John Doe" 
-                                v-bind="componentField" 
-                            />
+                            <Input v-bind="componentField" placeholder="John Doe" />
                         </FormControl>
                         <FormMessage />
                     </FormItem>
@@ -60,10 +80,7 @@ async function onSubmit({ name, phoneNumber, password, passwordConfirmation }: a
                     <FormItem v-auto-animate>
                         <FormLabel>Phone Number</FormLabel>
                         <FormControl>
-                            <Input 
-                                placeholder="+12223334444" 
-                                v-bind="componentField" 
-                            />
+                            <Input v-bind="componentField" placeholder="+12223334444" />
                         </FormControl>
                         <FormMessage />
                     </FormItem>
@@ -88,11 +105,16 @@ async function onSubmit({ name, phoneNumber, password, passwordConfirmation }: a
                 </FormField>
             </CardContent>
             <CardFooter>
-                <Button class="w-full" type="submit">
-                    <LogIn class="h-5 w-5 gap-2 mr-2" />
-                    Sign in
+                <Button 
+                    class="w-full" 
+                    type="submit" 
+                    :disabled="isSubmitting"
+                >
+                    <CircleCheckBig v-if="!isSubmitting" class="size-5 gap-2 mr-2" />
+                    <LoaderCircle v-else class="size-5 gap-2 mr-2 animate-spin" />
+                    Confirm sign in
                 </Button>
             </CardFooter>
         </Card>
-    </Form>
+    </form>
 </template>
