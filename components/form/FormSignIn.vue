@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { LogIn } from "lucide-vue-next"
+import { LoaderCircle, LogIn } from "lucide-vue-next"
 import { z } from "zod"
+
+const messageError = useState("error", () => "")
 
 const schemaSignIn = toTypedSchema(z.object({
     email: schemas.email,
@@ -9,17 +11,22 @@ const schemaSignIn = toTypedSchema(z.object({
 
 const { handleSubmit, isSubmitting } = useForm({ validationSchema: schemaSignIn })
 
-const onSubmit = handleSubmit(async ({ email, password }: any) => {
+const onSubmit = handleSubmit(async ({ email, password }) => {
     try {
         const { isSignedIn, nextStep } = await useNuxtApp().$Amplify.Auth.signIn({ username: email, password: password })
         
-        if (isSignedIn) return navigateTo("/dashboard")
+        if (isSignedIn) {
+            return navigateTo("/dashboard")
+        }
         
-        if (nextStep.signInStep === "CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED") return navigateTo("/confirm-sign-in")
-        
-        throw new Error("Something went wrong.")
-    } catch (error) {
+        switch(nextStep.signInStep) {
+        case "CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED":  return navigateTo("/confirm-sign-in")
+        default: throw new Error("Something went wrong")
+        }
+    } catch (error: Error) {
         console.log(error)
+
+        messageError.value = error.message
     }
 })
 </script>
@@ -35,7 +42,7 @@ const onSubmit = handleSubmit(async ({ email, password }: any) => {
                     Enter your email below to sign in to your account
                 </CardDescription>
             </CardHeader>
-            <CardContent class="grid gap-4">
+            <CardContent v-auto-animate class="grid gap-4">
                 <FormField v-slot="{ componentField }" name="email">
                     <FormItem v-auto-animate>
                         <div class="flex items-center">
@@ -60,6 +67,13 @@ const onSubmit = handleSubmit(async ({ email, password }: any) => {
                         <FormMessage />
                     </FormItem>
                 </FormField>
+                <p 
+                    v-if="messageError"
+                    class="w-full text-balance font-medium text-destructive" 
+                    role="alert"
+                >
+                    {{ messageError }}
+                </p>
             </CardContent>
             <CardFooter class="flex flex-col">
                 <Button 
@@ -67,7 +81,8 @@ const onSubmit = handleSubmit(async ({ email, password }: any) => {
                     type="submit" 
                     :disabled="isSubmitting"
                 >
-                    <LogIn class="h-5 w-5 gap-2 mr-2" />
+                    <LogIn v-if="!isSubmitting" class="size-5 gap-2 mr-2" />
+                    <LoaderCircle v-else class="size-5 gap-2 mr-2 animate-spin" />
                     Sign in
                 </Button>
                 <a class="inline-block ml-auto mt-4  text-sm underline" href="/forgot-password">
