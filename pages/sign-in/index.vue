@@ -1,23 +1,20 @@
-<script setup lang="ts">
-
-</script>
-
 <template>
-    <div class="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px] bg-gray-950">
+    <main class="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
         <div class="flex flex-col justify-center items-center gap-12 py-12">
             <img
                 class="w-72"
-                src="/assets/home-fusion.png"
+                src="/assets/home-fusion-logo.png"
                 alt="Modern House"
             >
             <FormSignIn />
         </div>
-        <div class="hidden bg-muted lg:block">
+        <div class="relative hidden lg:block bg-muted ">
             <img
-                class="h-screen w-full object-cover border-l"
+                class="w-full h-screen object-cover border-l"
                 src="/assets/modern-house.jpeg"
                 alt="Modern House"
             >
+            <div class="absolute start=0 top-0 w-full h-screen bg-background opacity-75" />
         </div>
-    </div>
+    </main>
 </template>

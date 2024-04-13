@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full h-screen flex flex-col justify-center items-center gap-4">
+    <main class="w-full h-screen flex flex-col justify-center items-center gap-4">
         <Button>
             <NuxtLink to="/sign-in">
                 Sign In
@@ -10,5 +10,5 @@
                 Dashboard
             </NuxtLink>
         </Button>
-    </div>
+    </main>
 </template>
