@@ -7,6 +7,7 @@ module.exports = {
     ],
     rules: {
         // enable additional rules
+        "curly": ["warn", "all"],
         "indent": ["warn", 4],
         "linebreak-style": ["error", "unix"],
         "quotes": ["warn", "double"],
