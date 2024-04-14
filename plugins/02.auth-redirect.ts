@@ -12,13 +12,9 @@ export default defineNuxtPlugin({
     enforce: "pre",
     setup() {
         const runtimeConfig = useRuntimeConfig()
-
-        console.log(runtimeConfig.public)
-        const config = constructAmplifyConfig(runtimeConfig)
-        console.log(config)
         
         // This configures Amplify on the client side of your Nuxt app
-        Amplify.configure(config, { ssr: true })
+        Amplify.configure(constructAmplifyConfig(runtimeConfig), { ssr: true })
 
         addRouteMiddleware(
             "AmplifyAuthMiddleware",

@@ -3,6 +3,7 @@ frontend:
   phases:
     preBuild:
       commands:
+        - env | grep -e NUXT_
         - corepack enable
         - npx --yes nypm i
     build:
