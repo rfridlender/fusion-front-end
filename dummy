@@ -55,7 +55,7 @@ delete() {
             ;;
         user)
             aws cognito-idp admin-delete-user \
-                --user-pool-id $USER_POOL_ID \
+                --user-pool-id $NUXT_PUBLIC_USER_POOL_ID \
                 --username $2
             ;;
         *)
@@ -141,7 +141,7 @@ env() {
 
 user() {
     aws cognito-idp admin-create-user \
-        --user-pool-id $USER_POOL_ID \
+        --user-pool-id $NUXT_PUBLIC_USER_POOL_ID \
         --username $1 \
         --temporary-password $2 \
         --user-attributes Name=email,Value=$1 \
