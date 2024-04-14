@@ -3,20 +3,10 @@ frontend:
   phases:
     preBuild:
       commands:
-        - env | grep -e NUXT_
-        - env | grep -e NUXT_ >> .env
-        - cat .env
-        - ls -f
-
         - corepack enable
         - npx --yes nypm i
     build:
       commands:
-        - env | grep -e NUXT_
-        - env | grep -e NUXT_ >> .env
-        - cat .env
-        - ls -f
-        
         - npm run build
   artifacts:
     baseDirectory: .amplify-hosting
