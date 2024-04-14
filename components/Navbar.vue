@@ -28,7 +28,7 @@ async function onClick() {
                         class="flex items-center gap-2 text-lg font-semibold"
                         href="#"
                     >
-                        <Package2 class="h-6 w-6" />
+                        <Package2 class="size-6" />
                         <span class="sr-only">Acme Inc</span>
                     </a>
                     <a
@@ -44,7 +44,7 @@ async function onClick() {
                     >
                         <ShoppingCart class="size-5" />
                         Orders
-                        <Badge class="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
+                        <Badge class="ml-auto flex size-6 shrink-0 items-center justify-center rounded-full">
                             6
                         </Badge>
                     </a>
@@ -91,7 +91,7 @@ async function onClick() {
         <div class="w-full flex-1">
             <form>
                 <div class="relative">
-                    <Search class="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                    <Search class="absolute left-2.5 top-2.5 size-4 text-muted-foreground" />
                     <Input
                         class="w-full appearance-none bg-background pl-8 shadow-none md:w-2/3 lg:w-1/3"
                         type="search"

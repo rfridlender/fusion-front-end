@@ -10,15 +10,15 @@ import { Bell, Home, LineChart, Package, Package2, ShoppingCart, Users } from "l
                     href="/"
                     class="flex items-center gap-2 font-semibold"
                 >
-                    <Package2 class="h-6 w-6" />
+                    <Package2 class="size-6" />
                     <span class="">Acme Inc</span>
                 </a>
                 <Button
                     variant="outline"
                     size="icon"
-                    class="ml-auto h-8 w-8"
+                    class="ml-auto size-8"
                 >
-                    <Bell class="h-4 w-4" />
+                    <Bell class="size-4" />
                     <span class="sr-only">Toggle notifications</span>
                 </Button>
             </div>
@@ -28,16 +28,16 @@ import { Bell, Home, LineChart, Package, Package2, ShoppingCart, Users } from "l
                         href="/"
                         class="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
                     >
-                        <Home class="h-4 w-4" />
+                        <Home class="size-4" />
                         Dashboard
                     </a>
                     <a
                         href="#"
                         class="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
                     >
-                        <ShoppingCart class="h-4 w-4" />
+                        <ShoppingCart class="size-4" />
                         Orders
-                        <Badge class="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
+                        <Badge class="ml-auto flex size-6 shrink-0 items-center justify-center rounded-full">
                             6
                         </Badge>
                     </a>
@@ -45,21 +45,21 @@ import { Bell, Home, LineChart, Package, Package2, ShoppingCart, Users } from "l
                         href="#"
                         class="flex items-center gap-3 rounded-lg bg-muted px-3 py-2 text-primary transition-all hover:text-primary"
                     >
-                        <Package class="h-4 w-4" />
+                        <Package class="size-4" />
                         Products
                     </a>
                     <a
                         href="#"
                         class="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
                     >
-                        <Users class="h-4 w-4" />
+                        <Users class="size-4" />
                         Customers
                     </a>
                     <a
                         href="#"
                         class="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
                     >
-                        <LineChart class="h-4 w-4" />
+                        <LineChart class="size-4" />
                         Analytics
                     </a>
                 </nav>
