@@ -3,23 +3,34 @@ frontend:
   phases:
     preBuild:
       commands:
+        - env
         - env | grep -e NUXT_PUBLIC_
         - env | grep -e NUXT_PUBLIC_ >> .env
         - env | grep -e NUXT_PUBLIC_ >> .env.dev
         - env | grep -e NUXT_PUBLIC_ >> .env.development
         - env | grep -e NUXT_PUBLIC_ >> .env.prod
         - env | grep -e NUXT_PUBLIC_ >> .env.production
+        - ls -f
         - corepack enable
         - npx --yes nypm i
     build:
       commands:
+        - env
+        - env | grep -e NUXT_PUBLIC_
         - env | grep -e NUXT_PUBLIC_ >> .env
         - env | grep -e NUXT_PUBLIC_ >> .env.dev
         - env | grep -e NUXT_PUBLIC_ >> .env.development
         - env | grep -e NUXT_PUBLIC_ >> .env.prod
         - env | grep -e NUXT_PUBLIC_ >> .env.production
         - npm run build
-        - ls
+        - env
+        - env | grep -e NUXT_PUBLIC_
+        - env | grep -e NUXT_PUBLIC_ >> .amplify-hosting/.env
+        - env | grep -e NUXT_PUBLIC_ >> .amplify-hosting/.env.dev
+        - env | grep -e NUXT_PUBLIC_ >> .amplify-hosting/.env.development
+        - env | grep -e NUXT_PUBLIC_ >> .amplify-hosting/.env.prod
+        - env | grep -e NUXT_PUBLIC_ >> .amplify-hosting/.env.production
+        - ls -f
   artifacts:
     baseDirectory: .amplify-hosting
     files:
