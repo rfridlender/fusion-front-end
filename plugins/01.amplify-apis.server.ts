@@ -26,7 +26,14 @@ export default defineNuxtPlugin({
     enforce: "pre",
     setup() {
         const runtimeConfig = useRuntimeConfig()
+
+        console.log(runtimeConfig.public)
+        const config = constructAmplifyConfig(runtimeConfig)
+        console.log(config)
+
         const amplifyConfig = constructAmplifyConfig(runtimeConfig)
+
+        
 
         // create the Amplify used token cookies names array
         const userPoolClientId = amplifyConfig.Auth!.Cognito.userPoolClientId ?? ""

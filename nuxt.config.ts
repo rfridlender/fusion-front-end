@@ -17,9 +17,8 @@ export default defineNuxtConfig({
     ],
     runtimeConfig: {
         public: {
-            userPoolId: "",
-            userPoolClientId: "",
-        },
+            userPoolId: process.env.NUXT_PUBLIC_USER_POOL_ID,
+            userPoolClientId: process.env.NUXT_PUBLIC_USER_POOL_CLIENT_ID,
     },
     shadcn: {
         prefix: "",

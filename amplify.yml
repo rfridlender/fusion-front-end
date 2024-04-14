@@ -5,6 +5,7 @@ frontend:
       commands:
         - env | grep -e NUXT_
         - env | grep -e NUXT_ >> .env
+        - cat .env
         - ls -f
 
         - corepack enable
@@ -13,12 +14,10 @@ frontend:
       commands:
         - env | grep -e NUXT_
         - env | grep -e NUXT_ >> .env
+        - cat .env
+        - ls -f
         
         - npm run build
-
-        - env | grep -e NUXT_
-        - env | grep -e NUXT_ >> .amplify-hosting/.env
-        - ls -f
   artifacts:
     baseDirectory: .amplify-hosting
     files:
