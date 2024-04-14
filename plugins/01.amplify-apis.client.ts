@@ -2,9 +2,11 @@ import { Amplify } from "aws-amplify"
 import {
     confirmResetPassword,
     confirmSignIn,
+    confirmUserAttribute,
     fetchAuthSession,
     fetchUserAttributes,
     resetPassword,
+    sendUserAttributeVerificationCode,
     signIn,
     signOut,
     updatePassword,
@@ -30,9 +32,11 @@ export default defineNuxtPlugin({
                     Auth: {
                         confirmResetPassword,
                         confirmSignIn,
+                        confirmUserAttribute,
                         fetchAuthSession,
                         fetchUserAttributes,
                         resetPassword,
+                        sendUserAttributeVerificationCode,
                         signIn,
                         signOut,
                         updatePassword,
