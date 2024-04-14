@@ -8,6 +8,8 @@ const REGEX_REQUIRE_NUMBER = /[0-9]+/
 const REGEX_REQUIRE_SYMBOL = /[\^$*.[\]{}()?\-“!@#%&/,><’:;|_~`]+/
 
 export default {
+    code: z.array(z.coerce.string()).length(6),
+
     email: z.string().email(),
     
     name: z.string().min(8).max(99),

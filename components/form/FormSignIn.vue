@@ -28,10 +28,7 @@ const onSubmit = handleSubmit(async ({ email, password }) => {
     } catch (error: Error) {
         console.log(error)
 
-        return navigateTo({
-            replace: true,
-            query: { "message-error": error.message },
-        })
+        return navigateTo({ replace: true, query: { "message-error": error.message } })
     }
 })
 </script>

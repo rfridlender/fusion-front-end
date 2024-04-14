@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Home, LineChart, Package, Package2, ShoppingCart, Users } from "lucide-vue-next"
+import { Bell, Home, LineChart, Package, Package2, ShoppingCart, Users } from "lucide-vue-next"
 </script>
 
 <template>

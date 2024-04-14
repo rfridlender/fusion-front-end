@@ -1,5 +1,12 @@
 <script setup lang="ts">
+import { signOut } from "aws-amplify/auth"
 import { CircleUser, Home, LineChart, LogOut, Menu, Package, Package2, Search, ShoppingCart, Users } from "lucide-vue-next"
+
+async function onClick() {
+    await signOut()
+    
+    return navigateTo("/sign-in")
+}
 </script>
 
 <template>
@@ -7,62 +14,59 @@ import { CircleUser, Home, LineChart, LogOut, Menu, Package, Package2, Search, S
         <Sheet>
             <SheetTrigger as-child>
                 <Button
-                    variant="outline"
-                    size="icon"
                     class="shrink-0 md:hidden"
+                    size="icon"
+                    variant="outline"
                 >
-                    <Menu class="h-5 w-5" />
+                    <Menu class="size-5" />
                     <span class="sr-only">Toggle navigation menu</span>
                 </Button>
             </SheetTrigger>
-            <SheetContent
-                side="left"
-                class="flex flex-col"
-            >
+            <SheetContent class="flex flex-col" side="left">
                 <nav class="grid gap-2 text-lg font-medium">
                     <a
-                        href="#"
                         class="flex items-center gap-2 text-lg font-semibold"
+                        href="#"
                     >
                         <Package2 class="h-6 w-6" />
                         <span class="sr-only">Acme Inc</span>
                     </a>
                     <a
-                        href="#"
                         class="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                        href="#"
                     >
-                        <Home class="h-5 w-5" />
+                        <Home class="size-5" />
                         Dashboard
                     </a>
                     <a
-                        href="#"
                         class="mx-[-0.65rem] flex items-center gap-4 rounded-xl bg-muted px-3 py-2 text-foreground hover:text-foreground"
+                        href="#"
                     >
-                        <ShoppingCart class="h-5 w-5" />
+                        <ShoppingCart class="size-5" />
                         Orders
                         <Badge class="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
                             6
                         </Badge>
                     </a>
                     <a
-                        href="#"
                         class="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                        href="#"
                     >
-                        <Package class="h-5 w-5" />
+                        <Package class="size-5" />
                         Products
                     </a>
                     <a
-                        href="#"
                         class="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                        href="#"
                     >
-                        <Users class="h-5 w-5" />
+                        <Users class="size-5" />
                         Customers
                     </a>
                     <a
-                        href="#"
                         class="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                        href="#"
                     >
-                        <LineChart class="h-5 w-5" />
+                        <LineChart class="size-5" />
                         Analytics
                     </a>
                 </nav>
@@ -76,10 +80,7 @@ import { CircleUser, Home, LineChart, LogOut, Menu, Package, Package2, Search, S
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
-                            <Button
-                                size="sm"
-                                class="w-full"
-                            >
+                            <Button class="w-full" size="sm">
                                 Upgrade
                             </Button>
                         </CardContent>
@@ -92,9 +93,9 @@ import { CircleUser, Home, LineChart, LogOut, Menu, Package, Package2, Search, S
                 <div class="relative">
                     <Search class="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
                     <Input
+                        class="w-full appearance-none bg-background pl-8 shadow-none md:w-2/3 lg:w-1/3"
                         type="search"
                         placeholder="Search products..."
-                        class="w-full appearance-none bg-background pl-8 shadow-none md:w-2/3 lg:w-1/3"
                     />
                 </div>
             </form>
@@ -102,29 +103,30 @@ import { CircleUser, Home, LineChart, LogOut, Menu, Package, Package2, Search, S
         <DropdownMenu>
             <DropdownMenuTrigger as-child>
                 <Button
-                    variant="secondary"
-                    size="icon"
                     class="rounded-full"
+                    size="icon"
+                    variant="secondary"
                 >
-                    <CircleUser class="h-5 w-5" />
+                    <CircleUser class="size-5" />
                     <span class="sr-only">Toggle user menu</span>
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Settings</DropdownMenuItem>
-                <DropdownMenuItem>Support</DropdownMenuItem>
+                <DropdownMenuItem class="cursor-pointer" disabled>
+                    Settings
+                </DropdownMenuItem>
+                <DropdownMenuItem class="cursor-pointer" disabled>
+                    Support
+                </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Logout</DropdownMenuItem>
+                <DropdownMenuItem class="cursor-pointer" @click="onClick">
+                    <LogOut class="size-5 mr-2" />
+                    Sign out
+                </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
         <ThemeToggle />
-        <NuxtLink to="/sign-in">
-            <Button>
-                <LogOut class="h-5 w-5 mr-2" />
-                Sign out
-            </Button>
-        </NuxtLink>
     </header>
 </template>

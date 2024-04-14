@@ -121,16 +121,10 @@ export default defineNuxtPlugin({
         })
 
         // Create a token provider
-        const tokenProvider = createUserPoolsTokenProvider(
-      amplifyConfig.Auth!,
-      keyValueStorage,
-        )
+        const tokenProvider = createUserPoolsTokenProvider(amplifyConfig.Auth!, keyValueStorage)
 
         // Create a credentials provider
-        const credentialsProvider = createAWSCredentialsAndIdentityIdProvider(
-      amplifyConfig.Auth!,
-      keyValueStorage,
-        )
+        const credentialsProvider = createAWSCredentialsAndIdentityIdProvider(amplifyConfig.Auth!,keyValueStorage)
 
         // Create the libraryOptions object
         const libraryOptions: LibraryOptions = {

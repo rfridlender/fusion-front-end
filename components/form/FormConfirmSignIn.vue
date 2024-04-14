@@ -27,12 +27,9 @@ const onSubmit = handleSubmit(async ({ name, phoneNumber, password }) => {
                 },
             },
         })
-        
-        console.log("isSignedIn ", isSignedIn)
-        console.log("nextStep ", nextStep)
-        
+
         if (isSignedIn) {
-            return navigateTo("/dashboard")
+            return navigateTo({ replace: true, path: "/verify-email" })
         }
         
         switch (nextStep.signInStep) {
