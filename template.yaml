@@ -36,6 +36,12 @@ Resources:
         - Name: NUXT_PUBLIC_USER_POOL_CLIENT_ID
           Value: 
             Fn::ImportValue: !Sub ${BackendName}-user-pool-client-id
+        - Name: USER_POOL_ID
+          Value: 
+            Fn::ImportValue: !Sub ${BackendName}-user-pool-id
+        - Name: USER_POOL_CLIENT_ID
+          Value: 
+            Fn::ImportValue: !Sub ${BackendName}-user-pool-client-id
   # Amplify
 
   # CodePipeline

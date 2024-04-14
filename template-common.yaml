@@ -23,6 +23,10 @@ Resources:
           Value: ''
         - Name: NUXT_PUBLIC_USER_POOL_CLIENT_ID
           Value: ''
+        - Name: USER_POOL_ID
+          Value: ''
+        - Name: USER_POOL_CLIENT_ID
+          Value: ''
   # Amplify
 
   # CodeCommit
