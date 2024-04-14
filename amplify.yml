@@ -1,0 +1,19 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - yarn install
+    build:
+      commands:
+        - env | grep -e NEXT_PUBLIC_ >> .env
+
+        - yarn generate
+  artifacts:
+    # IMPORTANT - Please verify your build output directory
+    baseDirectory: '.output/public'
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
