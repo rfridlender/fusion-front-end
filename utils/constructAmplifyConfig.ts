@@ -5,8 +5,8 @@ export function constructAmplifyConfig(runtimeConfig: RuntimeConfig): ResourcesC
     return {
         Auth: {
             Cognito: {
-                userPoolId: runtimeConfig.public.USER_POOL_ID,
-                userPoolClientId: runtimeConfig.public.USER_POOL_CLIENT_ID,
+                userPoolId: runtimeConfig.public.userPoolId,
+                userPoolClientId: runtimeConfig.public.userPoolClientId,
             },
         },
     }
