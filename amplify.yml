@@ -9,8 +9,12 @@ frontend:
     build:
       commands:
         - env | grep -e NUXT_PUBLIC_ >> .env
+        - env | grep -e NUXT_PUBLIC_ >> .env.dev
+        - env | grep -e NUXT_PUBLIC_ >> .env.development
         - npm run build
         - cat .env
+        - cat .env.dev
+        - cat .env.development
   artifacts:
     baseDirectory: .amplify-hosting
     files:
