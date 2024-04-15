@@ -1,6 +1,21 @@
 <script setup lang="ts">
 import { signOut } from "aws-amplify/auth"
-import { CircleUser, Home, LineChart, LogOut, Menu, Package, Package2, Search, ShoppingCart, Users } from "lucide-vue-next"
+import { CircleUser, Home, LayoutDashboard, LogOut, Menu, Search } from "lucide-vue-next"
+
+const route = useRoute()
+
+const routesProtected = [
+    {
+        displayText: "Dashboard",
+        path: "/dashboard",
+        icon: LayoutDashboard,
+    },
+    {
+        displayText: "Address",
+        path: "/address",
+        icon: Home,
+    },
+]
 
 async function onClick() {
     await signOut()
@@ -24,68 +39,25 @@ async function onClick() {
             </SheetTrigger>
             <SheetContent class="flex flex-col" side="left">
                 <nav class="grid gap-2 text-lg font-medium">
-                    <a
-                        class="flex items-center gap-2 text-lg font-semibold"
-                        href="#"
+                    <NuxtLink class="flex justify-center" to="https://www.homefusioninstall.com">
+                        <img
+                            class="w-1/2"
+                            src="/assets/home-fusion-logo.png"
+                            alt="Modern House"
+                        >
+                    </NuxtLink>
+                    <Separator class="my-4" />
+                    <NuxtLink 
+                        v-for="routeProtected in routesProtected" 
+                        :key="routeProtected.path" 
+                        class="flex items-center gap-4 rounded-xl px-3 py-2 transition-all hover:text-foreground"
+                        :class="{ 'bg-muted': routeProtected.path === route.path, 'text-muted-foreground': routeProtected.path !== route.path }"
+                        :to="routeProtected.path"
                     >
-                        <Package2 class="size-6" />
-                        <span class="sr-only">Acme Inc</span>
-                    </a>
-                    <a
-                        class="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
-                        href="#"
-                    >
-                        <Home class="size-5" />
-                        Dashboard
-                    </a>
-                    <a
-                        class="mx-[-0.65rem] flex items-center gap-4 rounded-xl bg-muted px-3 py-2 text-foreground hover:text-foreground"
-                        href="#"
-                    >
-                        <ShoppingCart class="size-5" />
-                        Orders
-                        <Badge class="ml-auto flex size-6 shrink-0 items-center justify-center rounded-full">
-                            6
-                        </Badge>
-                    </a>
-                    <a
-                        class="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
-                        href="#"
-                    >
-                        <Package class="size-5" />
-                        Products
-                    </a>
-                    <a
-                        class="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
-                        href="#"
-                    >
-                        <Users class="size-5" />
-                        Customers
-                    </a>
-                    <a
-                        class="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
-                        href="#"
-                    >
-                        <LineChart class="size-5" />
-                        Analytics
-                    </a>
+                        <component :is="routeProtected.icon" class="size-5" />
+                        {{ routeProtected.displayText }}
+                    </NuxtLink>
                 </nav>
-                <div class="mt-auto">
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>Upgrade to Pro</CardTitle>
-                            <CardDescription>
-                                Unlock all features and get unlimited access to our
-                                support team.
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <Button class="w-full" size="sm">
-                                Upgrade
-                            </Button>
-                        </CardContent>
-                    </Card>
-                </div>
             </SheetContent>
         </Sheet>
         <div class="w-full flex-1">
