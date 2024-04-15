@@ -6,12 +6,10 @@ import {
     runWithAmplifyServerContext,
     type CookieStorage,
 } from "aws-amplify/adapter-core"
-import { parseAmplifyConfig } from "aws-amplify/utils"
-
 import type { LibraryOptions } from "@aws-amplify/core"
-import config from "~/amplifyconfiguration.json"
 
-const amplifyConfig = parseAmplifyConfig(config)
+const runtimeConfig = useRuntimeConfig()
+const amplifyConfig = constructAmplifyConfig(runtimeConfig)
 
 const createCookieStorageAdapter = (
     event: H3Event<EventHandlerRequest>,

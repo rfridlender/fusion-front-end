@@ -6,7 +6,6 @@
                 src="/assets/home-fusion-logo.png"
                 alt="Modern House"
             >
-            <!-- Page content slides into this -->
             <slot />
         </div>
         <div class="relative hidden lg:block bg-muted ">
