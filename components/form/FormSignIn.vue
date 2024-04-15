@@ -35,9 +35,9 @@ const onSubmit = handleSubmit(async ({ email, password }) => {
 
 <template>
     <form @submit="onSubmit">
-        <Card class="w-84">
+        <Card class="w-96">
             <CardHeader class="grid gap-2 text-center">
-                <CardTitle class="text-3xl font-bold">
+                <CardTitle class="text-3xl">
                     Sign in
                 </CardTitle>
                 <CardDescription class="text-balance text-muted-foreground">
@@ -87,7 +87,10 @@ const onSubmit = handleSubmit(async ({ email, password }) => {
                     <LoaderCircle v-else class="size-5 gap-2 mr-2 animate-spin" />
                     Sign in
                 </Button>
-                <NuxtLink class="inline-block ml-auto mt-4 text-sm underline" to="/reset-password">
+                <NuxtLink 
+                    class="inline-block ml-auto mt-4 text-sm underline transition-all hover:text-muted-foreground cursor-pointer" 
+                    to="/reset-password"
+                >
                     Forgot your password?
                 </NuxtLink>
             </CardFooter>

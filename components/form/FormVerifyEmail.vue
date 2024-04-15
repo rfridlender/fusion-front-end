@@ -64,13 +64,13 @@ const onSubmit = handleSubmit(async ({ codeConfirmation }) => {
 
 <template>
     <form @submit="onSubmit">
-        <Card class="w-84">
+        <Card class="w-96">
             <CardHeader class="grid gap-2 text-center">
-                <CardTitle class="text-3xl font-bold">
+                <CardTitle class="text-3xl">
                     Verify email
                 </CardTitle>
                 <CardDescription class="text-balance text-muted-foreground">
-                    Enter the confirmation code below that was sent to your email
+                    Enter the code below that was sent to your email
                 </CardDescription>
             </CardHeader>
             <CardContent v-auto-animate class="grid gap-4">

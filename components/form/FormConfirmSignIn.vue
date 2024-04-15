@@ -54,13 +54,13 @@ const onSubmit = handleSubmit(async ({ name, phoneNumber, password }) => {
 
 <template>
     <form @submit="onSubmit">
-        <Card class="w-84">
+        <Card class="w-96">
             <CardHeader class="grid gap-2 text-center">
-                <CardTitle class="text-3xl font-bold">
+                <CardTitle class="text-3xl">
                     Confirm sign in
                 </CardTitle>
                 <CardDescription class="text-balance text-muted-foreground">
-                    Enter your email below to sign in to your account
+                    Complete the fields below to register your account
                 </CardDescription>
             </CardHeader>
             <CardContent class="grid gap-4">

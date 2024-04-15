@@ -30,9 +30,9 @@ const onSubmit = handleSubmit(async ({ email }) => {
 
 <template>
     <form @submit="onSubmit">
-        <Card class="max-w-80 w-80">
+        <Card class="w-96">
             <CardHeader class="grid gap-2 text-center">
-                <CardTitle class="text-3xl font-bold">
+                <CardTitle class="text-3xl">
                     Reset password
                 </CardTitle>
                 <CardDescription class="text-balance text-muted-foreground">
@@ -67,8 +67,11 @@ const onSubmit = handleSubmit(async ({ email }) => {
                     <LoaderCircle v-else class="size-5 gap-2 mr-2 animate-spin" />
                     Request reset link
                 </Button>
-                <NuxtLink class="inline-block m-auto mt-4 text-sm underline transition-all hover:text-muted-foreground cursor-pointer" to="/sign-in">
-                    Back to Sign in
+                <NuxtLink 
+                    class="inline-block ml-auto mt-4 text-sm underline transition-all hover:text-muted-foreground cursor-pointer" 
+                    to="/sign-in"
+                >
+                    Need to sign in?
                 </NuxtLink>
             </CardFooter>
         </Card>
