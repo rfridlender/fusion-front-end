@@ -4,7 +4,6 @@ import { BadgeCheck, LoaderCircle } from "lucide-vue-next"
 import { z } from "zod"
 
 const route = useRoute()
-
 const messageError = computed(() => route.query["message-error"])
 
 const { pending, refresh } = await useAsyncData("sendUserAttributeVerificationCode", async () => {
@@ -13,7 +12,7 @@ const { pending, refresh } = await useAsyncData("sendUserAttributeVerificationCo
             userAttributeKey: "email",
         })
     } catch (error: any) {
-        console.log(error)
+        console.error(error)
         
         return navigateTo({
             replace: true,
@@ -41,7 +40,7 @@ const onSubmit = handleSubmit(async ({ codeConfirmation }) => {
             query: { "message-success": "Email verified successfully" },
         })
     } catch (error: any) {
-        console.log(error)
+        console.error(error)
 
         switch (error.name) {
         case "CodeMismatchException": return navigateTo({ 

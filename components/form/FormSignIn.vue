@@ -3,7 +3,6 @@ import { LoaderCircle, LogIn } from "lucide-vue-next"
 import { z } from "zod"
 
 const route = useRoute()
-
 const messageError = computed(() => route.query["message-error"])
 
 const schemaSignIn = toTypedSchema(z.object({
@@ -26,7 +25,7 @@ const onSubmit = handleSubmit(async ({ email, password }) => {
         default: throw new Error("Something went wrong")
         }
     } catch (error: Error) {
-        console.log(error)
+        console.error(error)
 
         return navigateTo({ replace: true, query: { "message-error": error.message } })
     }

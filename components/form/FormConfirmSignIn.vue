@@ -36,7 +36,7 @@ const onSubmit = handleSubmit(async ({ name, phoneNumber, password }) => {
         default: throw new Error("Something went wrong")
         }
     } catch (error: Error) {
-        console.log(error)
+        console.error(error)
 
         let messageError: string
         switch (error.name) {

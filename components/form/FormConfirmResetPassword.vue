@@ -38,7 +38,7 @@ const onSubmit = handleSubmit(async ({ codeConfirmation, password }) => {
             query: { "message-success": "Reset password successfully" },
         })
     } catch (error: any) {
-        console.log(error)
+        console.error(error)
 
         let isAbleToRetry: boolean
         switch (error.name) {

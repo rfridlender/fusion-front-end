@@ -26,7 +26,7 @@ const onSubmit = handleSubmit(async ({ email }) => {
         default: throw new Error("Something went wrong")
         }
     } catch (error: Error) {
-        console.log(error)
+        console.error(error)
 
         return navigateTo({ replace: true, query: { "message-error": error.message }})
     }
