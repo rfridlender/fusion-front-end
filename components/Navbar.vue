@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { signOut } from "aws-amplify/auth"
-import { CircleUser, Home, LayoutDashboard, LogOut, Menu, Search } from "lucide-vue-next"
+import { CircleUser, Home, KeyRound, LayoutDashboard, LogOut, Menu, Search } from "lucide-vue-next"
 
 const route = useRoute()
 
@@ -17,8 +16,8 @@ const routesProtected = [
     },
 ]
 
-async function onClick() {
-    await signOut()
+async function onClickSignOut() {
+    await useNuxtApp().$Amplify.Auth.signOut()
     
     return navigateTo("/sign-in")
 }
@@ -93,7 +92,13 @@ async function onClick() {
                     Support
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem class="cursor-pointer" @click="onClick">
+                <NuxtLink to="/change-password">
+                    <DropdownMenuItem class="cursor-pointer">
+                        <KeyRound class="size-5 mr-2" />
+                        Change password
+                    </DropdownMenuItem>
+                </NuxtLink>
+                <DropdownMenuItem class="cursor-pointer" @click="onClickSignOut">
                     <LogOut class="size-5 mr-2" />
                     Sign out
                 </DropdownMenuItem>

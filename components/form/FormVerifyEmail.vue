@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { signOut } from "aws-amplify/auth"
 import { BadgeCheck, LoaderCircle } from "lucide-vue-next"
 import { z } from "zod"
 
@@ -48,7 +47,7 @@ const onSubmit = handleSubmit(async ({ codeConfirmation }) => {
             query: { "message-error": error.message },
         })
         default: {
-            await signOut()
+            await useNuxtApp().$Amplify.Auth.signOut()
 
             return navigateTo({ 
                 replace: true, 
