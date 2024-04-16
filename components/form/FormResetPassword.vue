@@ -3,8 +3,9 @@ import { MailPlus, LoaderCircle } from "lucide-vue-next"
 import { z } from "zod"
 
 const route = useRoute()
-
 const messageError = computed(() => route.query["message-error"])
+
+const cookieEmail = useCookie("email", { sameSite: true })
 
 const schemaResetPassword = toTypedSchema(z.object({
     email: schemas.email,
@@ -17,7 +18,11 @@ const onSubmit = handleSubmit(async ({ email }) => {
         const { nextStep } = await useNuxtApp().$Amplify.Auth.resetPassword({ username: email })
         
         switch (nextStep.resetPasswordStep) {
-        case "CONFIRM_RESET_PASSWORD_WITH_CODE": return navigateTo("/confirm-reset-password")
+        case "CONFIRM_RESET_PASSWORD_WITH_CODE": {
+            cookieEmail.value = email
+
+            return navigateTo("/confirm-reset-password")
+        }
         default: throw new Error("Something went wrong")
         }
     } catch (error: Error) {

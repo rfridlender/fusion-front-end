@@ -3,28 +3,35 @@ import { LockKeyholeOpen, LoaderCircle } from "lucide-vue-next"
 import { z } from "zod"
 
 const route = useRoute()
-
 const messageError = computed(() => route.query["message-error"])
 
+const cookieEmail = useCookie("email")
+
 const schemaConfirmResetPassword = toTypedSchema(z.object({
-    email: schemas.email,
     codeConfirmation: schemas.code,
     password: schemas.password,
     passwordConfirmation: z.string(),
 }).refine((data) => data.password === data.passwordConfirmation, {
     path: ["passwordConfirmation"],
     message: "Passwords must match",
-}),
-)
+}))
+
 const { handleSubmit, isSubmitting, setValues } = useForm({ validationSchema: schemaConfirmResetPassword })
 
-const onSubmit = handleSubmit(async ({ email, codeConfirmation, password }) => {
+const onSubmit = handleSubmit(async ({ codeConfirmation, password }) => {
     try {
+        if (!cookieEmail.value) {return navigateTo({
+            path: "/sign-in",
+            query: { "message-error": "Your previous session has expired" },
+        })}
+
         await useNuxtApp().$Amplify.Auth.confirmResetPassword({
-            username: email,
+            username: cookieEmail.value,
             confirmationCode: codeConfirmation.join(""),
             newPassword: password,
         })
+
+        cookieEmail.value = null
 
         return navigateTo({
             path: "/sign-in",
@@ -33,11 +40,26 @@ const onSubmit = handleSubmit(async ({ email, codeConfirmation, password }) => {
     } catch (error: any) {
         console.log(error)
 
+        let isAbleToRetry: boolean
         switch (error.name) {
-        case "CodeMismatchException": return navigateTo({ 
-            replace: true, 
-            query: { "message-error": error.message },
-        })
+        case "CodeMismatchException": isAbleToRetry = true; break
+        case "ExpiredCodeException": isAbleToRetry = true; break
+        default: isAbleToRetry = false
+        }
+
+        if (isAbleToRetry) {
+            return navigateTo({ 
+                replace: true, 
+                query: { "message-error": error.message },
+            })
+        } else {
+            cookieEmail.value = null
+
+            return navigateTo({ 
+                path: "/sign-in",
+                replace: true, 
+                query: { "message-error": error.message },
+            })
         }
     }
 })
@@ -51,22 +73,12 @@ const onSubmit = handleSubmit(async ({ email, codeConfirmation, password }) => {
                     Confirm reset password
                 </CardTitle>
                 <CardDescription class="text-balance text-muted-foreground">
-                    Enter a new password for your account
+                    Enter the code below that was sent to your email
                 </CardDescription>
             </CardHeader>
             <CardContent class="grid gap-4">
-                <FormField v-slot="{ componentField }" name="email">
-                    <FormItem v-auto-animate>
-                        <FormLabel>Email</FormLabel>
-                        <FormControl>
-                            <Input v-bind="componentField" placeholder="john.doe@homefusioninstall.com" />
-                        </FormControl>
-                        <FormMessage />
-                    </FormItem>
-                </FormField>
                 <FormField v-slot="{ componentField, value }" name="codeConfirmation">
                     <FormItem v-auto-animate>
-                        <FormLabel>Confirmation Code</FormLabel>
                         <FormControl>
                             <PinInput
                                 id="codeConfirmation"
