@@ -2,6 +2,7 @@ import { Amplify } from "aws-amplify"
 
 export const routesProtected = [
     "/address",
+    "/change-password",
     "/dashboard",
     "/verify-email",
 ]
