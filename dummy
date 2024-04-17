@@ -104,6 +104,11 @@ env() {
         KEY_UPPER=${KEY_SLICE^^}
         KEY=${KEY_UPPER//-/_}
 
+        if [[ $KEY == "HTTP_API_INVOKE_URL" ]];
+        then
+            KEY="NUXT_$KEY"
+        fi
+
         if [[ $KEY == "USER_POOL_ID" || $KEY == "USER_POOL_CLIENT_ID" ]];
         then
             KEY="NUXT_PUBLIC_$KEY"

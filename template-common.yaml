@@ -19,6 +19,8 @@ Resources:
       EnvironmentVariables:
         - Name: _CUSTOM_IMAGE
           Value: amplify:al2023
+        - Name: NUXT_HTTP_API_INVOKE_URL
+          Value: ''
         - Name: NUXT_PUBLIC_USER_POOL_ID
           Value: ''
         - Name: NUXT_PUBLIC_USER_POOL_CLIENT_ID

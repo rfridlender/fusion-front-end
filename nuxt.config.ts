@@ -16,6 +16,7 @@ export default defineNuxtConfig({
         "@vee-validate/nuxt",
     ],
     runtimeConfig: {
+        httpApiInvokeUrl: process.env.NUXT_HTTP_API_INVOKE_URL,
         public: {
             userPoolId: process.env.NUXT_PUBLIC_USER_POOL_ID,
             userPoolClientId: process.env.NUXT_PUBLIC_USER_POOL_CLIENT_ID,

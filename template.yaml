@@ -30,6 +30,9 @@ Resources:
       Stage: !If [IsProd, PRODUCTION, DEVELOPMENT]
       EnableAutoBuild: true
       EnvironmentVariables:
+        - Name: NUXT_HTTP_API_INVOKE_URL
+          Value: 
+            Fn::ImportValue: !Sub ${BackendName}-http-api-invoke-url
         - Name: NUXT_PUBLIC_USER_POOL_ID
           Value: 
             Fn::ImportValue: !Sub ${BackendName}-user-pool-id
