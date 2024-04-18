@@ -6,8 +6,8 @@ const route = useRoute()
 const messageError = computed(() => route.query["message-error"])
 
 const schemaSignIn = toTypedSchema(z.object({
-    email: schemas.email,
-    password: schemas.password,
+    email: email,
+    password: password,
 }))
 
 const { handleSubmit, isSubmitting } = useForm({ validationSchema: schemaSignIn })

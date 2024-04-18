@@ -1,20 +1,6 @@
 import { fetchAuthSession } from "aws-amplify/auth/server"
 import { runAmplifyApi } from "@/server/utils/amplifyUtils"
-
-export type Address = {
-    addressId: string
-    streetOne: string
-    streetTwo: string | null
-    city: string
-    county: string | null
-    state: string
-    postalCode: string | null
-    country: string
-    addressCreatedBy: string
-    addressCreatedAt: string
-    addressUpdatedBy: string | null
-    addressUpdatedAt: string | null
-}
+import type { Address } from "@/utils/schemas"
 
 export default defineEventHandler(async (event) => {
     const { httpApiInvokeUrl } = useRuntimeConfig(event)

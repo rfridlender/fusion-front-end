@@ -8,7 +8,7 @@ const messageError = computed(() => route.query["message-error"])
 const cookieEmail = useCookie("email", { sameSite: true })
 
 const schemaResetPassword = toTypedSchema(z.object({
-    email: schemas.email,
+    email: email,
 }))
 
 const { handleSubmit, isSubmitting } = useForm({ validationSchema: schemaResetPassword })

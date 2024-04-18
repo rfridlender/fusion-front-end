@@ -4,9 +4,9 @@ import { z } from "zod"
 
 const schemaConfirmSignIn = toTypedSchema(z
     .object({
-        name: schemas.name,
-        phoneNumber: schemas.phoneNumber,
-        password: schemas.password,
+        name: nameFull,
+        phoneNumber: phoneNumber,
+        password: password,
         passwordConfirmation: z.string(),
     }).refine((data) => data.password === data.passwordConfirmation, {
         path: ["passwordConfirmation"],

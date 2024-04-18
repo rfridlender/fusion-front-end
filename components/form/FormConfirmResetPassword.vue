@@ -8,8 +8,8 @@ const messageError = computed(() => route.query["message-error"])
 const cookieEmail = useCookie("email")
 
 const schemaConfirmResetPassword = toTypedSchema(z.object({
-    codeConfirmation: schemas.code,
-    password: schemas.password,
+    codeConfirmation: code,
+    password: password,
     passwordConfirmation: z.string(),
 }).refine((data) => data.password === data.passwordConfirmation, {
     path: ["passwordConfirmation"],

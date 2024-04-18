@@ -6,8 +6,8 @@ const route = useRoute()
 const messageError = computed(() => route.query["message-error"])
 
 const schemaConfirmResetPassword = toTypedSchema(z.object({
-    passwordCurrent: schemas.password,
-    passwordNew: schemas.password,
+    passwordCurrent: password,
+    passwordNew: password,
     passwordNewConfirmation: z.string(),
 }).refine((data) => data.passwordNew === data.passwordNewConfirmation, {
     path: ["passwordNewConfirmation"],

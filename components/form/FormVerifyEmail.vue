@@ -22,7 +22,7 @@ const { pending, refresh } = await useAsyncData("sendUserAttributeVerificationCo
 }, { lazy: true, server: false })
 
 const schemaVerifyEmail = toTypedSchema(z.object({
-    codeConfirmation: schemas.code,
+    codeConfirmation: code,
 }))
 
 const { handleSubmit, isSubmitting, setValues } = useForm({ validationSchema: schemaVerifyEmail })
