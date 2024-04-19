@@ -20,7 +20,7 @@ const routesProtected = [
 <template>
     <div class="hidden border-r bg-muted/40 md:block">
         <div class="flex h-full max-h-screen flex-col gap-2">
-            <div class="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
+            <div class="flex h-14 items-center border-b px-4">
                 <NuxtLink
                     class="flex items-center gap-3 font-semibold"
                     to="https://www.homefusioninstall.com"
@@ -42,7 +42,7 @@ const routesProtected = [
                 </Button>
             </div>
             <div class="flex-1">
-                <nav class="grid items-start px-2 text-sm font-medium lg:px-4">
+                <nav class="grid items-start px-2 text-sm font-medium">
                     <NuxtLink 
                         v-for="routeProtected in routesProtected" 
                         :key="routeProtected.path" 

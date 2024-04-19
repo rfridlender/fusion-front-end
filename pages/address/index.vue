@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { columns } from "@/components/address/columns"
-import DataTable from "~/components/address/DataTable.vue"
-import type { Address } from "@/server/api/address"
+import { columns } from "~/components/data-table/columns"
+import type { Address } from "@/utils/schemas"
 
 definePageMeta({ layout: "protected" })
 
@@ -9,14 +8,13 @@ const { data } = await useFetch<Address[]>("/api/address")
 </script>
 
 <template>
-    <main class="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
-        <div class="flex flex-col">
-            <h1 class="text-lg font-semibold md:text-2xl">
+    <main class="flex flex-1 flex-col gap-4">
+        <div class="h-full flex flex-col">
+            <h1 class="p-12 text-2xl font-semibold">
                 Address
             </h1>
-            <div class="container py-10 mx-auto">
-                <DataTable :columns="columns" :data="data ?? []" />
-            </div>
+            
+            <DataTable :columns="columns" :data="data ?? []" />
         </div>
     </main>
 </template>

@@ -24,7 +24,7 @@ async function onClickSignOut() {
 </script>
 
 <template>
-    <header class="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
+    <header class="flex h-14 items-center gap-4 border-b bg-muted/40 px-4">
         <Sheet>
             <SheetTrigger as-child>
                 <Button
@@ -59,18 +59,7 @@ async function onClickSignOut() {
                 </nav>
             </SheetContent>
         </Sheet>
-        <div class="w-full flex-1">
-            <form>
-                <div class="relative">
-                    <Search class="absolute left-2.5 top-2.5 size-4 text-muted-foreground" />
-                    <Input
-                        class="w-full appearance-none bg-background pl-8 shadow-none md:w-2/3 lg:w-1/3"
-                        type="search"
-                        placeholder="Search products..."
-                    />
-                </div>
-            </form>
-        </div>
+        <div class="w-full flex-1" />
         <DropdownMenu>
             <DropdownMenuTrigger as-child>
                 <Button
