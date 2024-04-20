@@ -255,192 +255,49 @@ export const cities = [
         label: "Conyers", 
         value: "Conyers",
     },
+]
+
+export const counties = [
     { 
-        label: "Villa Rica", 
-        value: "Villa Rica",
+        label: "Cherokee", 
+        value: "Cherokee",
     },
     { 
-        label: "North Druid Hills", 
-        value: "North Druid Hills",
+        label: "Fulton", 
+        value: "Fulton",
     },
     { 
-        label: "Buford", 
-        value: "Buford",
+        label: "Gwinett", 
+        value: "Gwinett",
     },
     { 
-        label: "Calhoun", 
-        value: "Calhoun",
+        label: "Cobb", 
+        value: "Cobb",
     },
     { 
-        label: "North Decatur", 
-        value: "North Decatur",
+        label: "DeKalb", 
+        value: "DeKalb",
+    },
+]
+
+export const countries = [
+    { 
+        label: "US", 
+        value: "US",
+    },
+]
+
+export const states = [
+    { 
+        label: "GA", 
+        value: "GA",
     },
     { 
-        label: "Tifton", 
-        value: "Tifton",
+        label: "FL", 
+        value: "FL",
     },
     { 
-        label: "Milledgeville", 
-        value: "Milledgeville",
-    },
-    { 
-        label: "Powder Springs", 
-        value: "Powder Springs",
-    },
-    { 
-        label: "Richmond Hill", 
-        value: "Richmond Hill",
-    },
-    { 
-        label: "Holly Springs", 
-        value: "Holly Springs",
-    },
-    { 
-        label: "Fairburn", 
-        value: "Fairburn",
-    },
-    { 
-        label: "Grovetown", 
-        value: "Grovetown",
-    },
-    { 
-        label: "Americus", 
-        value: "Americus",
-    },
-    { 
-        label: "Lithia Springs", 
-        value: "Lithia Springs",
-    },
-    { 
-        label: "Dublin", 
-        value: "Dublin",
-    },
-    { 
-        label: "St. Simons", 
-        value: "St. Simons",
-    },
-    { 
-        label: "Brunswick", 
-        value: "Brunswick",
-    },
-    { 
-        label: "Wilmington Island", 
-        value: "Wilmington Island",
-    },
-    { 
-        label: "Monroe", 
-        value: "Monroe",
-    },
-    { 
-        label: "Riverdale", 
-        value: "Riverdale",
-    },
-    { 
-        label: "Lilburn", 
-        value: "Lilburn",
-    },
-    { 
-        label: "Belvedere Park", 
-        value: "Belvedere Park",
-    },
-    { 
-        label: "Clarkston", 
-        value: "Clarkston",
-    },
-    { 
-        label: "Moultrie", 
-        value: "Moultrie",
-    },
-    { 
-        label: "Loganville", 
-        value: "Loganville",
-    },
-    { 
-        label: "Bainbridge", 
-        value: "Bainbridge",
-    },
-    { 
-        label: "Covington", 
-        value: "Covington",
-    },
-    { 
-        label: "Dallas", 
-        value: "Dallas",
-    },
-    { 
-        label: "College Park", 
-        value: "College Park",
-    },
-    { 
-        label: "Waycross", 
-        value: "Waycross",
-    },
-    { 
-        label: "Braselton", 
-        value: "Braselton",
-    },
-    { 
-        label: "Jefferson", 
-        value: "Jefferson",
-    },
-    { 
-        label: "Mountain Park", 
-        value: "Mountain Park",
-    },
-    { 
-        label: "Vinings", 
-        value: "Vinings",
-    },
-    { 
-        label: "Georgetown", 
-        value: "Georgetown",
-    },
-    { 
-        label: "Douglas", 
-        value: "Douglas",
-    },
-    { 
-        label: "Port Wentworth", 
-        value: "Port Wentworth",
-    },
-    { 
-        label: "Rincon", 
-        value: "Rincon",
-    },
-    { 
-        label: "Vidalia", 
-        value: "Vidalia",
-    },
-    { 
-        label: "Doraville", 
-        value: "Doraville",
-    },
-    { 
-        label: "Scottdale", 
-        value: "Scottdale",
-    },
-    { 
-        label: "Lovejoy", 
-        value: "Lovejoy",
-    },
-    { 
-        label: "Garden City", 
-        value: "Garden City",
-    },
-    { 
-        label: "Cordele", 
-        value: "Cordele",
-    },
-    { 
-        label: "Fort Oglethorpe", 
-        value: "Fort Oglethorpe",
-    },
-    { 
-        label: "Cedartown", 
-        value: "Cedartown",
-    },
-    { 
-        label: "Cairo", 
-        value: "Cairo",
+        label: "TN", 
+        value: "TN",
     },
 ]
