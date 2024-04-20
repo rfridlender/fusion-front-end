@@ -24,6 +24,16 @@ export const address = z.object({
 
 export type Address = z.infer<typeof address>
 
+export const schemaAddressNew = toTypedSchema(z.object({
+    streetOne: z.string(),
+    streetTwo: z.string().optional(),
+    city: z.string(),
+    county: z.string().optional(),
+    state: z.string().length(2),
+    postalCode: z.string().min(5).max(10).optional(),
+    country: z.string().length(2),
+}))
+
 export const code = z.array(z.coerce.string())
     .length(6)
 
