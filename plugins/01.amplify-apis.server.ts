@@ -15,10 +15,15 @@ import type {
     FetchAuthSessionOptions,
 } from "@aws-amplify/core"
 
-const getAmplifyAuthKeys = (userPoolClientId: string, lastAuthUser: string, lastAuthUserCookieName: string) =>
+const getAmplifyAuthKeys = (
+    userPoolClientId: string, 
+    lastAuthUser: string, 
+    lastAuthUserCookieName: string,
+) => (
     ["idToken", "accessToken", "refreshToken", "clockDrift"].map((key) =>
         `CognitoIdentityServiceProvider.${userPoolClientId}.${lastAuthUser}.${key}`,
     ).concat(lastAuthUserCookieName)
+)
 
 // define the plugin
 export default defineNuxtPlugin({
@@ -30,7 +35,8 @@ export default defineNuxtPlugin({
 
         // create the Amplify used token cookies names array
         const userPoolClientId = amplifyConfig.Auth!.Cognito.userPoolClientId ?? ""
-        const lastAuthUserCookieName = `CognitoIdentityServiceProvider.${userPoolClientId}.LastAuthUser`
+        const lastAuthUserCookieName = 
+            `CognitoIdentityServiceProvider.${userPoolClientId}.LastAuthUser`
     
         // The Nuxt composable `useCookie` is capable of sending cookies to the
         // client via the `SetCookie` header. If the `expires` option is left empty,
@@ -124,7 +130,10 @@ export default defineNuxtPlugin({
         const tokenProvider = createUserPoolsTokenProvider(amplifyConfig.Auth!, keyValueStorage)
 
         // Create a credentials provider
-        const credentialsProvider = createAWSCredentialsAndIdentityIdProvider(amplifyConfig.Auth!,keyValueStorage)
+        const credentialsProvider = createAWSCredentialsAndIdentityIdProvider(
+            amplifyConfig.Auth!,
+            keyValueStorage,
+        )
 
         // Create the libraryOptions object
         const libraryOptions: LibraryOptions = {

@@ -49,7 +49,10 @@ const onSubmit = handleSubmit(async ({ email }) => {
                     <FormItem v-auto-animate>
                         <FormLabel>Email</FormLabel>
                         <FormControl>
-                            <Input v-bind="componentField" placeholder="john.doe@homefusioninstall.com" />
+                            <Input 
+                                v-bind="componentField" 
+                                placeholder="john.doe@homefusioninstall.com" 
+                            />
                         </FormControl>
                         <FormMessage />
                     </FormItem>
@@ -73,7 +76,8 @@ const onSubmit = handleSubmit(async ({ email }) => {
                     Request reset link
                 </Button>
                 <NuxtLink 
-                    class="inline-block ml-auto mt-4 text-sm underline transition-all hover:text-muted-foreground cursor-pointer" 
+                    class="inline-block ml-auto mt-4 text-sm underline 
+                        transition-all hover:text-muted-foreground cursor-pointer" 
                     to="/sign-in"
                 >
                     Need to sign in?

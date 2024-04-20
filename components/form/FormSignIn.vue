@@ -14,7 +14,10 @@ const { handleSubmit, isSubmitting } = useForm({ validationSchema: schemaSignIn 
 
 const onSubmit = handleSubmit(async ({ email, password }) => {
     try {
-        const { isSignedIn, nextStep } = await useNuxtApp().$Amplify.Auth.signIn({ username: email, password: password })
+        const { isSignedIn, nextStep } = await useNuxtApp().$Amplify.Auth.signIn({ 
+            username: email, 
+            password: password,
+        })
         
         if (isSignedIn) {
             return navigateTo("/dashboard")
@@ -87,7 +90,8 @@ const onSubmit = handleSubmit(async ({ email, password }) => {
                     Sign in
                 </Button>
                 <NuxtLink 
-                    class="inline-block ml-auto mt-4 text-sm underline transition-all hover:text-muted-foreground cursor-pointer" 
+                    class="inline-block ml-auto mt-4 text-sm underline 
+                        transition-all hover:text-muted-foreground cursor-pointer" 
                     to="/reset-password"
                 >
                     Forgot your password?

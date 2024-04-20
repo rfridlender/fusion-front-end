@@ -52,7 +52,8 @@ const selectedValues = computed(() => new Set(props.column?.getFilterValue() as 
                 
                         <template v-else>
                             <Badge
-                                v-for="option in options.filter((option) => selectedValues.has(option.value))"
+                                v-for="option in options
+                                    .filter((option) => selectedValues.has(option.value))"
                                 :key="option.value"
                                 class="rounded-sm px-1 font-normal"
                                 variant="secondary"
@@ -66,7 +67,8 @@ const selectedValues = computed(() => new Set(props.column?.getFilterValue() as 
         </PopoverTrigger>
         <PopoverContent class="w-48 p-0" align="start">
             <Command
-                :filterfunction="(list: any[], term: string) => list.filter(e => e.label.toLowerCase()?.includes(term))"
+                :filterfunction="(list: any[], term: string) => list
+                    .filter(e => e.label.toLowerCase()?.includes(term))"
             >
                 <CommandInput :placeholder="title" />
                 <CommandList>
@@ -93,7 +95,8 @@ const selectedValues = computed(() => new Set(props.column?.getFilterValue() as 
                         >
                             <div
                                 :class="cn(
-                                    'mr-2 flex size-4 items-center justify-center rounded-sm border border-primary',
+                                    'mr-2 flex size-4 items-center justify-center ' + 
+                                        'rounded-sm border border-primary',
                                     selectedValues.has(option.value)
                                         ? 'bg-primary text-primary-foreground'
                                         : 'opacity-50 [&_svg]:invisible',
@@ -102,7 +105,11 @@ const selectedValues = computed(() => new Set(props.column?.getFilterValue() as 
                                 <Check :class="cn('size-4')" />
                             </div>
                             <span>{{ option.label }}</span>
-                            <span v-if="facets?.get(option.value)" class="ml-auto flex size-4 items-center justify-center font-mono text-xs">
+                            <span 
+                                v-if="facets?.get(option.value)" 
+                                class="ml-auto flex items-center justify-center 
+                                    size-4 font-mono text-xs"
+                            >
                                 {{ facets.get(option.value) }}
                             </span>
                         </CommandItem>

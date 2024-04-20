@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { CircleUser, Home, KeyRound, LayoutDashboard, LogOut, Menu, Search } from "lucide-vue-next"
+import { CircleUser, Home, KeyRound, LayoutDashboard, LogOut, Menu } from "lucide-vue-next"
 
 const route = useRoute()
 
@@ -49,8 +49,12 @@ async function onClickSignOut() {
                     <NuxtLink 
                         v-for="routeProtected in routesProtected" 
                         :key="routeProtected.path" 
-                        class="flex items-center gap-4 rounded-xl px-3 py-2 transition-all hover:text-foreground"
-                        :class="{ 'bg-muted': routeProtected.path === route.path, 'text-muted-foreground': routeProtected.path !== route.path }"
+                        class="flex items-center gap-4 rounded-xl px-3 py-2 
+                            transition-all hover:text-foreground"
+                        :class="{ 
+                            'bg-muted': routeProtected.path === route.path, 
+                            'text-muted-foreground': routeProtected.path !== route.path 
+                        }"
                         :to="routeProtected.path"
                     >
                         <component :is="routeProtected.icon" class="size-5" />

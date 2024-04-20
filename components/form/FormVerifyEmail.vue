@@ -83,7 +83,8 @@ const onSubmit = handleSubmit(async ({ codeConfirmation }) => {
                                 otp
                                 type="number"
                                 :name="componentField.name"
-                                @update:model-value="(arrStr) => setValues({ codeConfirmation: arrStr.filter(Boolean) })"
+                                @update:model-value="(arrStr) => 
+                                    setValues({ codeConfirmation: arrStr.filter(Boolean) })"
                             >
                                 <PinInputGroup>
                                     <PinInputInput

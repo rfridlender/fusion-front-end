@@ -2,7 +2,7 @@
 import type { Row } from "@tanstack/vue-table"
 import { MoreHorizontal } from "lucide-vue-next"
 
-const props = defineProps<{ row: Row<Address> }>()
+const _ = defineProps<{ row: Row<Address> }>()
 </script>
 
 <template>

@@ -16,7 +16,9 @@ const schemaConfirmResetPassword = toTypedSchema(z.object({
     message: "Passwords must match",
 }))
 
-const { handleSubmit, isSubmitting, setValues } = useForm({ validationSchema: schemaConfirmResetPassword })
+const { handleSubmit, isSubmitting, setValues } = useForm({ 
+    validationSchema: schemaConfirmResetPassword,
+})
 
 const onSubmit = handleSubmit(async ({ codeConfirmation, password }) => {
     try {
@@ -88,7 +90,8 @@ const onSubmit = handleSubmit(async ({ codeConfirmation, password }) => {
                                 otp
                                 type="number"
                                 :name="componentField.name"
-                                @update:model-value="(arrStr) => setValues({ codeConfirmation: arrStr.filter(Boolean) })"
+                                @update:model-value="(arrStr) => 
+                                    setValues({ codeConfirmation: arrStr.filter(Boolean) })"
                             >
                                 <PinInputGroup>
                                     <PinInputInput
@@ -140,7 +143,8 @@ const onSubmit = handleSubmit(async ({ codeConfirmation, password }) => {
                     Reset password
                 </Button>
                 <NuxtLink 
-                    class="inline-block ml-auto mt-4 text-sm underline transition-all hover:text-muted-foreground cursor-pointer" 
+                    class="inline-block ml-auto mt-4 text-sm underline 
+                        transition-all hover:text-muted-foreground cursor-pointer" 
                     to="/sign-in"
                 >
                     Need to sign in?
