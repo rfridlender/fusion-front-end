@@ -6,7 +6,7 @@ const _ = defineProps<{ row: Row<Address> }>()
 </script>
 
 <template>
-    <DropdownMenu>
+    <DropdownMenu class="flex justify-center items-center">
         <DropdownMenuTrigger as-child>
             <Button
                 class="flex size-8 p-0 data-[state=open]:bg-muted"

@@ -6,7 +6,7 @@ defineProps<{ table: Table<Address> }>()
 </script>
 
 <template>
-    <div class="flex items-center justify-between p-8">
+    <div class="flex items-center justify-between px-4 py-8">
         <div class="flex items-center md:space-x-2">
             <p class="hidden text-sm font-medium md:block">
                 Rows per page

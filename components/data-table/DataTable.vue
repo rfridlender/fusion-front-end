@@ -50,7 +50,7 @@ const table = useVueTable({
     <div class="h-full flex flex-col border-t bg-background">
         <DataTableToolbar :table="table" />
         
-        <div class="h-full bg-background">
+        <div class="h-[calc(100vh-385px)] bg-background">
             <Table>
                 <TableHeader>
                     <TableRow v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">

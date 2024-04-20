@@ -9,7 +9,7 @@ const isFiltered = computed(() => props.table.getState().columnFilters.length > 
 </script>
 
 <template>
-    <div class="flex items-center justify-between p-8 ">
+    <div class="flex items-center justify-between px-4 py-8">
         <div class="flex flex-1 items-center space-x-2">
             <Input
                 class="h-8 w-40 lg:w-60"
