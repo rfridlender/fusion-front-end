@@ -103,7 +103,7 @@ const onSubmit = handleSubmit(async ({ passwordCurrent, passwordNew }) => {
                     <Button 
                         class="w-full"
                         variant="outline"
-                        type="submit" 
+                        type="button" 
                         :disabled="isSubmitting"
                     >
                         <Ban class="size-5 gap-2 mr-2" />

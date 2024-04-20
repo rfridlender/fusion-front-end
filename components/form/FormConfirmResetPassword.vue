@@ -144,7 +144,7 @@ const onSubmit = handleSubmit(async ({ codeConfirmation, password }) => {
                 </Button>
                 <NuxtLink 
                     class="inline-block ml-auto mt-4 text-sm underline 
-                        transition-all hover:text-muted-foreground cursor-pointer" 
+                        transition-all hover:text-muted-foreground" 
                     to="/sign-in"
                 >
                     Need to sign in?

@@ -22,13 +22,13 @@ const isPasswordVisible = useState(componentField.name, () => false)
         >
             <Eye 
                 v-if="!isPasswordVisible"
-                class="size-6 transition-all opacity-50 hover:opacity-100 cursor-pointer"
+                class="size-6 transition-all opacity-50 hover:opacity-100"
                 @click="isPasswordVisible = true"
             />
             <EyeOff
                 v-else
                 v-auto-animate
-                class="size-6 transition-all opacity-50 hover:opacity-100 cursor-pointer"
+                class="size-6 transition-all opacity-50 hover:opacity-100"
                 @click="isPasswordVisible = false"
             />
         </span>

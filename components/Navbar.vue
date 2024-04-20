@@ -78,20 +78,20 @@ async function onClickSignOut() {
             <DropdownMenuContent align="end">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem class="cursor-pointer" disabled>
+                <DropdownMenuItem disabled>
                     Settings
                 </DropdownMenuItem>
-                <DropdownMenuItem class="cursor-pointer" disabled>
+                <DropdownMenuItem disabled>
                     Support
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <NuxtLink to="/change-password">
-                    <DropdownMenuItem class="cursor-pointer">
+                    <DropdownMenuItem>
                         <KeyRound class="size-5 mr-2" />
                         Change password
                     </DropdownMenuItem>
                 </NuxtLink>
-                <DropdownMenuItem class="cursor-pointer" @click="onClickSignOut">
+                <DropdownMenuItem @click="onClickSignOut">
                     <LogOut class="size-5 mr-2" />
                     Sign out
                 </DropdownMenuItem>

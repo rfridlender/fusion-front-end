@@ -49,9 +49,8 @@ const onSubmit = handleSubmit(async ({ email, password }) => {
             <CardContent v-auto-animate class="grid gap-4">
                 <FormField v-slot="{ componentField }" name="email">
                     <FormItem v-auto-animate>
-                        <div class="flex items-center">
-                            <FormLabel>Email</FormLabel>
-                        </div>
+                        <FormLabel>Email</FormLabel>
+
                         <FormControl>
                             <Input 
                                 v-bind="componentField" 
@@ -65,6 +64,7 @@ const onSubmit = handleSubmit(async ({ email, password }) => {
                 <FormField v-slot="{ componentField }" name="password">
                     <FormItem v-auto-animate>
                         <FormLabel>Password</FormLabel>
+                        
                         <FormControl>
                             <FormFieldPassword :component-field="componentField" />
                         </FormControl>
@@ -91,7 +91,7 @@ const onSubmit = handleSubmit(async ({ email, password }) => {
                 </Button>
                 <NuxtLink 
                     class="inline-block ml-auto mt-4 text-sm underline 
-                        transition-all hover:text-muted-foreground cursor-pointer" 
+                        transition-all hover:text-muted-foreground" 
                     to="/reset-password"
                 >
                     Forgot your password?

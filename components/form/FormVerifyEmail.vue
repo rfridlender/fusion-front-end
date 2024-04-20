@@ -121,7 +121,7 @@ const onSubmit = handleSubmit(async ({ codeConfirmation }) => {
                     <LoaderCircle v-if="pending" class="size-5 animate-spin" />
                     Didn't work?
                     <span 
-                        class="underline transition-all hover:text-muted-foreground cursor-pointer" 
+                        class="underline transition-all hover:text-muted-foreground" 
                         @click="() => refresh()"
                     >
                         Resend code
