@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { Eraser, LoaderCircle, SquarePlus } from "lucide-vue-next"
 
+const emit = defineEmits<{
+    (_event: "error", _message: string): void
+    (_event: "success", _message: string): void
+}>()
+
 const isFormAddressOpen = useState("isFormAddressOpen")
 
 const { handleSubmit, setValues, values, isSubmitting, resetForm } = useForm({ 
@@ -16,19 +21,11 @@ const onSubmit = handleSubmit(async (body) => {
 
         isFormAddressOpen.value = false
 
-        return navigateTo({ 
-            path: "/address", 
-            query: { "message-success": "Address created successfully." },
-            replace: true,
-        })
+        emit("success", "Address created successfully.")
     } catch (error: Error) {
         console.error(error)
-
-        return navigateTo({ 
-            path: "/address", 
-            query: { "message-error": error.message }, 
-            replace: true,
-        })
+        
+        emit("error", "Failed to create address.")
     }
 })
 </script>
