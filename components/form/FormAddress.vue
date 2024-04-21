@@ -1,16 +1,21 @@
 <script setup lang="ts">
 import { Eraser, LoaderCircle, SquarePlus } from "lucide-vue-next"
 
-const formAddress = useState<FormAddress | undefined>("formAddress")
-
 const emit = defineEmits<{ (_event: "submit", _status: string, _message: string): void }>()
+
+const isFormAddressOpen = useState("isFormAddressOpen")
+const formAddress = useState<FormAddress | undefined>("formAddress")
 
 const { handleSubmit, setValues, values, isSubmitting, resetForm } = useForm({ 
     validationSchema: schemaFormAddress,
     initialValues: { state: "GA", country: "US" },
 })
 
-watch(formAddress, (formAddressNew) => !formAddressNew ? resetForm() : setValues(formAddressNew))
+watch(isFormAddressOpen, (isFormAddressOpenNew) => {
+    if (isFormAddressOpenNew) {
+        formAddress.value ? setValues(formAddress.value) : resetForm()
+    }
+})
 
 const onSubmit = handleSubmit(async (body) => {
     try {
