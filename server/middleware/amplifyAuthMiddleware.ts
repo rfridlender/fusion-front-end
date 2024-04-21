@@ -12,10 +12,10 @@ export default defineEventHandler(async (event) => {
             // the auth protection
             if (session.tokens === undefined) {
                 setResponseStatus(event, 403)
-                return { error: "Access denied!" }
+                return { message: "Unauthorized" }
             }
         } catch (_) {
-            return { error: "Access denied!" }
+            return { message: "Unauthorized" }
         }
     }
 })
