@@ -10,12 +10,12 @@ const formAddress = useState<FormAddress | undefined>("formAddress")
 function onEdit() {
     formAddress.value = {
         streetOne: row.getValue("streetOne"),
-        city: row.getValue("city"),
-        state: row.getValue("state"),
-        country: row.getValue("country"),
         streetTwo: row.getValue("streetTwo"),
+        city: row.getValue("city"),
         county: row.getValue("county"),
+        state: row.getValue("state"),
         postalCode: row.getValue("postalCode"),
+        country: row.getValue("country"),
     }
 
     isFormAddressOpen.value = true

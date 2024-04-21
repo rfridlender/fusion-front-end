@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { columns } from "@/components/data-table/columns"
 import { useToast } from "@/components/ui/toast/use-toast"
-import type { Address, FormAddress } from "@/utils/schemas"
+import type { Address } from "@/utils/schemas"
 import { SquarePlus } from "lucide-vue-next"
 
 definePageMeta({ layout: "protected" })
@@ -12,6 +12,12 @@ const { toast } = useToast()
 
 const isFormAddressOpen = useState("isFormAddressOpen", () => false)
 const formAddress = useState<FormAddress | undefined>("formAddress")
+
+function onNew() {
+    formAddress.value = undefined
+
+    isFormAddressOpen.value = true
+}
 
 async function onSubmit(status: string, message: string) {
     await refresh()
@@ -34,7 +40,7 @@ async function onSubmit(status: string, message: string) {
                     Address
                 </h1>
 
-                <Button @click="isFormAddressOpen = true">
+                <Button @click="onNew">
                     <SquarePlus class="size-5 gap-2 mr-2" />
                     New address
                 </Button>              
@@ -44,7 +50,7 @@ async function onSubmit(status: string, message: string) {
         </div>
 
         <Sheet v-model:open="isFormAddressOpen">
-            <FormAddress :form-address="formAddress" @submit="onSubmit" />
+            <FormAddress @submit="onSubmit" />
         </Sheet>
     </main>
 </template>

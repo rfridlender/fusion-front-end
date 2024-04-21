@@ -4,7 +4,7 @@ import { Check, ChevronsUpDown } from "lucide-vue-next"
 defineProps<{
     name: string
     options: { label: string, value: string }[],
-    setValues: (fields: PartialObjectDeep<PartialObjectDeep<any, any>, any>) => void
+    setValues: (_fields: PartialObjectDeep<PartialObjectDeep<any, any>, any>) => void
     values: PartialObjectDeep<any, any>
 }>()
 </script>
@@ -14,11 +14,9 @@ defineProps<{
         <PopoverTrigger as-child>
             <FormControl>
                 <Button
+                    :class="cn('justify-between', !values[name] && 'text-muted-foreground')"
                     variant="outline"
                     role="combobox"
-                    :class="cn(
-                        'justify-between', 
-                        !values[name] && 'text-muted-foreground')"
                 >
                     {{ values[name] ? options.find((option) => 
                         option.value === values[name],
@@ -45,10 +43,7 @@ defineProps<{
                             <Check
                                 :class="cn(
                                     'mr-2 size-4', 
-                                    option.value === values[name] ? 
-                                        'opacity-100' : 
-                                        'opacity-0'
-                                )"
+                                    option.value === values[name] ? 'opacity-100' : 'opacity-0')"
                             />
                             {{ option.label }}
                         </CommandItem>

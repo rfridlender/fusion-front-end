@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Eraser, LoaderCircle, SquarePlus } from "lucide-vue-next"
 
-const { formAddress } = defineProps<{ formAddress: FormAddress | undefined }>()
+const formAddress = useState<FormAddress | undefined>("formAddress")
 
 const emit = defineEmits<{ (_event: "submit", _status: string, _message: string): void }>()
 
@@ -10,12 +10,11 @@ const { handleSubmit, setValues, values, isSubmitting, resetForm } = useForm({
     initialValues: { state: "GA", country: "US" },
 })
 
+watch(formAddress, (formAddressNew) => !formAddressNew ? resetForm() : setValues(formAddressNew))
+
 const onSubmit = handleSubmit(async (body) => {
     try {
-        await $fetch<Address>("/api/address", {
-            method: "POST",
-            body: body,
-        })
+        await $fetch<Address>("/api/address", { method: "POST", body: body })
 
         emit("submit", "success", "Address created successfully.")
     } catch (error: Error) {
