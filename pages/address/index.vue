@@ -1,16 +1,29 @@
 <script setup lang="ts">
 import { columns } from "@/components/data-table/columns"
 import { useToast } from "@/components/ui/toast/use-toast"
-import type { Address } from "@/utils/schemas"
+import type { Address, FormAddress } from "@/utils/schemas"
 import { SquarePlus } from "lucide-vue-next"
 
 definePageMeta({ layout: "protected" })
 
-const { data } = await useFetch<Address[]>("/api/address")
+const { data, refresh } = await useFetch<Address[]>("/api/address")
 
 const { toast } = useToast()
 
 const isFormAddressOpen = useState("isFormAddressOpen", () => false)
+const formAddress = useState<FormAddress | undefined>("formAddress")
+
+async function onSubmit(status: string, message: string) {
+    await refresh()
+
+    isFormAddressOpen.value = false
+
+    switch (status) {
+    case "error": toast({ title: message, variant: "destructive" }); break
+    case "success": toast({ title: message }); break
+    default: throw new Error(`Invalid status ${status}`)
+    }
+}
 </script>
 
 <template>
@@ -21,22 +34,17 @@ const isFormAddressOpen = useState("isFormAddressOpen", () => false)
                     Address
                 </h1>
 
-                <Sheet v-model:open="isFormAddressOpen">
-                    <SheetTrigger as-child>
-                        <Button>
-                            <SquarePlus class="size-5 gap-2 mr-2" />
-                            New address
-                        </Button>
-                    </SheetTrigger>
-                    
-                    <FormAddress 
-                        @error="toast({ title: $event, variant: 'destructive' })"
-                        @success="toast({ title: $event })"
-                    />
-                </Sheet>
+                <Button @click="isFormAddressOpen = true">
+                    <SquarePlus class="size-5 gap-2 mr-2" />
+                    New address
+                </Button>              
             </div>
-
+            
             <DataTable :columns="columns" :data="data ?? []" />
         </div>
+
+        <Sheet v-model:open="isFormAddressOpen">
+            <FormAddress :form-address="formAddress" @submit="onSubmit" />
+        </Sheet>
     </main>
 </template>

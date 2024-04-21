@@ -1,15 +1,13 @@
 <script setup lang="ts">
 import { Eraser, LoaderCircle, SquarePlus } from "lucide-vue-next"
 
-const emit = defineEmits<{
-    (_event: "error", _message: string): void
-    (_event: "success", _message: string): void
-}>()
+const { formAddress } = defineProps<{ formAddress: FormAddress | undefined }>()
 
-const isFormAddressOpen = useState("isFormAddressOpen")
+const emit = defineEmits<{ (_event: "submit", _status: string, _message: string): void }>()
 
 const { handleSubmit, setValues, values, isSubmitting, resetForm } = useForm({ 
     validationSchema: schemaFormAddress,
+    initialValues: { state: "GA", country: "US" },
 })
 
 const onSubmit = handleSubmit(async (body) => {
@@ -19,26 +17,24 @@ const onSubmit = handleSubmit(async (body) => {
             body: body,
         })
 
-        isFormAddressOpen.value = false
-
-        emit("success", "Address created successfully.")
+        emit("submit", "success", "Address created successfully.")
     } catch (error: Error) {
         console.error(error)
         
-        emit("error", "Failed to create address.")
+        emit("submit", "error", "Failed to create address.")
     }
 })
 </script>
 
 <template>
-    <SheetContent>
+    <SheetContent aria-describedby="form">
         <form 
             class="h-full flex flex-col gap-4" 
             @submit="onSubmit"
             @reset="() => resetForm()"
         >
             <SheetHeader>
-                <SheetTitle>New Address</SheetTitle>
+                <SheetTitle>Address</SheetTitle>
             </SheetHeader>
 
             <div class="h-full flex flex-col gap-4">
