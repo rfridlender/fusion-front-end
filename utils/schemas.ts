@@ -21,10 +21,9 @@ export const address = z.object({
     addressUpdatedBy: z.string().uuid(),
     addressUpdatedAt: z.string().datetime(),
 })
-
 export type Address = z.infer<typeof address>
 
-export const schemaFormAddress = toTypedSchema(z.object({
+const objectFormAddress = z.object({
     streetOne: z.string(),
     streetTwo: z.string().optional(),
     city: z.string(),
@@ -32,7 +31,9 @@ export const schemaFormAddress = toTypedSchema(z.object({
     state: z.string().length(2),
     postalCode: z.string().min(5).max(10).optional(),
     country: z.string().length(2),
-}))
+})
+export const schemaFormAddress = toTypedSchema(objectFormAddress)
+export type FormAddress = z.infer<typeof objectFormAddress>
 
 export const code = z.array(z.coerce.string())
     .length(6)

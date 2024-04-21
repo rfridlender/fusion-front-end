@@ -1,8 +1,25 @@
 <script setup lang="ts">
 import type { Row } from "@tanstack/vue-table"
-import { MoreHorizontal } from "lucide-vue-next"
+import { MoreHorizontal, Pencil } from "lucide-vue-next"
 
-const _ = defineProps<{ row: Row<Address> }>()
+const { row } = defineProps<{ row: Row<Address> }>()
+
+const isFormAddressOpen = useState("isFormAddressOpen")
+const formAddress = useState<FormAddress | undefined>("formAddress")
+
+function onEdit() {
+    formAddress.value = {
+        streetOne: row.getValue("streetOne"),
+        city: row.getValue("city"),
+        state: row.getValue("state"),
+        country: row.getValue("country"),
+        streetTwo: row.getValue("streetTwo"),
+        county: row.getValue("county"),
+        postalCode: row.getValue("postalCode"),
+    }
+
+    isFormAddressOpen.value = true
+}
 </script>
 
 <template>
@@ -17,7 +34,10 @@ const _ = defineProps<{ row: Row<Address> }>()
             </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent class="w-40" align="end">
-            <DropdownMenuItem>Edit</DropdownMenuItem>
+            <DropdownMenuItem @click="onEdit">
+                <Pencil class="mr-2 size-4" />
+                <span>Edit</span>
+            </DropdownMenuItem>
             <DropdownMenuItem>Make a copy</DropdownMenuItem>
             <DropdownMenuItem>Favorite</DropdownMenuItem>
             <DropdownMenuSeparator />
