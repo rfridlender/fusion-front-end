@@ -24,7 +24,7 @@ export const address = z.object({
 
 export type Address = z.infer<typeof address>
 
-export const schemaAddressNew = toTypedSchema(z.object({
+export const schemaFormAddress = toTypedSchema(z.object({
     streetOne: z.string(),
     streetTwo: z.string().optional(),
     city: z.string(),

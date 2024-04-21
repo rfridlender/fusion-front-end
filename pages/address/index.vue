@@ -1,11 +1,32 @@
 <script setup lang="ts">
-import { columns } from "~/components/data-table/columns"
+import { columns } from "@/components/data-table/columns"
+import { useToast } from "@/components/ui/toast/use-toast"
 import type { Address } from "@/utils/schemas"
 import { SquarePlus } from "lucide-vue-next"
 
 definePageMeta({ layout: "protected" })
 
 const { data } = await useFetch<Address[]>("/api/address")
+
+const route = useRoute()
+const messageError = computed(() => route.query["message-error"]?.toString() ?? "")
+const messageSuccess = computed(() => route.query["message-success"]?.toString() ?? "")
+
+watch(messageSuccess, (message) => toast({ title: message }))
+
+const { toast } = useToast()
+
+onMounted(async () => {
+    if (!messageError.value && !messageSuccess.value) {
+        return
+    }
+
+    await nextTick()
+
+    messageError.value ? 
+        toast({ title: messageError.value, variant: "destructive" }) :
+        toast({ title: messageSuccess.value })
+})
 
 const isFormAddressOpen = useState("isFormAddressOpen", () => false)
 </script>
@@ -26,10 +47,10 @@ const isFormAddressOpen = useState("isFormAddressOpen", () => false)
                         </Button>
                     </SheetTrigger>
                     
-                    <FormAddress :is-form-address-open="isFormAddressOpen" />
+                    <FormAddress />
                 </Sheet>
             </div>
-            
+
             <DataTable :columns="columns" :data="data ?? []" />
         </div>
     </main>
