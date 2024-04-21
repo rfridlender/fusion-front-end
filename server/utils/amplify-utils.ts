@@ -7,7 +7,7 @@ import {
     type CookieStorage,
 } from "aws-amplify/adapter-core"
 import type { LibraryOptions } from "@aws-amplify/core"
-import { constructAmplifyConfig } from "@/utils/constructAmplifyConfig"
+import { constructAmplifyConfig } from "@/utils/construct-amplify-config"
 
 const runtimeConfig = useRuntimeConfig()
 const amplifyConfig = constructAmplifyConfig(runtimeConfig)
