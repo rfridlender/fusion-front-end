@@ -5,18 +5,12 @@ import { MoreHorizontal, Pencil } from "lucide-vue-next"
 const { row } = defineProps<{ row: Row<Address> }>()
 
 const isFormAddressOpen = useState("isFormAddressOpen")
-const formAddress = useState<FormAddress | undefined>("formAddress")
+const addressBeingEdited = useState<Address | undefined>("addressBeingEdited")
 
 function onEdit() {
-    formAddress.value = {
-        streetOne: row.getValue("streetOne"),
-        streetTwo: row.getValue("streetTwo"),
-        city: row.getValue("city"),
-        county: row.getValue("county"),
-        state: row.getValue("state"),
-        postalCode: row.getValue("postalCode"),
-        country: row.getValue("country"),
-    }
+    console.log("row.original ", JSON.stringify(row.original, null, 4))
+
+    addressBeingEdited.value = row.original
 
     isFormAddressOpen.value = true
 }

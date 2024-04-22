@@ -1,10 +1,10 @@
-<script setup lang="ts">
+<script setup lang="ts" generic="TData, TValue">
 import type { Column } from "@tanstack/vue-table"
 import { Check, CirclePlus } from "lucide-vue-next"
 import { computed } from "vue"
 
 type DataTableFacetedFilter = {
-    column?: Column<Address, any>
+    column?: Column<TData, TValue>
     title?: string
 }
 

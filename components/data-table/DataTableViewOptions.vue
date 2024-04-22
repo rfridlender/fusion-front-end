@@ -1,9 +1,9 @@
-<script setup lang="ts">
+<script setup lang="ts" generic="TData">
 import type { Table } from "@tanstack/vue-table"
 import { SlidersHorizontal } from "lucide-vue-next"
 import { computed } from "vue"
 
-const props = defineProps<{ table: Table<Address> }>()
+const props = defineProps<{ table: Table<TData> }>()
 
 const columns = computed(() => props.table.getAllColumns()
     .filter(

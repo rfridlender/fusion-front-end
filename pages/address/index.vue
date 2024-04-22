@@ -45,7 +45,7 @@ async function onSubmit(status: string, message: string) {
                 </Button>              
             </div>
             
-            <DataTable :columns="columns" :data="data ?? []" />
+            <DataTable :data="data ?? []" :columns="columns" />
         </div>
 
         <Sheet v-model:open="isFormAddressOpen">

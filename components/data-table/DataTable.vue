@@ -18,8 +18,8 @@ import {
 } from "@tanstack/vue-table"
 
 const props = defineProps<{
-    columns: ColumnDef<any, TValue>[]
-    data: any[]
+    data: TData[]
+    columns: ColumnDef<TData, TValue>[]
 }>()
 
 const columnFilters = ref<ColumnFiltersState>([])

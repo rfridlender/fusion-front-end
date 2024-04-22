@@ -1,9 +1,9 @@
-<script setup lang="ts">
+<script setup lang="ts" generic="TData">
 import type { Table } from "@tanstack/vue-table"
 import { X } from "lucide-vue-next"
 import { computed } from "vue"
 
-const props = defineProps<{ table: Table<Address> }>()
+const props = defineProps<{ table: Table<TData> }>()
     
 const isFiltered = computed(() => props.table.getState().columnFilters.length > 0)
 </script>

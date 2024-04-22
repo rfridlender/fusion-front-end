@@ -1,8 +1,8 @@
-<script setup lang="ts">
+<script setup lang="ts" generic="TData">
 import { type Table } from "@tanstack/vue-table"
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-vue-next"
 
-defineProps<{ table: Table<Address> }>()
+defineProps<{ table: Table<TData> }>()
 </script>
 
 <template>
