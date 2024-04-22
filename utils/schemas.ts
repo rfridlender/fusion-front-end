@@ -7,33 +7,32 @@ const REGEX_REQUIRE_UPPERCASE = /[A-Z]+/
 const REGEX_REQUIRE_NUMBER = /[0-9]+/
 const REGEX_REQUIRE_SYMBOL = /[\^$*.[\]{}()?\-“!@#%&/,><’:;|_~`]+/
 
-export const address = z.object({
+const objectAddress = z.object({
     addressId: z.string().uuid(),
     streetOne: z.string(),
-    streetTwo: z.string().nullable(),
+    streetTwo: z.string().nullish(),
     city: z.string(),
-    county: z.string().nullable(),
+    county: z.string().nullish(),
     state: z.string().length(2),
-    postalCode: z.string().min(5).max(10).nullable(),
+    postalCode: z.string().min(5).max(10).nullish(),
     country: z.string().length(2),
-    addressCreatedBy: z.string().uuid(),
-    addressCreatedAt: z.string().datetime(),
     addressUpdatedBy: z.string().uuid(),
     addressUpdatedAt: z.string().datetime(),
 })
-export type Address = z.infer<typeof address>
+export type Address = z.infer<typeof objectAddress>
+export const schemaAddress = toTypedSchema(objectAddress)
 
 const objectFormAddress = z.object({
     streetOne: z.string(),
-    streetTwo: z.string().optional(),
+    streetTwo: z.string().nullish(),
     city: z.string(),
-    county: z.string().optional(),
+    county: z.string().nullish(),
     state: z.string().length(2),
-    postalCode: z.string().min(5).max(10).optional(),
+    postalCode: z.string().min(5).max(10).nullish(),
     country: z.string().length(2),
 })
-export const schemaFormAddress = toTypedSchema(objectFormAddress)
 export type FormAddress = z.infer<typeof objectFormAddress>
+export const schemaFormAddress = toTypedSchema(objectFormAddress)
 
 export const code = z.array(z.coerce.string())
     .length(6)

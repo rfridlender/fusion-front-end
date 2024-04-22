@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { columns } from "@/components/data-table/columns"
 import { useToast } from "@/components/ui/toast/use-toast"
-import type { Address } from "@/utils/schemas"
 import { SquarePlus } from "lucide-vue-next"
 
 definePageMeta({ layout: "protected" })
@@ -11,10 +10,10 @@ const { data, refresh } = await useFetch<Address[]>("/api/address")
 const { toast } = useToast()
 
 const isFormAddressOpen = useState("isFormAddressOpen", () => false)
-const formAddress = useState<FormAddress | undefined>("formAddress")
+const addressBeingEdited = useState<Address | undefined>("addressBeingEdited")
 
 function onNew() {
-    formAddress.value = undefined
+    addressBeingEdited.value = undefined
 
     isFormAddressOpen.value = true
 }

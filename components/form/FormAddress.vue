@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { Eraser, LoaderCircle, SquarePlus } from "lucide-vue-next"
+import { Eraser, LoaderCircle, Save } from "lucide-vue-next"
 
 const emit = defineEmits<{ (_event: "submit", _status: string, _message: string): void }>()
 
 const isFormAddressOpen = useState("isFormAddressOpen")
-const formAddress = useState<FormAddress | undefined>("formAddress")
+const addressBeingEdited = useState<Address | undefined>("addressBeingEdited")
 
 const { handleSubmit, setValues, values, isSubmitting, resetForm } = useForm({ 
     validationSchema: schemaFormAddress,
@@ -13,19 +13,39 @@ const { handleSubmit, setValues, values, isSubmitting, resetForm } = useForm({
 
 watch(isFormAddressOpen, (isFormAddressOpenNew) => {
     if (isFormAddressOpenNew) {
-        formAddress.value ? setValues(formAddress.value) : resetForm()
+        console.log("addressBeingEdited.value ", JSON.stringify(addressBeingEdited.value, null, 4))
+
+        !addressBeingEdited.value ? resetForm() : setValues(addressBeingEdited.value)
     }
 })
 
 const onSubmit = handleSubmit(async (body) => {
-    try {
-        await $fetch<Address>("/api/address", { method: "POST", body: body })
+    if (!addressBeingEdited.value) {
+        try {
+            await $fetch<Address>("/api/address", { 
+                method: "POST", 
+                body: body,
+            })
 
-        emit("submit", "success", "Address created successfully.")
-    } catch (error: Error) {
-        console.error(error)
-        
-        emit("submit", "error", "Failed to create address.")
+            emit("submit", "success", "Address created successfully.")
+        } catch (error: Error) {
+            console.error(error)
+            
+            emit("submit", "error", "Failed to create address.")
+        }
+    } else {
+        try {
+            await $fetch<string>(`/api/address/${addressBeingEdited.value.addressId}`, { 
+                method: "PUT", 
+                body: body,
+            })
+                    
+            emit("submit", "success", "Address updated successfully.")
+        } catch (error: Error) {
+            console.error(error)
+            
+            emit("submit", "error", "Failed to update address.")
+        }
     }
 })
 </script>
@@ -154,9 +174,9 @@ const onSubmit = handleSubmit(async (body) => {
                     type="submit" 
                     :disabled="isSubmitting"
                 >
-                    <SquarePlus v-if="!isSubmitting" class="size-5 gap-2 mr-2" />
+                    <Save v-if="!isSubmitting" class="size-5 gap-2 mr-2" />
                     <LoaderCircle v-else class="size-5 gap-2 mr-2 animate-spin" />
-                    Create address
+                    Save
                 </Button>
             </SheetFooter>
         </form>
