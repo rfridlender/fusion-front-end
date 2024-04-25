@@ -2,11 +2,11 @@
 import { Eye, EyeOff } from "lucide-vue-next"
 import type { ComponentFieldBindingObject } from "vee-validate"
 
-const { componentField } = defineProps<{
+const props = defineProps<{
     componentField: ComponentFieldBindingObject<any>
 }>()
 
-const isPasswordVisible = useState(componentField.name, () => false)
+const isPasswordVisible = useState(props.componentField.name, () => false)
 </script>
 
 <template>
@@ -14,7 +14,7 @@ const isPasswordVisible = useState(componentField.name, () => false)
         <Input 
             :type="!isPasswordVisible ? 'password' : 'text'"
             placeholder="••••••••" 
-            v-bind="componentField" 
+            v-bind="props.componentField" 
         />
         <span 
             v-auto-animate
