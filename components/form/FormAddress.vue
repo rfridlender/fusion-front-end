@@ -13,8 +13,6 @@ const { handleSubmit, setValues, values, isSubmitting, resetForm } = useForm({
 
 watch(isFormAddressOpen, (isFormAddressOpenNew) => {
     if (isFormAddressOpenNew) {
-        console.log("addressBeingEdited.value ", JSON.stringify(addressBeingEdited.value, null, 4))
-
         !addressBeingEdited.value ? resetForm() : setValues(addressBeingEdited.value)
     }
 })
@@ -35,11 +33,11 @@ const onSubmit = handleSubmit(async (body) => {
         }
     } else {
         try {
-            await $fetch<string>(`/api/address/${addressBeingEdited.value.addressId}`, { 
+            await $fetch<Address>(`/api/address/${addressBeingEdited.value.addressId}`, { 
                 method: "PUT", 
                 body: body,
             })
-                    
+
             emit("submit", "success", "Address updated successfully.")
         } catch (error: Error) {
             console.error(error)

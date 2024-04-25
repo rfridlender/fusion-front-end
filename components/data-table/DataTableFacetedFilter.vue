@@ -3,14 +3,13 @@ import type { Column } from "@tanstack/vue-table"
 import { Check, CirclePlus } from "lucide-vue-next"
 import { computed } from "vue"
 
-type DataTableFacetedFilter = {
+const props = defineProps<{
     column?: Column<TData, TValue>
     title?: string
-}
-
-const props = defineProps<DataTableFacetedFilter>()
+}>()
 
 const facets = computed(() => props.column?.getFacetedUniqueValues())
+
 const options = computed(() => {
     if (!facets.value) {
         return []
@@ -20,6 +19,7 @@ const options = computed(() => {
         return { label: facet, value: facet } },
     )
 })
+
 const selectedValues = computed(() => new Set(props.column?.getFilterValue() as string[]))
 </script>
 

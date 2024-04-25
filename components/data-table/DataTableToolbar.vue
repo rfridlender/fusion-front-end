@@ -23,6 +23,12 @@ const isFiltered = computed(() => props.table.getState().columnFilters.length > 
                 :column="table.getColumn('city')"
                 title="City"
             />
+
+            <DataTableFacetedFilter
+                v-if="table.getColumn('state')"
+                :column="table.getColumn('state')"
+                title="State"
+            />
             
             <Button
                 v-if="isFiltered"

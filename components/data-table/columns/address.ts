@@ -29,6 +29,7 @@ export const columns: ColumnDef<Address>[] = [
         accessorKey: "state",
         header: ({ column }) => h(DataTableColumnHeader, { column: column, title: "State" }),
         cell: ({ row }) => h("div", { class: "text-left font-medium" }, row.getValue("state")),
+        filterFn: (row, id, value) => value.includes(row.getValue(id)),
     },
     {
         accessorKey: "postalCode",

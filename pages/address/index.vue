@@ -13,12 +13,10 @@ const { toast } = useToast()
 const isFormAddressOpen = useState("isFormAddressOpen", () => false)
 const addressBeingEdited = useState<Address | undefined>("addressBeingEdited")
 
-async function onNew() {
-    await refresh()
+function onNew() {
+    addressBeingEdited.value = undefined
 
     isFormAddressOpen.value = true
-
-    addressBeingEdited.value = undefined
 }
 
 async function onSubmit(status: string, message: string) {
