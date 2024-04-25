@@ -13,7 +13,7 @@ const isFiltered = computed(() => props.table.getState().columnFilters.length > 
         <div class="flex flex-1 items-center space-x-2">
             <Input
                 class="h-8 w-40 lg:w-60"
-                placeholder="Search addresses..."
+                placeholder="Search..."
                 :model-value="(table.getColumn('streetOne')?.getFilterValue() as string) ?? ''"
                 @input="table.getColumn('streetOne')?.setFilterValue($event.target.value)"
             />

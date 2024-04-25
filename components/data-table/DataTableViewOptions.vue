@@ -5,11 +5,9 @@ import { computed } from "vue"
 
 const props = defineProps<{ table: Table<TData> }>()
 
-const columns = computed(() => props.table.getAllColumns()
-    .filter(
-        column =>
-            typeof column.accessorFn !== "undefined" && column.getCanHide(),
-    ))
+const columns = computed(() => props.table.getAllColumns().filter(column => {
+    return typeof column.accessorFn !== "undefined" && column.getCanHide()
+}))
 </script>
 
 <template>

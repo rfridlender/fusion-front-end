@@ -1,9 +1,9 @@
-<script setup lang="ts">
+<script setup lang="ts" generic="TData, TValue">
 import type { Column } from "@tanstack/vue-table"
 import { ArrowUpDown, EyeOff, MoveDown, MoveUp } from "lucide-vue-next"
 
 defineProps<{ 
-    column: Column<Address, any>, 
+    column: Column<TData, TValue>, 
     title: string 
 }>()
 </script>
