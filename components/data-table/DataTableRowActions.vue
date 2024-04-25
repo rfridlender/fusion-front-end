@@ -1,18 +1,20 @@
-<script setup lang="ts">
+<script setup lang="ts" generic="TData">
 import type { Row } from "@tanstack/vue-table"
 import { MoreHorizontal, Pencil } from "lucide-vue-next"
 
-const { row } = defineProps<{ row: Row<Address> }>()
+const props = defineProps<{ 
+    row: Row<TData>
+    keyIsFormModelOpen: string 
+    keyModelBeingEdited: string
+}>()
 
-const isFormAddressOpen = useState("isFormAddressOpen")
-const addressBeingEdited = useState<Address | undefined>("addressBeingEdited")
+const isFormModelOpen = useState(props.keyIsFormModelOpen)
+const modelBeingEdited = useState<TData | undefined>(props.keyModelBeingEdited)
 
 function onEdit() {
-    console.log("row.original ", JSON.stringify(row.original, null, 4))
+    modelBeingEdited.value = props.row.original
 
-    addressBeingEdited.value = row.original
-
-    isFormAddressOpen.value = true
+    isFormModelOpen.value = true
 }
 </script>
 

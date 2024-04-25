@@ -42,6 +42,10 @@ export const columns: ColumnDef<Address>[] = [
     },
     {
         id: "actions",
-        cell: ({ row }) => h(DataTableRowActions, { row }),
+        cell: ({ row }) => h(DataTableRowActions, { 
+            row: row, 
+            keyIsFormModelOpen: "isFormAddressOpen", 
+            keyModelBeingEdited: "addressBeingEdited", 
+        }),
     },
 ]

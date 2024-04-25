@@ -4,18 +4,21 @@ import { useToast } from "@/components/ui/toast/use-toast"
 import { SquarePlus } from "lucide-vue-next"
 
 definePageMeta({ layout: "protected" })
-
-const { data, refresh } = await useFetch<Address[]>("/api/address")
+const { data, refresh } = await useFetch<Address[]>("/api/address", { 
+    default: () => [],
+})
 
 const { toast } = useToast()
 
 const isFormAddressOpen = useState("isFormAddressOpen", () => false)
 const addressBeingEdited = useState<Address | undefined>("addressBeingEdited")
 
-function onNew() {
-    addressBeingEdited.value = undefined
+async function onNew() {
+    await refresh()
 
     isFormAddressOpen.value = true
+
+    addressBeingEdited.value = undefined
 }
 
 async function onSubmit(status: string, message: string) {
@@ -45,7 +48,7 @@ async function onSubmit(status: string, message: string) {
                 </Button>              
             </div>
             
-            <DataTable :data="data ?? []" :columns="columns" />
+            <DataTable :data="data" :columns="columns" />
         </div>
 
         <Sheet v-model:open="isFormAddressOpen">
