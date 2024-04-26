@@ -11,11 +11,12 @@ const { data, refresh } = await useFetch<Address[]>("/api/address", {
 const { toast } = useToast()
 
 const isFormAddressOpen = useState("isFormAddressOpen", () => false)
-const addressBeingEdited = useState<Address | undefined>("addressBeingEdited")
+const isAddressNew = useState("isAddressNew", () => true)
+const addressBeingFormed = useState<Address | undefined>("addressBeingFormed")
 
 function onNew() {
-    addressBeingEdited.value = undefined
-
+    addressBeingFormed.value = undefined
+    isAddressNew.value = true
     isFormAddressOpen.value = true
 }
 

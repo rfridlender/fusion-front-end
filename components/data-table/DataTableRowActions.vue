@@ -1,19 +1,27 @@
 <script setup lang="ts" generic="TData">
 import type { Row } from "@tanstack/vue-table"
-import { MoreHorizontal, Pencil } from "lucide-vue-next"
+import { Copy, MoreHorizontal, Pencil } from "lucide-vue-next"
 
 const props = defineProps<{ 
     row: Row<TData>
-    keyIsFormModelOpen: string 
-    keyModelBeingEdited: string
+    isFormModelOpenKey: string
+    isModelNewKey: string
+    modelBeingFormedKey: string
 }>()
 
-const isFormModelOpen = useState(props.keyIsFormModelOpen)
-const modelBeingEdited = useState<TData | undefined>(props.keyModelBeingEdited)
+const isFormModelOpen = useState<boolean>(props.isFormModelOpenKey)
+const isModelNew = useState<boolean>(props.isModelNewKey)
+const modelBeingFormed = useState<TData | undefined>(props.modelBeingFormedKey)
 
 function onEdit() {
-    modelBeingEdited.value = props.row.original
+    modelBeingFormed.value = props.row.original
+    isModelNew.value = false
+    isFormModelOpen.value = true
+}
 
+function onDuplicate() {
+    modelBeingFormed.value = props.row.original
+    isModelNew.value = true
     isFormModelOpen.value = true
 }
 </script>
@@ -34,8 +42,10 @@ function onEdit() {
                 <Pencil class="mr-2 size-4" />
                 <span>Edit</span>
             </DropdownMenuItem>
-            <DropdownMenuItem>Make a copy</DropdownMenuItem>
-            <DropdownMenuItem>Favorite</DropdownMenuItem>
+            <DropdownMenuItem @click="onDuplicate">
+                <Copy class="mr-2 size-4" />
+                <span>Duplicate</span>
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
                 Delete

@@ -4,7 +4,8 @@ import { Eraser, LoaderCircle, Save } from "lucide-vue-next"
 const emit = defineEmits<{ (_event: "submit", _status: string, _message: string): void }>()
 
 const isFormAddressOpen = useState("isFormAddressOpen")
-const addressBeingEdited = useState<Address | undefined>("addressBeingEdited")
+const isAddressNew = useState("isAddressNew")
+const addressBeingFormed = useState<Address | undefined>("addressBeingFormed")
 
 const { handleSubmit, setValues, values, isSubmitting, resetForm } = useForm({ 
     validationSchema: schemaFormAddress,
@@ -13,12 +14,12 @@ const { handleSubmit, setValues, values, isSubmitting, resetForm } = useForm({
 
 watch(isFormAddressOpen, (isFormAddressOpenNew) => {
     if (isFormAddressOpenNew) {
-        !addressBeingEdited.value ? resetForm() : setValues(addressBeingEdited.value)
+        !addressBeingFormed.value ? resetForm() : setValues(addressBeingFormed.value)
     }
 })
 
 const onSubmit = handleSubmit(async (body) => {
-    if (!addressBeingEdited.value) {
+    if (isAddressNew.value) {
         try {
             await $fetch<Address>("/api/address", { 
                 method: "POST", 
@@ -31,9 +32,10 @@ const onSubmit = handleSubmit(async (body) => {
             
             emit("submit", "error", "Failed to create address.")
         }
-    } else {
+    } else if (addressBeingFormed.value) {
+
         try {
-            await $fetch<Address>(`/api/address/${addressBeingEdited.value.addressId}`, { 
+            await $fetch<Address>(`/api/address/${addressBeingFormed.value.addressId}`, { 
                 method: "PUT", 
                 body: body,
             })
@@ -44,6 +46,8 @@ const onSubmit = handleSubmit(async (body) => {
             
             emit("submit", "error", "Failed to update address.")
         }
+    } else {
+        throw new Error("Invalid combination of state")
     }
 })
 </script>
@@ -56,7 +60,7 @@ const onSubmit = handleSubmit(async (body) => {
             @reset="() => resetForm()"
         >
             <SheetHeader>
-                <SheetTitle>Address</SheetTitle>
+                <SheetTitle>{{ isAddressNew ? "New" : "Edit" }} address</SheetTitle>
             </SheetHeader>
 
             <div class="h-full flex flex-col gap-4">
