@@ -3,8 +3,8 @@ import { Eraser, LoaderCircle, Save } from "lucide-vue-next"
 
 const emit = defineEmits<{ (_event: "submit", _status: string, _message: string): void }>()
 
-const isFormAddressOpen = useState("isFormAddressOpen")
-const isAddressNew = useState("isAddressNew")
+const isFormAddressOpen = useState<boolean>("isFormAddressOpen")
+const isAddressNew = useState<boolean>("isAddressNew")
 const addressBeingFormed = useState<Address | undefined>("addressBeingFormed")
 
 const { handleSubmit, setValues, values, isSubmitting, resetForm } = useForm({ 
@@ -33,7 +33,6 @@ const onSubmit = handleSubmit(async (body) => {
             emit("submit", "error", "Failed to create address.")
         }
     } else if (addressBeingFormed.value) {
-
         try {
             await $fetch<Address>(`/api/address/${addressBeingFormed.value.addressId}`, { 
                 method: "PUT", 
@@ -171,6 +170,7 @@ const onSubmit = handleSubmit(async (body) => {
                     <Eraser v-if="!isSubmitting" class="size-5 gap-2 mr-2" />
                     Clear
                 </Button>
+                
                 <Button 
                     class="w-full" 
                     type="submit" 

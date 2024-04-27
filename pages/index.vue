@@ -5,6 +5,7 @@
                 Sign In
             </NuxtLink>
         </Button>
+
         <Button>
             <NuxtLink to="/dashboard">
                 Dashboard

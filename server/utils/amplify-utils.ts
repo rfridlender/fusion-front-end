@@ -1,4 +1,5 @@
-import type { H3Event, EventHandlerRequest } from "h3"
+import type { LibraryOptions } from "@aws-amplify/core"
+import { constructAmplifyConfig } from "@/utils/construct-amplify-config"
 import {
     createKeyValueStorageFromCookieStorageAdapter,
     createUserPoolsTokenProvider,
@@ -6,8 +7,7 @@ import {
     runWithAmplifyServerContext,
     type CookieStorage,
 } from "aws-amplify/adapter-core"
-import type { LibraryOptions } from "@aws-amplify/core"
-import { constructAmplifyConfig } from "@/utils/construct-amplify-config"
+import type { H3Event, EventHandlerRequest } from "h3"
 
 const runtimeConfig = useRuntimeConfig()
 const amplifyConfig = constructAmplifyConfig(runtimeConfig)

@@ -16,7 +16,7 @@ const routesProtected = [
     },
 ]
 
-async function onClickSignOut() {
+async function onSignOut() {
     await useNuxtApp().$Amplify.Auth.signOut()
     
     return navigateTo("/sign-in")
@@ -36,6 +36,7 @@ async function onClickSignOut() {
                     <span class="sr-only">Toggle navigation menu</span>
                 </Button>
             </SheetTrigger>
+
             <SheetContent class="flex flex-col" side="left">
                 <nav class="grid gap-2 text-lg font-medium">
                     <NuxtLink class="flex justify-center" to="https://www.homefusioninstall.com">
@@ -45,7 +46,9 @@ async function onClickSignOut() {
                             alt="Modern House"
                         >
                     </NuxtLink>
+
                     <Separator class="my-4" />
+
                     <NuxtLink 
                         v-for="routeProtected in routesProtected" 
                         :key="routeProtected.path" 
@@ -63,7 +66,9 @@ async function onClickSignOut() {
                 </nav>
             </SheetContent>
         </Sheet>
+
         <div class="w-full flex-1" />
+
         <DropdownMenu>
             <DropdownMenuTrigger as-child>
                 <Button
@@ -75,23 +80,30 @@ async function onClickSignOut() {
                     <span class="sr-only">Toggle user menu</span>
                 </Button>
             </DropdownMenuTrigger>
+
             <DropdownMenuContent align="end">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
+
                 <DropdownMenuSeparator />
+
                 <DropdownMenuItem disabled>
                     Settings
                 </DropdownMenuItem>
+
                 <DropdownMenuItem disabled>
                     Support
                 </DropdownMenuItem>
+
                 <DropdownMenuSeparator />
+
                 <NuxtLink to="/change-password">
                     <DropdownMenuItem>
                         <KeyRound class="size-5 mr-2" />
                         Change password
                     </DropdownMenuItem>
                 </NuxtLink>
-                <DropdownMenuItem @click="onClickSignOut">
+
+                <DropdownMenuItem @click="onSignOut">
                     <LogOut class="size-5 mr-2" />
                     Sign out
                 </DropdownMenuItem>

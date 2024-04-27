@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { MailPlus, LoaderCircle } from "lucide-vue-next"
 
-const route = useRoute()
-const messageError = computed(() => route.query["message-error"])
+const messageError = computed(() => useRoute().query["message-error"])
 
 const cookieEmail = useCookie("email", { sameSite: true })
 
@@ -23,7 +22,10 @@ const onSubmit = handleSubmit(async ({ email }) => {
     } catch (error: Error) {
         console.error(error)
 
-        return navigateTo({ replace: true, query: { "message-error": error.message }})
+        return navigateTo({ 
+            query: { "message-error": error.message },
+            replace: true, 
+        })
     }
 })
 </script>
@@ -35,23 +37,28 @@ const onSubmit = handleSubmit(async ({ email }) => {
                 <CardTitle class="text-3xl">
                     Reset password
                 </CardTitle>
+
                 <CardDescription class="text-balance text-muted-foreground">
                     Enter your email below to receive a verification code
                 </CardDescription>
             </CardHeader>
+
             <CardContent class="grid gap-4">
                 <FormField v-slot="{ componentField }" name="email">
                     <FormItem v-auto-animate>
                         <FormLabel>Email</FormLabel>
+
                         <FormControl>
                             <Input 
                                 v-bind="componentField" 
                                 placeholder="john.doe@homefusioninstall.com" 
                             />
                         </FormControl>
+                        
                         <FormMessage />
                     </FormItem>
                 </FormField>
+
                 <p 
                     v-if="messageError"
                     class="w-full text-balance font-medium text-destructive" 
@@ -60,6 +67,7 @@ const onSubmit = handleSubmit(async ({ email }) => {
                     {{ messageError }}
                 </p>
             </CardContent>
+            
             <CardFooter class="flex flex-col">
                 <Button 
                     class="w-full" 
@@ -70,6 +78,7 @@ const onSubmit = handleSubmit(async ({ email }) => {
                     <LoaderCircle v-else class="size-5 gap-2 mr-2 animate-spin" />
                     Request reset link
                 </Button>
+
                 <NuxtLink 
                     class="inline-block ml-auto mt-4 text-sm underline 
                         transition-all hover:text-muted-foreground" 

@@ -16,7 +16,10 @@ const onSubmit = handleSubmit(async ({ name, phoneNumber, password }) => {
         })
 
         if (isSignedIn) {
-            return navigateTo({ replace: true, path: "/verify-email" })
+            return navigateTo({
+                path: "/verify-email",
+                replace: true, 
+            })
         }
         
         switch (nextStep.signInStep) {
@@ -46,48 +49,62 @@ const onSubmit = handleSubmit(async ({ name, phoneNumber, password }) => {
                 <CardTitle class="text-3xl">
                     Confirm sign in
                 </CardTitle>
+
                 <CardDescription class="text-balance text-muted-foreground">
                     Complete the fields below to register your account
                 </CardDescription>
             </CardHeader>
+
             <CardContent class="grid gap-4">
                 <FormField v-slot="{ componentField }" name="name">
                     <FormItem v-auto-animate>
                         <FormLabel>Name</FormLabel>
+
                         <FormControl>
                             <Input v-bind="componentField" placeholder="John Doe" />
                         </FormControl>
+
                         <FormMessage />
                     </FormItem>
                 </FormField>
+
                 <FormField v-slot="{ componentField }" name="phoneNumber">
                     <FormItem v-auto-animate>
                         <FormLabel>Phone Number</FormLabel>
+
                         <FormControl>
                             <Input v-bind="componentField" placeholder="+12223334444" />
                         </FormControl>
+
                         <FormMessage />
                     </FormItem>
                 </FormField>
+
                 <FormField v-slot="{ componentField }" name="password">
                     <FormItem v-auto-animate>
                         <FormLabel>Password</FormLabel>
+
                         <FormControl>
                             <FormFieldPassword :component-field="componentField" />
                         </FormControl>
+
                         <FormMessage />
                     </FormItem>
                 </FormField>
+
                 <FormField v-slot="{ componentField }" name="passwordConfirmation">
                     <FormItem v-auto-animate>
                         <FormLabel>Confirm Password</FormLabel>
+
                         <FormControl>
                             <FormFieldPassword :component-field="componentField" />
                         </FormControl>
+
                         <FormMessage />
                     </FormItem>
                 </FormField>
             </CardContent>
+            
             <CardFooter>
                 <Button 
                     class="w-full" 

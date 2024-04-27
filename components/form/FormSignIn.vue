@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { LoaderCircle, LogIn } from "lucide-vue-next"
 
-const route = useRoute()
-const messageError = computed(() => route.query["message-error"])
+const messageError = computed(() => useRoute().query["message-error"])
 
 const { handleSubmit, isSubmitting } = useForm({ validationSchema: schemaFormSignIn })
 
@@ -18,13 +17,16 @@ const onSubmit = handleSubmit(async ({ email, password }) => {
         }
         
         switch (nextStep.signInStep) {
-        case "CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED":  return navigateTo("/confirm-sign-in")
+        case "CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED": return navigateTo("/confirm-sign-in")
         default: throw new Error("Something went wrong")
         }
     } catch (error: Error) {
         console.error(error)
 
-        return navigateTo({ replace: true, query: { "message-error": error.message } })
+        return navigateTo({ 
+            query: { "message-error": error.message },
+            replace: true, 
+        })
     }
 })
 </script>
@@ -36,10 +38,12 @@ const onSubmit = handleSubmit(async ({ email, password }) => {
                 <CardTitle class="text-3xl">
                     Sign in
                 </CardTitle>
+
                 <CardDescription class="text-balance text-muted-foreground">
                     Enter your email below to sign in to your account
                 </CardDescription>
             </CardHeader>
+
             <CardContent v-auto-animate class="grid gap-4">
                 <FormField v-slot="{ componentField }" name="email">
                     <FormItem v-auto-animate>
@@ -52,9 +56,11 @@ const onSubmit = handleSubmit(async ({ email, password }) => {
                                 placeholder="john.doe@homefusioninstall.com" 
                             />
                         </FormControl>
+
                         <FormMessage />
                     </FormItem>
                 </FormField>
+
                 <FormField v-slot="{ componentField }" name="password">
                     <FormItem v-auto-animate>
                         <FormLabel>Password</FormLabel>
@@ -62,9 +68,11 @@ const onSubmit = handleSubmit(async ({ email, password }) => {
                         <FormControl>
                             <FormFieldPassword :component-field="componentField" />
                         </FormControl>
+
                         <FormMessage />
                     </FormItem>
                 </FormField>
+
                 <p 
                     v-if="messageError"
                     class="w-full text-balance font-medium text-destructive" 
@@ -73,6 +81,7 @@ const onSubmit = handleSubmit(async ({ email, password }) => {
                     {{ messageError }}
                 </p>
             </CardContent>
+
             <CardFooter class="flex flex-col">
                 <Button 
                     class="w-full" 
@@ -83,6 +92,7 @@ const onSubmit = handleSubmit(async ({ email, password }) => {
                     <LoaderCircle v-else class="size-5 gap-2 mr-2 animate-spin" />
                     Sign in
                 </Button>
+                
                 <NuxtLink 
                     class="inline-block ml-auto mt-4 text-sm underline 
                         transition-all hover:text-muted-foreground" 

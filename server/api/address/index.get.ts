@@ -1,6 +1,6 @@
-import { fetchAuthSession } from "aws-amplify/auth/server"
 import { runAmplifyApi } from "@/server/utils/amplify-utils"
 import type { Address } from "@/utils/schemas"
+import { fetchAuthSession } from "aws-amplify/auth/server"
 
 export default defineEventHandler(async (event) => {
     const { httpApiInvokeUrl } = useRuntimeConfig(event)

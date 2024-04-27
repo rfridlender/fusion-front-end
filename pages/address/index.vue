@@ -4,14 +4,13 @@ import { useToast } from "@/components/ui/toast/use-toast"
 import { SquarePlus } from "lucide-vue-next"
 
 definePageMeta({ layout: "protected" })
-const { data, refresh } = await useFetch<Address[]>("/api/address", { 
-    default: () => [],
-})
+
+const { data, refresh } = await useFetch<Address[]>("/api/address", { default: () => [] })
 
 const { toast } = useToast()
 
-const isFormAddressOpen = useState("isFormAddressOpen", () => false)
-const isAddressNew = useState("isAddressNew", () => true)
+const isFormAddressOpen = useState<boolean>("isFormAddressOpen", () => false)
+const isAddressNew = useState<boolean>("isAddressNew", () => true)
 const addressBeingFormed = useState<Address | undefined>("addressBeingFormed")
 
 function onNew() {
@@ -21,14 +20,20 @@ function onNew() {
 }
 
 async function onSubmit(status: string, message: string) {
-    await refresh()
+    try {
+        await refresh()
+    
+        isFormAddressOpen.value = false
+    
+        switch (status) {
+        case "error": toast({ title: message, variant: "destructive" }); break
+        case "success": toast({ title: message }); break
+        default: throw new Error(`Invalid status ${status}`)
+        }
+    } catch (error: any) {
+        console.error(error)
 
-    isFormAddressOpen.value = false
-
-    switch (status) {
-    case "error": toast({ title: message, variant: "destructive" }); break
-    case "success": toast({ title: message }); break
-    default: throw new Error(`Invalid status ${status}`)
+        toast({ title: error.message, variant: "destructive" })
     }
 }
 </script>

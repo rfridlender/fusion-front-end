@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { Ban, LoaderCircle, ShieldCheck } from "lucide-vue-next"
 
-const route = useRoute()
-const messageError = computed(() => route.query["message-error"])
+const messageError = computed(() => useRoute().query["message-error"])
 
 const { handleSubmit, isSubmitting } = useForm({ validationSchema: schemaFormChangePassword })
 
@@ -21,8 +20,8 @@ const onSubmit = handleSubmit(async ({ passwordCurrent, passwordNew }) => {
         console.error(error)
 
         return navigateTo({ 
-            replace: true, 
             query: { "message-error": error.message },
+            replace: true, 
         })
     }
 })
@@ -35,38 +34,49 @@ const onSubmit = handleSubmit(async ({ passwordCurrent, passwordNew }) => {
                 <CardTitle class="text-3xl">
                     Change password
                 </CardTitle>
+
                 <CardDescription class="text-balance text-muted-foreground">
                     Enter your current and new password
                 </CardDescription>
             </CardHeader>
+
             <CardContent class="grid gap-4">
                 <FormField v-slot="{ componentField }" name="passwordCurrent">
                     <FormItem v-auto-animate>
                         <FormLabel>Current Password</FormLabel>
+
                         <FormControl>
                             <FormFieldPassword :component-field="componentField" />
                         </FormControl>
+
                         <FormMessage />
                     </FormItem>
                 </FormField>
+
                 <FormField v-slot="{ componentField }" name="passwordNew">
                     <FormItem v-auto-animate>
                         <FormLabel>New Password</FormLabel>
+
                         <FormControl>
                             <FormFieldPassword :component-field="componentField" />
                         </FormControl>
+
                         <FormMessage />
                     </FormItem>
                 </FormField>
+
                 <FormField v-slot="{ componentField }" name="passwordNewConfirmation">
                     <FormItem v-auto-animate>
                         <FormLabel>Confirm New Password</FormLabel>
+
                         <FormControl>
                             <FormFieldPassword :component-field="componentField" />
                         </FormControl>
+
                         <FormMessage />
                     </FormItem>
                 </FormField>
+
                 <p 
                     v-if="messageError"
                     class="w-full text-balance font-medium text-destructive" 
@@ -75,6 +85,7 @@ const onSubmit = handleSubmit(async ({ passwordCurrent, passwordNew }) => {
                     {{ messageError }}
                 </p>
             </CardContent>
+
             <CardFooter class="flex flex-col gap-4">
                 <Button 
                     class="w-full" 
@@ -85,6 +96,7 @@ const onSubmit = handleSubmit(async ({ passwordCurrent, passwordNew }) => {
                     <LoaderCircle v-else class="size-5 gap-2 mr-2 animate-spin" />
                     Change password
                 </Button>
+
                 <NuxtLink 
                     class="w-full" 
                     :class="{ 'pointer-events-none': isSubmitting }"

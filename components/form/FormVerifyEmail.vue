@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { BadgeCheck, LoaderCircle } from "lucide-vue-next"
 
-const route = useRoute()
-const messageError = computed(() => route.query["message-error"])
+const messageError = computed(() => useRoute().query["message-error"])
 
 const { pending, refresh } = await useAsyncData("sendUserAttributeVerificationCode", async () => {
     try {
@@ -13,9 +12,9 @@ const { pending, refresh } = await useAsyncData("sendUserAttributeVerificationCo
         console.error(error)
         
         return navigateTo({
-            replace: true,
             path: "/sign-in",
             query: { "message-error": error.message },
+            replace: true,
         })
     }
 }, { lazy: true, server: false })
@@ -40,16 +39,16 @@ const onSubmit = handleSubmit(async ({ codeConfirmation }) => {
 
         switch (error.name) {
         case "CodeMismatchException": return navigateTo({ 
-            replace: true, 
             query: { "message-error": error.message },
+            replace: true, 
         })
         default: {
             await useNuxtApp().$Amplify.Auth.signOut()
 
             return navigateTo({ 
-                replace: true, 
                 path: "/sign-in", 
                 query: { "message-error": error.message }, 
+                replace: true, 
             })
         }
         }
@@ -64,10 +63,12 @@ const onSubmit = handleSubmit(async ({ codeConfirmation }) => {
                 <CardTitle class="text-3xl">
                     Verify email
                 </CardTitle>
+
                 <CardDescription class="text-balance text-muted-foreground">
                     Enter the code below that was sent to your email
                 </CardDescription>
             </CardHeader>
+
             <CardContent v-auto-animate class="grid gap-4">
                 <FormField v-slot="{ componentField, value }" name="codeConfirmation">
                     <FormItem>
@@ -93,9 +94,11 @@ const onSubmit = handleSubmit(async ({ codeConfirmation }) => {
                                 </PinInputGroup>
                             </PinInput>
                         </FormControl>
+
                         <FormMessage class="text-center" />
                     </FormItem>
                 </FormField>
+
                 <p 
                     v-if="messageError"
                     class="w-full text-center text-balance font-medium text-destructive" 
@@ -104,6 +107,7 @@ const onSubmit = handleSubmit(async ({ codeConfirmation }) => {
                     {{ messageError }}
                 </p>
             </CardContent>
+
             <CardFooter class="flex flex-col">
                 <Button 
                     class="w-full" 
@@ -114,9 +118,12 @@ const onSubmit = handleSubmit(async ({ codeConfirmation }) => {
                     <LoaderCircle v-else class="size-5 gap-2 mr-2 animate-spin" />
                     Verify email
                 </Button>
+
                 <p v-auto-animate class="w-full flex justify-end items-center gap-1 mt-4 text-sm">
                     <LoaderCircle v-if="pending" class="size-5 animate-spin" />
+
                     Didn't work?
+                    
                     <span 
                         class="underline transition-all hover:text-muted-foreground" 
                         @click="() => refresh()"

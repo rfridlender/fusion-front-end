@@ -32,6 +32,7 @@ const routesProtected = [
                     >
                     <span class="">Home Fusion</span>
                 </NuxtLink>
+
                 <Button
                     variant="outline"
                     size="icon"
@@ -41,6 +42,7 @@ const routesProtected = [
                     <span class="sr-only">Toggle notifications</span>
                 </Button>
             </div>
+            
             <div class="flex-1">
                 <nav class="grid items-start px-2 text-sm font-medium">
                     <NuxtLink 
