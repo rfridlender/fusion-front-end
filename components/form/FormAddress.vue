@@ -1,14 +1,8 @@
 <script setup lang="ts">
-import axios from "axios"
 import { Eraser, LoaderCircle, Save } from "lucide-vue-next"
+import type { Toast } from "@/components/ui/toast/use-toast"
 
-type PropsToast = {
-    title: string
-    description?: string
-    variant: "default" | "destructive" | null | undefined
-}
-
-const emit = defineEmits<{ (_event: "submit", _propsToast: PropsToast): void }>()
+const emit = defineEmits<{ (_event: "submit", _propsToast: Toast): void }>()
 
 const isFormAddressOpen = useState<boolean>("isFormAddressOpen")
 const isAddressNew = useState<boolean>("isAddressNew")
@@ -26,50 +20,37 @@ watch(isFormAddressOpen, (isFormAddressOpenNew) => {
 })
 
 const onSubmit = handleSubmit(async (body) => {
-    if (isAddressNew.value) {
-        try {
-            await axios({ 
-                method: "POST", 
-                url: "/api/address", 
-                data: body,
-            })
+    let request = ""
+    const opts: any = { method: "", body: body }
+    let verb = ""
 
-            emit("submit", { 
-                title: "Address created successfully",
-                variant: "default",
-            })
-        } catch (error: Error) {
-            console.error(error)
-            
-            emit("submit", { 
-                title: "Failed to create address", 
-                description: error.response.data.message,
-                variant: "destructive",
-            })
+    try {
+        if (isAddressNew.value) {
+            request = "/api/address"
+            opts.method = "POST"
+            verb = "created"
+        } else if (addressBeingFormed.value) {
+            opts.method = "PUT"
+            request = `/api/address/${addressBeingFormed.value.addressId}`
+            verb = "updated"
+        } else {
+            throw new Error("Invalid combination of state")
         }
-    } else if (addressBeingFormed.value) {
-        try {
-            await axios({ 
-                method: "PUT", 
-                url: `/api/address/${addressBeingFormed.value.addressId}`, 
-                data: body,
-            })
 
-            emit("submit", {
-                title: "Address updated successfully",
-                variant: "default",
-            })
-        } catch (error: Error) {
-            console.error(error)
+        await $fetch(request, opts)
 
-            emit("submit", { 
-                title: "Failed to update address", 
-                description: error.response.data.message,
-                variant: "destructive",
-            })
-        }
-    } else {
-        throw new Error("Invalid combination of state")
+        emit("submit", { 
+            title: `Address ${verb} successfully`,
+            variant: "default",
+        })
+    } catch (error: Error) {
+        console.error(error)
+        
+        emit("submit", { 
+            title: `Address ${verb} unsuccessfully`,
+            description: error.data.data.message,
+            variant: "destructive",
+        })
     }
 })
 </script>

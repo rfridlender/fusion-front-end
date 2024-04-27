@@ -1,19 +1,19 @@
 <script setup lang="ts">
 import { columns } from "@/components/data-table/columns/address"
-import { useToast } from "@/components/ui/toast/use-toast"
+import { useToast, type Toast } from "@/components/ui/toast/use-toast"
 import { SquarePlus } from "lucide-vue-next"
-
-type PropsToast = {
-    title: string
-    description?: string
-    variant: "default" | "destructive" | null | undefined
-}
 
 definePageMeta({ layout: "protected" })
 
-const { data, refresh } = await useFetch<Address[]>("/api/address", { default: () => [] })
-
 const { toast } = useToast()
+
+const { data, error, refresh } = await useFetch<Address[]>("/api/address", { default: () => [] })
+
+watch(error, (errorNew) => toast({
+    title: "Failed to retrieve addresses", 
+    description: errorNew?.data.message, 
+    variant: "destructive",
+}))
 
 const isFormAddressOpen = useState<boolean>("isFormAddressOpen", () => false)
 const isAddressNew = useState<boolean>("isAddressNew", () => true)
@@ -25,26 +25,16 @@ function onNew() {
     isFormAddressOpen.value = true
 }
 
-async function onSubmit({ title, description, variant}: PropsToast) {
-    try {
-        await refresh()
-    
-        isFormAddressOpen.value = false
+async function onSubmit({ title, description, variant}: Toast) {
+    await refresh()
 
-        toast({ 
-            title: title, 
-            description: description, 
-            variant: variant,
-        })
-    } catch (error: any) {
-        console.error(error)
+    isFormAddressOpen.value = false
 
-        toast({ 
-            title: "Failed to refresh data", 
-            description: error.message, 
-            variant: "destructive",
-        })
-    }
+    toast({ 
+        title: title, 
+        description: description, 
+        variant: variant,
+    })
 }
 </script>
 
