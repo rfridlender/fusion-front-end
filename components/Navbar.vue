@@ -17,9 +17,18 @@ const routesProtected = [
 ]
 
 async function onSignOut() {
-    await useNuxtApp().$Amplify.Auth.signOut()
-    
-    return navigateTo("/sign-in")
+    try {
+        await useNuxtApp().$Amplify.Auth.signOut()
+
+        return navigateTo("/sign-in")
+    } catch (error: any) {
+        console.error(error)
+
+        return navigateTo({
+            path: "/sign-in",
+            query: { "message-error": error.message},
+        })
+    }
 }
 </script>
 

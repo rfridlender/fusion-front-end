@@ -25,11 +25,17 @@ export default defineNuxtPlugin({
                     // If the request is not associated with a valid user session
                     // redirect to the `/sign-in` route.
                     // You can also add route match rules against `to.path`
-                    if (session.tokens === undefined && routesProtected.includes(to.path)) {
+                    if (
+                        session.tokens === undefined && 
+                        (routesProtected.includes(to.path) || to.path === "/")
+                    ) {
                         return navigateTo("/sign-in")
                     }
 
-                    if (session.tokens !== undefined && !routesProtected.includes(to.path)) {
+                    if (
+                        session.tokens !== undefined && 
+                        (!routesProtected.includes(to.path) || to.path === "/")
+                    ) {
                         return navigateTo("/dashboard")
                     }
                 } catch (_) {

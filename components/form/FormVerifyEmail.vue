@@ -3,21 +3,25 @@ import { BadgeCheck, LoaderCircle } from "lucide-vue-next"
 
 const messageError = computed(() => useRoute().query["message-error"])
 
-const { pending, refresh } = await useAsyncData("sendUserAttributeVerificationCode", async () => {
-    try {
-        await useNuxtApp().$Amplify.Auth.sendUserAttributeVerificationCode({ 
-            userAttributeKey: "email",
-        })
-    } catch (error: any) {
-        console.error(error)
-        
-        return navigateTo({
-            path: "/sign-in",
-            query: { "message-error": error.message },
-            replace: true,
-        })
-    }
-}, { lazy: true, server: false })
+const { pending, refresh } = await useAsyncData(
+    "sendUserAttributeVerificationCode", 
+    async () => {
+        try {
+            await useNuxtApp().$Amplify.Auth.sendUserAttributeVerificationCode({ 
+                userAttributeKey: "email",
+            })
+        } catch (error: any) {
+            console.error(error)
+            
+            return navigateTo({
+                path: "/sign-in",
+                query: { "message-error": error.message },
+                replace: true,
+            })
+        }
+    }, 
+    { lazy: true, server: false },
+)
 
 const { handleSubmit, isSubmitting, setValues } = useForm({ 
     validationSchema: schemaFormVerifyEmail,
