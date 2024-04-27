@@ -1,20 +1,7 @@
 <script setup lang="ts">
 import { CircleCheckBig, LoaderCircle } from "lucide-vue-next"
-import { z } from "zod"
 
-const schemaConfirmSignIn = toTypedSchema(z
-    .object({
-        name: nameFull,
-        phoneNumber: phoneNumber,
-        password: password,
-        passwordConfirmation: z.string(),
-    }).refine((data) => data.password === data.passwordConfirmation, {
-        path: ["passwordConfirmation"],
-        message: "Passwords must match",
-    }),
-)
-
-const { handleSubmit, isSubmitting } = useForm({ validationSchema: schemaConfirmSignIn })
+const { handleSubmit, isSubmitting } = useForm({ validationSchema: schemaFormConfirmSignIn })
 
 const onSubmit = handleSubmit(async ({ name, phoneNumber, password }) => {
     try {

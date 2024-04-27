@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { BadgeCheck, LoaderCircle } from "lucide-vue-next"
-import { z } from "zod"
 
 const route = useRoute()
 const messageError = computed(() => route.query["message-error"])
@@ -21,11 +20,9 @@ const { pending, refresh } = await useAsyncData("sendUserAttributeVerificationCo
     }
 }, { lazy: true, server: false })
 
-const schemaVerifyEmail = toTypedSchema(z.object({
-    codeConfirmation: code,
-}))
-
-const { handleSubmit, isSubmitting, setValues } = useForm({ validationSchema: schemaVerifyEmail })
+const { handleSubmit, isSubmitting, setValues } = useForm({ 
+    validationSchema: schemaFormVerifyEmail,
+})
 
 const onSubmit = handleSubmit(async ({ codeConfirmation }) => {
     try {

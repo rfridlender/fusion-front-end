@@ -1,17 +1,12 @@
 <script setup lang="ts">
 import { MailPlus, LoaderCircle } from "lucide-vue-next"
-import { z } from "zod"
 
 const route = useRoute()
 const messageError = computed(() => route.query["message-error"])
 
 const cookieEmail = useCookie("email", { sameSite: true })
 
-const schemaResetPassword = toTypedSchema(z.object({
-    email: email,
-}))
-
-const { handleSubmit, isSubmitting } = useForm({ validationSchema: schemaResetPassword })
+const { handleSubmit, isSubmitting } = useForm({ validationSchema: schemaFormResetPassword })
 
 const onSubmit = handleSubmit(async ({ email }) => {
     try {

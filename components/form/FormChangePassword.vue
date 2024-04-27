@@ -1,20 +1,10 @@
 <script setup lang="ts">
 import { Ban, LoaderCircle, ShieldCheck } from "lucide-vue-next"
-import { z } from "zod"
 
 const route = useRoute()
 const messageError = computed(() => route.query["message-error"])
 
-const schemaConfirmResetPassword = toTypedSchema(z.object({
-    passwordCurrent: password,
-    passwordNew: password,
-    passwordNewConfirmation: z.string(),
-}).refine((data) => data.passwordNew === data.passwordNewConfirmation, {
-    path: ["passwordNewConfirmation"],
-    message: "Passwords must match",
-}))
-
-const { handleSubmit, isSubmitting } = useForm({ validationSchema: schemaConfirmResetPassword })
+const { handleSubmit, isSubmitting } = useForm({ validationSchema: schemaFormChangePassword })
 
 const onSubmit = handleSubmit(async ({ passwordCurrent, passwordNew }) => {
     try {

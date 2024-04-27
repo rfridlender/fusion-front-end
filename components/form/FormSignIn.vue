@@ -1,16 +1,10 @@
 <script setup lang="ts">
 import { LoaderCircle, LogIn } from "lucide-vue-next"
-import { z } from "zod"
 
 const route = useRoute()
 const messageError = computed(() => route.query["message-error"])
 
-const schemaSignIn = toTypedSchema(z.object({
-    email: email,
-    password: password,
-}))
-
-const { handleSubmit, isSubmitting } = useForm({ validationSchema: schemaSignIn })
+const { handleSubmit, isSubmitting } = useForm({ validationSchema: schemaFormSignIn })
 
 const onSubmit = handleSubmit(async ({ email, password }) => {
     try {

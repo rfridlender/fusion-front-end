@@ -1,23 +1,13 @@
 <script setup lang="ts">
 import { LockKeyholeOpen, LoaderCircle } from "lucide-vue-next"
-import { z } from "zod"
 
 const route = useRoute()
 const messageError = computed(() => route.query["message-error"])
 
 const cookieEmail = useCookie("email")
 
-const schemaConfirmResetPassword = toTypedSchema(z.object({
-    codeConfirmation: code,
-    password: password,
-    passwordConfirmation: z.string(),
-}).refine((data) => data.password === data.passwordConfirmation, {
-    path: ["passwordConfirmation"],
-    message: "Passwords must match",
-}))
-
 const { handleSubmit, isSubmitting, setValues } = useForm({ 
-    validationSchema: schemaConfirmResetPassword,
+    validationSchema: schemaFormConfirmResetPassword,
 })
 
 const onSubmit = handleSubmit(async ({ codeConfirmation, password }) => {
