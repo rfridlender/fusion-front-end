@@ -118,8 +118,8 @@ const onSubmit = handleSubmit(async ({ codeConfirmation }) => {
                     type="submit" 
                     :disabled="isSubmitting"
                 >
-                    <BadgeCheck v-if="!isSubmitting" class="size-5 gap-2 mr-2" />
-                    <LoaderCircle v-else class="size-5 gap-2 mr-2 animate-spin" />
+                    <BadgeCheck v-if="!isSubmitting" class="size-5 mr-2" />
+                    <LoaderCircle v-else class="size-5 mr-2 animate-spin" />
                     Verify email
                 </Button>
 

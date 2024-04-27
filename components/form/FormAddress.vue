@@ -167,7 +167,7 @@ const onSubmit = handleSubmit(async (body) => {
                     type="reset" 
                     :disabled="isSubmitting"
                 >
-                    <Eraser v-if="!isSubmitting" class="size-5 gap-2 mr-2" />
+                    <Eraser v-if="!isSubmitting" class="size-5 mr-2" />
                     Clear
                 </Button>
                 
@@ -176,8 +176,8 @@ const onSubmit = handleSubmit(async (body) => {
                     type="submit" 
                     :disabled="isSubmitting"
                 >
-                    <Save v-if="!isSubmitting" class="size-5 gap-2 mr-2" />
-                    <LoaderCircle v-else class="size-5 gap-2 mr-2 animate-spin" />
+                    <Save v-if="!isSubmitting" class="size-5 mr-2" />
+                    <LoaderCircle v-else class="size-5 mr-2 animate-spin" />
                     Save
                 </Button>
             </SheetFooter>

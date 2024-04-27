@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Moon, Sun } from "lucide-vue-next"
+import { Computer, Moon, Sun } from "lucide-vue-next"
 
 const colorMode = useColorMode()
 </script>
@@ -28,14 +28,17 @@ const colorMode = useColorMode()
 
         <DropdownMenuContent align="end">
             <DropdownMenuItem @click="colorMode.preference = 'light'">
+                <Sun class="size-5 mr-2" />
                 Light
             </DropdownMenuItem>
-
+            
             <DropdownMenuItem @click="colorMode.preference = 'dark'">
+                <Moon class="size-5 mr-2" />
                 Dark
             </DropdownMenuItem>
             
             <DropdownMenuItem @click="colorMode.preference = 'system'">
+                <Computer class="size-5 mr-2" />
                 System
             </DropdownMenuItem>
         </DropdownMenuContent>

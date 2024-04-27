@@ -47,7 +47,7 @@ async function onSubmit(status: string, message: string) {
                 </h1>
 
                 <Button @click="onNew">
-                    <SquarePlus class="size-5 gap-2 mr-2" />
+                    <SquarePlus class="size-5 mr-2" />
                     New address
                 </Button>              
             </div>

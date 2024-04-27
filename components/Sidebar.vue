@@ -30,6 +30,7 @@ const routesProtected = [
                         src="/assets/home-fusion-logo.png"
                         alt="Modern House"
                     >
+                    
                     <span class="">Home Fusion</span>
                 </NuxtLink>
 

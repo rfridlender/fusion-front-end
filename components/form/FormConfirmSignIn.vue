@@ -111,8 +111,8 @@ const onSubmit = handleSubmit(async ({ name, phoneNumber, password }) => {
                     type="submit" 
                     :disabled="isSubmitting"
                 >
-                    <CircleCheckBig v-if="!isSubmitting" class="size-5 gap-2 mr-2" />
-                    <LoaderCircle v-else class="size-5 gap-2 mr-2 animate-spin" />
+                    <CircleCheckBig v-if="!isSubmitting" class="size-5 mr-2" />
+                    <LoaderCircle v-else class="size-5 mr-2 animate-spin" />
                     Confirm sign in
                 </Button>
             </CardFooter>

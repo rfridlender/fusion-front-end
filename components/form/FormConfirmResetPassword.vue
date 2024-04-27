@@ -138,8 +138,8 @@ const onSubmit = handleSubmit(async ({ codeConfirmation, password }) => {
                     type="submit" 
                     :disabled="isSubmitting"
                 >
-                    <LockKeyholeOpen v-if="!isSubmitting" class="size-5 gap-2 mr-2" />
-                    <LoaderCircle v-else class="size-5 gap-2 mr-2 animate-spin" />
+                    <LockKeyholeOpen v-if="!isSubmitting" class="size-5 mr-2" />
+                    <LoaderCircle v-else class="size-5 mr-2 animate-spin" />
                     Reset password
                 </Button>
                 

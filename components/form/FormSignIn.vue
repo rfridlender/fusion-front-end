@@ -88,8 +88,8 @@ const onSubmit = handleSubmit(async ({ email, password }) => {
                     type="submit" 
                     :disabled="isSubmitting"
                 >
-                    <LogIn v-if="!isSubmitting" class="size-5 gap-2 mr-2" />
-                    <LoaderCircle v-else class="size-5 gap-2 mr-2 animate-spin" />
+                    <LogIn v-if="!isSubmitting" class="size-5 mr-2" />
+                    <LoaderCircle v-else class="size-5 mr-2 animate-spin" />
                     Sign in
                 </Button>
                 

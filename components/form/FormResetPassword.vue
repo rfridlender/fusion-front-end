@@ -74,8 +74,8 @@ const onSubmit = handleSubmit(async ({ email }) => {
                     type="submit" 
                     :disabled="isSubmitting"
                 >
-                    <MailPlus v-if="!isSubmitting" class="size-5 gap-2 mr-2" />
-                    <LoaderCircle v-else class="size-5 gap-2 mr-2 animate-spin" />
+                    <MailPlus v-if="!isSubmitting" class="size-5 mr-2" />
+                    <LoaderCircle v-else class="size-5 mr-2 animate-spin" />
                     Request reset link
                 </Button>
 
