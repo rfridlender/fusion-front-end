@@ -3,6 +3,12 @@ import { columns } from "@/components/data-table/columns/address"
 import { useToast } from "@/components/ui/toast/use-toast"
 import { SquarePlus } from "lucide-vue-next"
 
+type PropsToast = {
+    title: string
+    description?: string
+    variant: "default" | "destructive" | null | undefined
+}
+
 definePageMeta({ layout: "protected" })
 
 const { data, refresh } = await useFetch<Address[]>("/api/address", { default: () => [] })
@@ -19,21 +25,25 @@ function onNew() {
     isFormAddressOpen.value = true
 }
 
-async function onSubmit(status: string, message: string) {
+async function onSubmit({ title, description, variant}: PropsToast) {
     try {
         await refresh()
     
         isFormAddressOpen.value = false
-    
-        switch (status) {
-        case "error": toast({ title: message, variant: "destructive" }); break
-        case "success": toast({ title: message }); break
-        default: throw new Error(`Invalid status ${status}`)
-        }
+
+        toast({ 
+            title: title, 
+            description: description, 
+            variant: variant,
+        })
     } catch (error: any) {
         console.error(error)
 
-        toast({ title: error.message, variant: "destructive" })
+        toast({ 
+            title: "Failed to refresh data", 
+            description: error.message, 
+            variant: "destructive",
+        })
     }
 }
 </script>
