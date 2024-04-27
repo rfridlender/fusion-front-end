@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { columns } from "~/components/data-table/columns/address"
+import { columns } from "@/components/data-table/columns/address"
 import { useToast } from "@/components/ui/toast/use-toast"
 import { SquarePlus } from "lucide-vue-next"
 

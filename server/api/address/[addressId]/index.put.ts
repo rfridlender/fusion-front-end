@@ -1,5 +1,5 @@
 import { fetchAuthSession } from "aws-amplify/auth/server"
-import { runAmplifyApi } from "~/server/utils/amplify-utils"
+import { runAmplifyApi } from "@/server/utils/amplify-utils"
 import type { Address } from "@/utils/schemas"
 
 export default defineEventHandler(async (event) => {
