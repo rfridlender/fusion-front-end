@@ -22,8 +22,10 @@ const columns = computed(() => props.table.getAllColumns().filter(column => {
                 View
             </Button>
         </DropdownMenuTrigger>
+
         <DropdownMenuContent class="w-40" align="end">
             <DropdownMenuLabel>Toggle columns</DropdownMenuLabel>
+
             <DropdownMenuSeparator />
 
             <DropdownMenuCheckboxItem

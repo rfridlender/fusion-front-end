@@ -4,8 +4,8 @@ import { Check, CirclePlus } from "lucide-vue-next"
 import { computed } from "vue"
 
 const props = defineProps<{
-    column?: Column<TData, TValue>
-    title?: string
+    column: Column<TData, TValue>
+    title: string
 }>()
 
 const facets = computed(() => props.column?.getFacetedUniqueValues())
@@ -15,9 +15,7 @@ const options = computed(() => {
         return []
     } 
     
-    return [...facets.value.keys()].map(facet => { 
-        return { label: facet, value: facet } },
-    )
+    return [...facets.value.keys()].map(facet => ({ label: facet, value: facet }))
 })
 
 const selectedValues = computed(() => new Set(props.column?.getFilterValue() as string[]))
@@ -32,15 +30,19 @@ const selectedValues = computed(() => new Set(props.column?.getFilterValue() as 
                 class="h-8 border-dashed"
             >
                 <CirclePlus class="mr-2 size-4" />
+
                 {{ title }}
+
                 <template v-if="selectedValues.size > 0">
                     <Separator orientation="vertical" class="mx-2 h-4" />
+
                     <Badge
                         variant="secondary"
                         class="rounded-sm px-1 font-normal lg:hidden"
                     >
                         {{ selectedValues.size }}
                     </Badge>
+
                     <div class="hidden space-x-1 lg:flex">
                         <Badge
                             v-if="selectedValues.size > 2"
@@ -65,14 +67,17 @@ const selectedValues = computed(() => new Set(props.column?.getFilterValue() as 
                 </template>
             </Button>
         </PopoverTrigger>
+
         <PopoverContent class="w-48 p-0" align="start">
             <Command
                 :filterfunction="(list: any[], term: string) => list
                     .filter(e => e.label.toLowerCase()?.includes(term))"
             >
                 <CommandInput :placeholder="title" />
+
                 <CommandList>
                     <CommandEmpty>No results found.</CommandEmpty>
+
                     <CommandGroup>
                         <CommandItem
                             v-for="option in options"
@@ -104,7 +109,9 @@ const selectedValues = computed(() => new Set(props.column?.getFilterValue() as 
                             >
                                 <Check :class="cn('size-4')" />
                             </div>
+
                             <span>{{ option.label }}</span>
+
                             <span 
                                 v-if="facets?.get(option.value)" 
                                 class="ml-auto flex items-center justify-center 
@@ -117,6 +124,7 @@ const selectedValues = computed(() => new Set(props.column?.getFilterValue() as 
 
                     <template v-if="selectedValues.size > 0">
                         <CommandSeparator />
+                        
                         <CommandGroup>
                             <CommandItem
                                 class="justify-center text-center"

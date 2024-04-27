@@ -11,6 +11,7 @@ defineProps<{ table: Table<TData> }>()
             <p class="hidden text-sm font-medium md:block">
                 Rows per page
             </p>
+
             <Select
                 :model-value="`${table.getState().pagination.pageSize}`"
                 @update:model-value="table.setPageSize"
@@ -18,6 +19,7 @@ defineProps<{ table: Table<TData> }>()
                 <SelectTrigger class="h-8 w-[70px]">
                     <SelectValue :placeholder="`${table.getState().pagination.pageSize}`" />
                 </SelectTrigger>
+
                 <SelectContent side="top">
                     <SelectItem 
                         v-for="pageSize in [10, 20, 30, 40, 50]" 
@@ -29,11 +31,13 @@ defineProps<{ table: Table<TData> }>()
                 </SelectContent>
             </Select>
         </div>
+
         <div class="flex items-center space-x-6 lg:space-x-8">
             <div class="flex w-[100px] items-center justify-center text-sm font-medium">
                 Page {{ table.getState().pagination.pageIndex + 1 }} of
                 {{ table.getPageCount() }}
             </div>
+
             <div class="flex items-center space-x-2">
                 <Button
                     class="hidden size-8 p-0 lg:flex"
@@ -44,6 +48,7 @@ defineProps<{ table: Table<TData> }>()
                     <span class="sr-only">Go to first page</span>
                     <ChevronsLeft class="size-4" />
                 </Button>
+
                 <Button
                     variant="outline"
                     class="size-8 p-0"
@@ -53,6 +58,7 @@ defineProps<{ table: Table<TData> }>()
                     <span class="sr-only">Go to previous page</span>
                     <ChevronLeft class="size-4" />
                 </Button>
+
                 <Button
                     variant="outline"
                     class="size-8 p-0"
@@ -62,6 +68,7 @@ defineProps<{ table: Table<TData> }>()
                     <span class="sr-only">Go to next page</span>
                     <ChevronRight class="size-4" />
                 </Button>
+                
                 <Button
                     variant="outline"
                     class="hidden size-8 p-0 lg:flex"

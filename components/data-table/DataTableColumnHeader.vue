@@ -27,16 +27,20 @@ export default { inheritAttrs: false }
                     <ArrowUpDown v-else class="size-4 ml-2" />
                 </Button>
             </DropdownMenuTrigger>
+
             <DropdownMenuContent align="start">
                 <DropdownMenuItem @click="column.toggleSorting(false)">
                     <MoveUp class="mr-2 size-3.5 text-muted-foreground/70" />
                     Asc
                 </DropdownMenuItem>
+
                 <DropdownMenuItem @click="column.toggleSorting(true)">
                     <MoveDown class="mr-2 size-3.5 text-muted-foreground/70" />
                     Desc
                 </DropdownMenuItem>
+
                 <DropdownMenuSeparator />
+                
                 <DropdownMenuItem @click="column.toggleVisibility(false)">
                     <EyeOff class="mr-2 size-3.5 text-muted-foreground/70" />
                     Hide

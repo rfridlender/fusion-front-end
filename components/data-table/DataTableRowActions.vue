@@ -37,16 +37,20 @@ function onDuplicate() {
                 <span class="sr-only">Open menu</span>
             </Button>
         </DropdownMenuTrigger>
+
         <DropdownMenuContent class="w-40" align="end">
             <DropdownMenuItem @click="onEdit">
                 <Pencil class="mr-2 size-4" />
                 <span>Edit</span>
             </DropdownMenuItem>
+
             <DropdownMenuItem @click="onDuplicate">
                 <Copy class="mr-2 size-4" />
                 <span>Duplicate</span>
             </DropdownMenuItem>
+
             <DropdownMenuSeparator />
+            
             <DropdownMenuItem>
                 Delete
                 <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>

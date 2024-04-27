@@ -2,9 +2,7 @@
 import { Eye, EyeOff } from "lucide-vue-next"
 import type { ComponentFieldBindingObject } from "vee-validate"
 
-const props = defineProps<{
-    componentField: ComponentFieldBindingObject<any>
-}>()
+const props = defineProps<{ componentField: ComponentFieldBindingObject<any> }>()
 
 const isPasswordVisible = useState(props.componentField.name, () => false)
 </script>
@@ -16,6 +14,7 @@ const isPasswordVisible = useState(props.componentField.name, () => false)
             placeholder="••••••••" 
             v-bind="props.componentField" 
         />
+
         <span 
             v-auto-animate
             class="absolute end-0 inset-y-0 flex items-center justify-center px-2"
@@ -25,6 +24,7 @@ const isPasswordVisible = useState(props.componentField.name, () => false)
                 class="size-6 transition-all opacity-50 hover:opacity-100"
                 @click="isPasswordVisible = true"
             />
+            
             <EyeOff
                 v-else
                 v-auto-animate
