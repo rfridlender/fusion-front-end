@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Eraser, LoaderCircle, Save } from "lucide-vue-next"
 import type { Toast } from "@/components/ui/toast/use-toast"
+import { Eraser, LoaderCircle, Save } from "lucide-vue-next"
 
 const emit = defineEmits<{ (_event: "postSubmit", _propsToast: Toast): void }>()
 
@@ -48,7 +48,7 @@ const onSubmit = handleSubmit(async (body) => {
         
         emit("postSubmit", { 
             title: `Address ${verb} unsuccessfully`,
-            description: error.data.data.message,
+            description: error.data.message,
             variant: "destructive",
         })
     }
