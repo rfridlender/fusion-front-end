@@ -45,15 +45,19 @@ const objectAddress = z.object({
 export type Address = z.infer<typeof objectAddress>
 export const schemaAddress = toTypedSchema(objectAddress)
 
-const objectDialogAddress = z.object({
-    streetOne: z.string(),
-    streetOneConfirmation: z.string(),
-}).refine((data) => data.streetOne === data.streetOneConfirmation, {
-    path: ["streetOneConfirmation"],
-    message: "Address must match",
+const objectPerson = z.object({
+    personId: z.string().uuid(),
+    firstName: z.string(),
+    lastName: z.string(),
+    phoneNumber: z.string()
+        .regex(REGEX_PHONE_NUMBER, "Invalid format (ex. +12223334444)")
+        .nullish(),
+    email: z.string().email().nullish(),
+    personUpdatedBy: z.string().uuid(),
+    personUpdatedAt: z.string().datetime(),
 })
-export type DialogAddress = z.infer<typeof objectDialogAddress>
-export const schemaDialogAddress = toTypedSchema(objectDialogAddress)
+export type Person = z.infer<typeof objectPerson>
+export const schemaPerson = toTypedSchema(objectPerson)
 
 const objectFormAddress = z.object({
     streetOne: z.string(),
@@ -100,6 +104,17 @@ const objectFormConfirmSignIn = z.object({
 })
 export type FormConfirmSignIn = z.infer<typeof objectFormConfirmSignIn>
 export const schemaFormConfirmSignIn = toTypedSchema(objectFormConfirmSignIn)
+
+const objectFormPerson = z.object({
+    firstName: z.string(),
+    lastName: z.string(),
+    phoneNumber: z.string()
+        .regex(REGEX_PHONE_NUMBER, "Invalid format (ex. +12223334444)")
+        .nullish(),
+    email: z.string().email().nullish(),
+})
+export type FormPerson = z.infer<typeof objectFormPerson>
+export const schemaFormPerson = toTypedSchema(objectFormPerson)
 
 const objectFormResetPassword = z.object({ email: email })
 export type FormResetPassword = z.infer<typeof objectFormResetPassword>

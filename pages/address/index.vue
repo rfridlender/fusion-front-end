@@ -13,13 +13,18 @@ const isFormAddressOpen = useState<boolean>("isFormAddressOpen", () => false)
 const isAddressNew = useState<boolean>("isAddressNew", () => true)
 const addressBeingFormed = useState<Address | undefined>("addressBeingFormed")
 
-const isDialogAddressOpen = useState("isDialogAddressOpen", () => false)
+const isDialogDeleteAddressOpen = useState<boolean>("isDialogDeleteAddressOpen", () => false)
 
 watch(error, (errorNew) => toast({
     title: "Failed to retrieve addresses", 
     description: errorNew?.data.message, 
     variant: "destructive",
 }))
+
+const filters = [
+    { columnId: "city", title: "City" },
+    { columnId: "state", title: "State" },
+]
 
 function onNew() {
     addressBeingFormed.value = undefined
@@ -29,7 +34,7 @@ function onNew() {
 
 async function onPostSubmit({ title, description, variant }: Toast) {
     isFormAddressOpen.value = false
-    isDialogAddressOpen.value = false
+    isDialogDeleteAddressOpen.value = false
 
     toast({ 
         title: title, 
@@ -55,15 +60,26 @@ async function onPostSubmit({ title, description, variant }: Toast) {
                 </Button>              
             </div>
             
-            <DataTable :data="data" :columns="columns" />
+            <DataTable 
+                :data="data" 
+                :columns="columns" 
+                search-column-id="streetOne"
+                :filters="filters" 
+            />
         </div>
 
         <Sheet v-model:open="isFormAddressOpen">
             <FormAddress @post-submit="onPostSubmit" />
         </Sheet>
 
-        <Dialog v-model:open="isDialogAddressOpen">
-            <DialogDeleteAddress @post-submit="onPostSubmit" />
+        <Dialog v-model:open="isDialogDeleteAddressOpen">
+            <DialogDeleteModel 
+                is-dialog-delete-model-open-key="isDialogDeleteAddressOpen"
+                model-being-deleted-key="addressBeingDeleted"
+                input-key="streetOne"
+                model-name="address"
+                @post-submit="onPostSubmit" 
+            />
         </Dialog>
     </main>
 </template>
