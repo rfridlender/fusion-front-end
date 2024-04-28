@@ -1,17 +1,22 @@
 <script setup lang="ts" generic="TData">
 import type { Row } from "@tanstack/vue-table"
-import { Copy, MoreHorizontal, Pencil } from "lucide-vue-next"
+import { Copy, MoreHorizontal, Pencil, Trash } from "lucide-vue-next"
 
 const props = defineProps<{ 
     row: Row<TData>
     isFormModelOpenKey: string
     isModelNewKey: string
     modelBeingFormedKey: string
+    isDialogModelOpenKey: string
+    modelBeingDeletedKey: string
 }>()
 
 const isFormModelOpen = useState<boolean>(props.isFormModelOpenKey)
 const isModelNew = useState<boolean>(props.isModelNewKey)
 const modelBeingFormed = useState<TData | undefined>(props.modelBeingFormedKey)
+
+const isDialogModelOpen = useState<boolean>(props.isDialogModelOpenKey)
+const modelBeingDeleted = useState<TData | undefined>(props.modelBeingDeletedKey)
 
 function onEdit() {
     modelBeingFormed.value = props.row.original
@@ -23,6 +28,11 @@ function onDuplicate() {
     modelBeingFormed.value = props.row.original
     isModelNew.value = true
     isFormModelOpen.value = true
+}
+
+function onDelete() {
+    modelBeingDeleted.value = props.row.original
+    isDialogModelOpen.value = true
 }
 </script>
 
@@ -50,10 +60,9 @@ function onDuplicate() {
             </DropdownMenuItem>
 
             <DropdownMenuSeparator />
-            
-            <DropdownMenuItem>
-                Delete
-                <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
+            <DropdownMenuItem @click="onDelete">
+                <Trash class="mr-2 size-4" />
+                <span>Delete</span>
             </DropdownMenuItem>
         </DropdownMenuContent>
     </DropdownMenu>

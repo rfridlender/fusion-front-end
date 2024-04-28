@@ -2,7 +2,7 @@
 import { Eraser, LoaderCircle, Save } from "lucide-vue-next"
 import type { Toast } from "@/components/ui/toast/use-toast"
 
-const emit = defineEmits<{ (_event: "submit", _propsToast: Toast): void }>()
+const emit = defineEmits<{ (_event: "postSubmit", _propsToast: Toast): void }>()
 
 const isFormAddressOpen = useState<boolean>("isFormAddressOpen")
 const isAddressNew = useState<boolean>("isAddressNew")
@@ -39,14 +39,14 @@ const onSubmit = handleSubmit(async (body) => {
 
         await $fetch(request, opts)
 
-        emit("submit", { 
+        emit("postSubmit", { 
             title: `Address ${verb} successfully`,
             variant: "default",
         })
     } catch (error: Error) {
         console.error(error)
         
-        emit("submit", { 
+        emit("postSubmit", { 
             title: `Address ${verb} unsuccessfully`,
             description: error.data.data.message,
             variant: "destructive",

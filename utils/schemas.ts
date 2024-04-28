@@ -45,6 +45,16 @@ const objectAddress = z.object({
 export type Address = z.infer<typeof objectAddress>
 export const schemaAddress = toTypedSchema(objectAddress)
 
+const objectDialogAddress = z.object({
+    streetOne: z.string(),
+    streetOneConfirmation: z.string(),
+}).refine((data) => data.streetOne === data.streetOneConfirmation, {
+    path: ["streetOneConfirmation"],
+    message: "Address must match",
+})
+export type DialogAddress = z.infer<typeof objectDialogAddress>
+export const schemaDialogAddress = toTypedSchema(objectDialogAddress)
+
 const objectFormAddress = z.object({
     streetOne: z.string(),
     streetTwo: z.string().nullish(),
