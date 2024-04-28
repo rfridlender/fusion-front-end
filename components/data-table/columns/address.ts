@@ -48,6 +48,8 @@ export const columns: ColumnDef<Address>[] = [
             isFormModelOpenKey: "isFormAddressOpen", 
             isModelNewKey: "isAddressNew", 
             modelBeingFormedKey: "addressBeingFormed", 
+            isDialogModelOpenKey: "isDialogAddressOpen",
+            modelBeingDeletedKey: "addressBeingDeleted",
         }),
     },
 ]

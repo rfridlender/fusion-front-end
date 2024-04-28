@@ -13,6 +13,8 @@ const isFormAddressOpen = useState<boolean>("isFormAddressOpen", () => false)
 const isAddressNew = useState<boolean>("isAddressNew", () => true)
 const addressBeingFormed = useState<Address | undefined>("addressBeingFormed")
 
+const isDialogAddressOpen = useState("isDialogAddressOpen", () => false)
+
 watch(error, (errorNew) => toast({
     title: "Failed to retrieve addresses", 
     description: errorNew?.data.message, 
@@ -25,16 +27,17 @@ function onNew() {
     isFormAddressOpen.value = true
 }
 
-async function onSubmit({ title, description, variant }: Toast) {
-    await refresh()
-
+async function onPostSubmit({ title, description, variant }: Toast) {
     isFormAddressOpen.value = false
+    isDialogAddressOpen.value = false
 
     toast({ 
         title: title, 
         description: description, 
         variant: variant,
     })
+
+    await refresh()
 }
 </script>
 
@@ -56,7 +59,11 @@ async function onSubmit({ title, description, variant }: Toast) {
         </div>
 
         <Sheet v-model:open="isFormAddressOpen">
-            <FormAddress @submit="onSubmit" />
+            <FormAddress @post-submit="onPostSubmit" />
         </Sheet>
+
+        <Dialog v-model:open="isDialogAddressOpen">
+            <DialogDeleteAddress @post-submit="onPostSubmit" />
+        </Dialog>
     </main>
 </template>
