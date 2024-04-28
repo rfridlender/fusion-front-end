@@ -3,7 +3,14 @@ import type { Table } from "@tanstack/vue-table"
 import { X } from "lucide-vue-next"
 import { computed } from "vue"
 
-const props = defineProps<{ table: Table<TData> }>()
+const props = defineProps<{ 
+    table: Table<TData>
+    searchColumnId: string
+    filters: { 
+        columnId: string
+        title: string 
+    }[]
+}>()
     
 const isFiltered = computed(() => props.table.getState().columnFilters.length > 0)
 </script>
@@ -14,20 +21,15 @@ const isFiltered = computed(() => props.table.getState().columnFilters.length > 
             <Input
                 class="h-8 w-40 lg:w-60"
                 placeholder="Search..."
-                :model-value="(table.getColumn('streetOne')?.getFilterValue() as string) ?? ''"
-                @input="table.getColumn('streetOne')?.setFilterValue($event.target.value)"
+                :model-value="(table.getColumn(searchColumnId)?.getFilterValue() as string) ?? ''"
+                @input="table.getColumn(searchColumnId)?.setFilterValue($event.target.value)"
             />
 
             <DataTableFacetedFilter
-                v-if="table.getColumn('city')"
-                :column="table.getColumn('city')"
-                title="City"
-            />
-
-            <DataTableFacetedFilter
-                v-if="table.getColumn('state')"
-                :column="table.getColumn('state')"
-                title="State"
+                v-for="filter in filters"
+                :key="filter.columnId"
+                :column="table.getColumn(filter.columnId)"
+                :title="filter.title"
             />
             
             <Button

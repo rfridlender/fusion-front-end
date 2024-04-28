@@ -7,7 +7,7 @@ const props = defineProps<{
     isFormModelOpenKey: string
     isModelNewKey: string
     modelBeingFormedKey: string
-    isDialogModelOpenKey: string
+    isDialogDeleteModelOpenKey: string
     modelBeingDeletedKey: string
 }>()
 
@@ -15,7 +15,7 @@ const isFormModelOpen = useState<boolean>(props.isFormModelOpenKey)
 const isModelNew = useState<boolean>(props.isModelNewKey)
 const modelBeingFormed = useState<TData | undefined>(props.modelBeingFormedKey)
 
-const isDialogModelOpen = useState<boolean>(props.isDialogModelOpenKey)
+const isDialogDeleteModelOpen = useState<boolean>(props.isDialogDeleteModelOpenKey)
 const modelBeingDeleted = useState<TData | undefined>(props.modelBeingDeletedKey)
 
 function onEdit() {
@@ -32,7 +32,7 @@ function onDuplicate() {
 
 function onDelete() {
     modelBeingDeleted.value = props.row.original
-    isDialogModelOpen.value = true
+    isDialogDeleteModelOpen.value = true
 }
 </script>
 

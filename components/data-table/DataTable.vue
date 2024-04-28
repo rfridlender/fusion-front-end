@@ -20,6 +20,11 @@ import {
 const props = defineProps<{
     data: TData[]
     columns: ColumnDef<TData, TValue>[]
+    searchColumnId: string
+    filters: { 
+        columnId: string
+        title: string 
+    }[]
 }>()
 
 const columnFilters = ref<ColumnFiltersState>([])
@@ -48,7 +53,11 @@ const table = useVueTable({
 
 <template>
     <div class="h-full flex flex-col border-t bg-background">
-        <DataTableToolbar :table="table" />
+        <DataTableToolbar 
+            :table="table" 
+            :search-column-id="searchColumnId" 
+            :filters="filters" 
+        />
         
         <div class="h-[calc(100vh-321px)] bg-background">
             <Table>
