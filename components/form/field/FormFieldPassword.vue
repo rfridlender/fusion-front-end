@@ -4,7 +4,7 @@ import type { ComponentFieldBindingObject } from "vee-validate"
 
 const props = defineProps<{ componentField: ComponentFieldBindingObject<any> }>()
 
-const isPasswordVisible = useState(props.componentField.name, () => false)
+const isPasswordVisible = useState<boolean>(props.componentField.name, () => false)
 </script>
 
 <template>

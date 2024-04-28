@@ -9,15 +9,15 @@ const { toast } = useToast()
 
 const { data, error, refresh } = await useFetch<Address[]>("/api/address", { default: () => [] })
 
+const isFormAddressOpen = useState<boolean>("isFormAddressOpen", () => false)
+const isAddressNew = useState<boolean>("isAddressNew", () => true)
+const addressBeingFormed = useState<Address | undefined>("addressBeingFormed")
+
 watch(error, (errorNew) => toast({
     title: "Failed to retrieve addresses", 
     description: errorNew?.data.message, 
     variant: "destructive",
 }))
-
-const isFormAddressOpen = useState<boolean>("isFormAddressOpen", () => false)
-const isAddressNew = useState<boolean>("isAddressNew", () => true)
-const addressBeingFormed = useState<Address | undefined>("addressBeingFormed")
 
 function onNew() {
     addressBeingFormed.value = undefined
@@ -25,7 +25,7 @@ function onNew() {
     isFormAddressOpen.value = true
 }
 
-async function onSubmit({ title, description, variant}: Toast) {
+async function onSubmit({ title, description, variant }: Toast) {
     await refresh()
 
     isFormAddressOpen.value = false
