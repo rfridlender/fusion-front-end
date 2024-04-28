@@ -8,7 +8,6 @@ export const columns: ColumnDef<Person>[] = [
         accessorKey: "firstName",
         header: ({ column }) => h(DataTableColumnHeader, { column: column, title: "First Name" }),
         cell: ({ row }) => h("div", { class: "text-left font-medium" }, row.getValue("firstName")),
-        filterFn: (row, id, value) => value.includes(row.getValue(id)),
     },
     {
         accessorKey: "lastName",
