@@ -5,6 +5,7 @@ export const routesProtected = [
     "/change-password",
     "/dashboard",
     "/person",
+    "/vendor",
     "/verify-email",
 ]
 

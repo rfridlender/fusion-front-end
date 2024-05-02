@@ -1,5 +1,14 @@
 <script setup lang="ts">
-import { CircleUser, Home, KeyRound, LayoutDashboard, LogOut, Menu, User } from "lucide-vue-next"
+import { 
+    CircleUser, 
+    Home, 
+    KeyRound, 
+    LayoutDashboard, 
+    LogOut, 
+    Menu, 
+    Store, 
+    User,
+} from "lucide-vue-next"
 
 const route = useRoute()
 
@@ -18,6 +27,11 @@ const routesProtected = [
         displayText: "Person",
         path: "/person",
         icon: User,
+    },
+    {
+        displayText: "Vendor",
+        path: "/vendor",
+        icon: Store,
     },
 ]
 

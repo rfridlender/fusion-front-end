@@ -59,6 +59,17 @@ const objectPerson = z.object({
 export type Person = z.infer<typeof objectPerson>
 export const schemaPerson = toTypedSchema(objectPerson)
 
+const objectVendor = z.object({
+    vendorId: z.string().uuid(),
+    vendorName: z.string(),
+    contact: objectPerson,
+    address: objectAddress,
+    vendorUpdatedBy: z.string().uuid(),
+    vendorUpdatedAt: z.string().datetime(),
+})
+export type Vendor = z.infer<typeof objectVendor>
+export const schemaVendor = toTypedSchema(objectVendor)
+
 const objectFormAddress = z.object({
     streetOne: z.string(),
     streetTwo: z.string().nullish(),
@@ -115,6 +126,14 @@ const objectFormPerson = z.object({
 })
 export type FormPerson = z.infer<typeof objectFormPerson>
 export const schemaFormPerson = toTypedSchema(objectFormPerson)
+
+const objectFormVendor = z.object({
+    vendorName: z.string(),
+    contactId: z.string().uuid(),
+    addressId: z.string().uuid(),
+})
+export type FormVendor = z.infer<typeof objectFormVendor>
+export const schemaFormVendor = toTypedSchema(objectFormVendor)
 
 const objectFormResetPassword = z.object({ email: email })
 export type FormResetPassword = z.infer<typeof objectFormResetPassword>
