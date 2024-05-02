@@ -64,8 +64,7 @@ async function onClick() {
         <DialogHeader>
             <DialogTitle>
                 Delete {{ modelName }} 
-                <i>{{ modelBeingDeleted && modelBeingDeleted[inputKey] }}</i>
-                ?
+                <i>{{ modelBeingDeleted && modelBeingDeleted[inputKey] }}</i>?
             </DialogTitle>
         </DialogHeader>
 

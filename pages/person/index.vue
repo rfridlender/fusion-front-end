@@ -9,17 +9,18 @@ const { toast } = useToast()
 
 const { data, error, refresh } = await useFetch<Person[]>("/api/person", { default: () => [] })
 
+watch(error, (errorNew) => toast({
+    title: "Failed to retrieve persons", 
+    description: errorNew?.data.message, 
+    variant: "destructive",
+}))
+
 const isFormPersonOpen = useState<boolean>("isFormPersonOpen", () => false)
 const isPersonNew = useState<boolean>("isPersonNew", () => true)
 const personBeingFormed = useState<Person | undefined>("personBeingFormed")
 
 const isDialogDeletePersonOpen = useState<boolean>("isDialogDeletePersonOpen", () => false)
 
-watch(error, (errorNew) => toast({
-    title: "Failed to retrieve persons", 
-    description: errorNew?.data.message, 
-    variant: "destructive",
-}))
 
 const filters = [{ columnId: "lastName", title: "Last Name" }]
 

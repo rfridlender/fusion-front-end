@@ -9,17 +9,17 @@ const { toast } = useToast()
 
 const { data, error, refresh } = await useFetch<Address[]>("/api/address", { default: () => [] })
 
-const isFormAddressOpen = useState<boolean>("isFormAddressOpen", () => false)
-const isAddressNew = useState<boolean>("isAddressNew", () => true)
-const addressBeingFormed = useState<Address | undefined>("addressBeingFormed")
-
-const isDialogDeleteAddressOpen = useState<boolean>("isDialogDeleteAddressOpen", () => false)
-
 watch(error, (errorNew) => toast({
     title: "Failed to retrieve addresses", 
     description: errorNew?.data.message, 
     variant: "destructive",
 }))
+
+const isFormAddressOpen = useState<boolean>("isFormAddressOpen", () => false)
+const isAddressNew = useState<boolean>("isAddressNew", () => true)
+const addressBeingFormed = useState<Address | undefined>("addressBeingFormed")
+
+const isDialogDeleteAddressOpen = useState<boolean>("isDialogDeleteAddressOpen", () => false)
 
 const filters = [
     { columnId: "city", title: "City" },

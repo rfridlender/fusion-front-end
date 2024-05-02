@@ -3,6 +3,7 @@ import { Check, ChevronsUpDown } from "lucide-vue-next"
 
 defineProps<{
     name: string
+    placeholder?: string
     options: { label: string, value: string }[],
     setValues: (_fields: PartialObjectDeep<PartialObjectDeep<any, any>, any>) => void
     values: PartialObjectDeep<any, any>
@@ -20,7 +21,7 @@ defineProps<{
                 >
                     {{ values[name] ? options.find((option) => 
                         option.value === values[name],
-                    )?.label : `Select ${name}...` }}
+                    )?.label : `Select ${placeholder || name}...` }}
                     <ChevronsUpDown class="ml-2 size-4 shrink-0 opacity-50" />
                 </Button>
             </FormControl>
@@ -28,7 +29,7 @@ defineProps<{
 
         <PopoverContent class="w-full p-0">
             <Command>
-                <CommandInput :placeholder="`Select ${name}...`" />
+                <CommandInput :placeholder="`Select ${placeholder || name}...`" />
 
                 <CommandEmpty>Nothing found.</CommandEmpty>
                 

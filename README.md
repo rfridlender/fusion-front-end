@@ -1,8 +1,11 @@
 # To-Do List
-- Find error handling pattern for client side API fetching
-- ~~Setup server API as proxy to backend~~
-- Slot faceted filters instead of hard-coding in DataTableFacetedFilter.vue
+- Add .nonempty() restriction to required model fields
+- Add restriction to prevent or trim off beginning and ending whitespace within model fields
 - Replace current data table body scroll behavior with ScrollArea component
+- Find way to programmatically detect which columns have a filter function and therefore, should have a faceted filter
+- ~~Find error handling pattern for client side API fetching~~
+- ~~Slot faceted filters instead of hard-coding in DataTableFacetedFilter.vue~~
+- ~~Setup server API as proxy to backend~~
 - ~~Move all form schemas to @/utils/schemas.ts~~
 - ~~Ensure all imports start with '@'~~
 - ~~Implement reset password page~~
