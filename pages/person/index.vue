@@ -22,7 +22,7 @@ const personBeingFormed = useState<Person | undefined>("personBeingFormed")
 const isDialogDeletePersonOpen = useState<boolean>("isDialogDeletePersonOpen", () => false)
 
 
-const filters = [{ columnId: "lastName", title: "Last Name" }]
+const filters = [{ columnId: "familyName", title: "Family Name" }]
 
 function onNew() {
     personBeingFormed.value = undefined
@@ -61,7 +61,7 @@ async function onPostSubmit({ title, description, variant }: Toast) {
             <DataTable 
                 :data="data" 
                 :columns="columns" 
-                search-column-id="firstName"
+                search-column-id="givenName"
                 :filters="filters" 
             />
         </div>
@@ -74,7 +74,7 @@ async function onPostSubmit({ title, description, variant }: Toast) {
             <DialogDeleteModel 
                 is-dialog-delete-model-open-key="isDialogDeletePersonOpen"
                 model-being-deleted-key="personBeingDeleted"
-                input-key="firstName"
+                input-key="givenName"
                 model-name="person"
                 @post-submit="onPostSubmit" 
             />

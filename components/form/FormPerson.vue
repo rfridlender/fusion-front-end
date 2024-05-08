@@ -66,9 +66,9 @@ const onSubmit = handleSubmit(async (body) => {
             </SheetHeader>
 
             <div class="h-full flex flex-col gap-4">
-                <FormField v-slot="{ componentField }" name="firstName">
+                <FormField v-slot="{ componentField }" name="givenName">
                     <FormItem v-auto-animate>
-                        <FormLabel>First Name</FormLabel>
+                        <FormLabel>Given Name</FormLabel>
 
                         <FormControl>
                             <Input v-bind="componentField" placeholder="John" />
@@ -78,9 +78,9 @@ const onSubmit = handleSubmit(async (body) => {
                     </FormItem>
                 </FormField>
 
-                <FormField v-slot="{ componentField }" name="lastName">
+                <FormField v-slot="{ componentField }" name="familyName">
                     <FormItem v-auto-animate>
-                        <FormLabel>Last Name</FormLabel>
+                        <FormLabel>Family Name</FormLabel>
 
                         <FormControl>
                             <Input v-bind="componentField" placeholder="Doe" />

@@ -10,7 +10,7 @@ const {
 } = await useFetch<Person[]>("/api/person", { default: () => [] })
 
 const optionsPersons = computed(() => dataPersons.value.map(person => ({ 
-    label: `${person.firstName} ${person.lastName}`, 
+    label: `${person.givenName} ${person.familyName}`, 
     value: person.personId,
 })))
 

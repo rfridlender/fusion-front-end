@@ -3,13 +3,14 @@ import { CircleCheckBig, LoaderCircle } from "lucide-vue-next"
 
 const { handleSubmit, isSubmitting } = useForm({ validationSchema: schemaFormConfirmSignIn })
 
-const onSubmit = handleSubmit(async ({ name, phoneNumber, password }) => {
+const onSubmit = handleSubmit(async ({ givenName, familyName, phoneNumber, password }) => {
     try {
         const { isSignedIn, nextStep } = await useNuxtApp().$Amplify.Auth.confirmSignIn({ 
             challengeResponse: password,
             options: { 
                 userAttributes: {
-                    name: name,
+                    given_name: givenName,
+                    family_name: familyName,
                     phone_number: phoneNumber,
                 },
             },
@@ -56,12 +57,24 @@ const onSubmit = handleSubmit(async ({ name, phoneNumber, password }) => {
             </CardHeader>
 
             <CardContent class="grid gap-4">
-                <FormField v-slot="{ componentField }" name="name">
+                <FormField v-slot="{ componentField }" name="givenName">
                     <FormItem v-auto-animate>
-                        <FormLabel>Name</FormLabel>
+                        <FormLabel>Given Name</FormLabel>
 
                         <FormControl>
-                            <Input v-bind="componentField" placeholder="John Doe" />
+                            <Input v-bind="componentField" placeholder="John" />
+                        </FormControl>
+
+                        <FormMessage />
+                    </FormItem>
+                </FormField>
+
+                <FormField v-slot="{ componentField }" name="familyName">
+                    <FormItem v-auto-animate>
+                        <FormLabel>Family Name</FormLabel>
+
+                        <FormControl>
+                            <Input v-bind="componentField" placeholder="Doe" />
                         </FormControl>
 
                         <FormMessage />

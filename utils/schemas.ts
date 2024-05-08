@@ -7,15 +7,9 @@ const REGEX_REQUIRE_UPPERCASE = /[A-Z]+/
 const REGEX_REQUIRE_NUMBER = /[0-9]+/
 const REGEX_REQUIRE_SYMBOL = /[\^$*.[\]{}()?\-“!@#%&/,><’:;|_~`]+/
 
-const code = z.array(z.coerce.string())
-    .length(6)
+const code = z.array(z.coerce.string()).length(6)
 
-const email = z.string()
-    .email()
-
-const nameFull = z.string()
-    .min(8)
-    .max(99)
+const email = z.string().email()
 
 const password = z
     .string()
@@ -27,8 +21,7 @@ const password = z
     .regex(REGEX_REQUIRE_NUMBER, "Must contain at least (1) number")
     .regex(REGEX_REQUIRE_SYMBOL, "Must contain at least (1) symbol (ex. $!@#%&)")
 
-const phoneNumber = z.string()
-    .regex(REGEX_PHONE_NUMBER, "Invalid format (ex. +12223334444)")
+const phoneNumber = z.string().regex(REGEX_PHONE_NUMBER, "Invalid format (ex. +12223334444)")
 
 const objectAddress = z.object({
     addressId: z.string().uuid(),
@@ -47,8 +40,8 @@ export const schemaAddress = toTypedSchema(objectAddress)
 
 const objectPerson = z.object({
     personId: z.string().uuid(),
-    firstName: z.string(),
-    lastName: z.string(),
+    givenName: z.string(),
+    familyName: z.string(),
     phoneNumber: z.string()
         .regex(REGEX_PHONE_NUMBER, "Invalid format (ex. +12223334444)")
         .nullish(),
@@ -105,7 +98,8 @@ export type FormConfirmResetPassword = z.infer<typeof objectFormConfirmResetPass
 export const schemaFormConfirmResetPassword = toTypedSchema(objectFormConfirmResetPassword)
 
 const objectFormConfirmSignIn = z.object({
-    name: nameFull,
+    givenName: z.string().max(72),
+    familyName: z.string().max(72),
     phoneNumber: phoneNumber,
     password: password,
     passwordConfirmation: z.string(),
@@ -117,8 +111,8 @@ export type FormConfirmSignIn = z.infer<typeof objectFormConfirmSignIn>
 export const schemaFormConfirmSignIn = toTypedSchema(objectFormConfirmSignIn)
 
 const objectFormPerson = z.object({
-    firstName: z.string(),
-    lastName: z.string(),
+    givenName: z.string(),
+    familyName: z.string(),
     phoneNumber: z.string()
         .regex(REGEX_PHONE_NUMBER, "Invalid format (ex. +12223334444)")
         .nullish(),

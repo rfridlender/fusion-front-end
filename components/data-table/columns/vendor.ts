@@ -12,12 +12,12 @@ export const columns: ColumnDef<Vendor>[] = [
     {
         id: "contact",
         accessorFn: (originalRow) => 
-            `${originalRow.contact.firstName} ${originalRow.contact.lastName}`,
+            `${originalRow.contact.givenName} ${originalRow.contact.familyName}`,
         header: ({ column }) => h(DataTableColumnHeader, { column: column, title: "Contact" }),
         cell: ({ row }) => h(
             "div", 
             { class: "text-left font-medium" }, 
-            `${row.original.contact.firstName} ${row.original.contact.lastName}`,
+            `${row.original.contact.givenName} ${row.original.contact.familyName}`,
         ),
     },
     {
