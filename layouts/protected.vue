@@ -1,7 +1,7 @@
 <template>
     <div>
-        <Grid>
+        <LayoutGrid>
             <slot />
-        </Grid>
+        </LayoutGrid>
     </div>
 </template>
