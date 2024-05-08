@@ -52,6 +52,17 @@ const objectPerson = z.object({
 export type Person = z.infer<typeof objectPerson>
 export const schemaPerson = toTypedSchema(objectPerson)
 
+const objectBuilder = z.object({
+    builderId: z.string().uuid(),
+    builderName: z.string(),
+    contact: objectPerson,
+    address: objectAddress,
+    builderUpdatedBy: z.string().uuid(),
+    builderUpdatedAt: z.string().datetime(),
+})
+export type Builder = z.infer<typeof objectBuilder>
+export const schemaBuilder = toTypedSchema(objectBuilder)
+
 const objectVendor = z.object({
     vendorId: z.string().uuid(),
     vendorName: z.string(),
@@ -74,6 +85,14 @@ const objectFormAddress = z.object({
 })
 export type FormAddress = z.infer<typeof objectFormAddress>
 export const schemaFormAddress = toTypedSchema(objectFormAddress)
+
+const objectFormBuilder = z.object({
+    builderName: z.string(),
+    contactId: z.string().uuid(),
+    addressId: z.string().uuid(),
+})
+export type FormBuilder = z.infer<typeof objectFormBuilder>
+export const schemaFormBuilder = toTypedSchema(objectFormBuilder)
 
 const objectFormChangePassword = z.object({
     passwordCurrent: password,

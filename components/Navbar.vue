@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { 
     CircleUser, 
+    HardHat, 
     Home, 
     KeyRound, 
     LayoutDashboard, 
@@ -22,6 +23,11 @@ const routesProtected = [
         displayText: "Address",
         path: "/address",
         icon: Home,
+    },
+    {
+        displayText: "Builder",
+        path: "/builder",
+        icon: HardHat,
     },
     {
         displayText: "Person",

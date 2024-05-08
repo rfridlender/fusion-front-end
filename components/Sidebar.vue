@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Bell, Home, LayoutDashboard, Store, User } from "lucide-vue-next"
+import { Bell, HardHat, Home, LayoutDashboard, Store, User } from "lucide-vue-next"
 
 const route = useRoute()
 
@@ -13,6 +13,11 @@ const routesProtected = [
         displayText: "Address",
         path: "/address",
         icon: Home,
+    },
+    {
+        displayText: "Builder",
+        path: "/builder",
+        icon: HardHat,
     },
     {
         displayText: "Person",

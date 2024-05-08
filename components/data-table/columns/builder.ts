@@ -1,13 +1,17 @@
 import { DataTableColumnHeader, DataTableRowActions } from "@/components/data-table"
-import type { Vendor } from "@/utils/schemas"
+import type { Builder } from "@/utils/schemas"
 import type { ColumnDef } from "@tanstack/vue-table"
 import { h } from "vue"
 
-export const columns: ColumnDef<Vendor>[] = [
+export const columns: ColumnDef<Builder>[] = [
     {
-        accessorKey: "vendorName",
-        header: ({ column }) => h(DataTableColumnHeader, { column: column, title: "Vendor Name" }),
-        cell: ({ row }) => h("div", { class: "text-left font-medium" }, row.getValue("vendorName")),
+        accessorKey: "builderName",
+        header: ({ column }) => h(DataTableColumnHeader, { column: column, title: "Builder Name" }),
+        cell: ({ row }) => h(
+            "div", 
+            { class: "text-left font-medium" }, 
+            row.getValue("builderName"),
+        ),
     },
     {
         id: "contact",
@@ -35,11 +39,11 @@ export const columns: ColumnDef<Vendor>[] = [
         id: "actions",
         cell: ({ row }) => h(DataTableRowActions, { 
             row: row, 
-            isFormModelOpenKey: "isFormVendorOpen", 
-            isModelNewKey: "isVendorNew", 
-            modelBeingFormedKey: "vendorBeingFormed", 
-            isDialogDeleteModelOpenKey: "isDialogDeleteVendorOpen",
-            modelBeingDeletedKey: "vendorBeingDeleted",
+            isFormModelOpenKey: "isFormBuilderOpen", 
+            isModelNewKey: "isBuilderNew", 
+            modelBeingFormedKey: "builderBeingFormed", 
+            isDialogDeleteModelOpenKey: "isDialogDeleteBuilderOpen",
+            modelBeingDeletedKey: "builderBeingDeleted",
         }),
     },
 ]
