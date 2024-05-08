@@ -2,10 +2,10 @@
 import { 
     CircleUser, 
     HardHat, 
-    Home, 
     KeyRound, 
     LayoutDashboard, 
     LogOut, 
+    MapPin, 
     Menu, 
     Store, 
     User,
@@ -22,7 +22,7 @@ const routesProtected = [
     {
         displayText: "Address",
         path: "/address",
-        icon: Home,
+        icon: MapPin,
     },
     {
         displayText: "Builder",
