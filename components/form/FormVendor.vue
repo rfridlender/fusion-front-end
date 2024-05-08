@@ -76,7 +76,7 @@ const onSubmit = handleSubmit(async (body) => {
             title: `Vendor ${verb} successfully`,
             variant: "default",
         })
-    } catch (error: Error) {
+    } catch (error: any) {
         console.error(error)
         
         emit("postSubmit", { 

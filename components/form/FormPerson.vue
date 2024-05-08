@@ -42,7 +42,7 @@ const onSubmit = handleSubmit(async (body) => {
             title: `Person ${verb} successfully`,
             variant: "default",
         })
-    } catch (error: Error) {
+    } catch (error: any) {
         console.error(error)
         
         emit("postSubmit", { 

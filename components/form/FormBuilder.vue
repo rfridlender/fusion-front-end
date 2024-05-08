@@ -76,7 +76,7 @@ const onSubmit = handleSubmit(async (body) => {
             title: `Builder ${verb} successfully`,
             variant: "default",
         })
-    } catch (error: Error) {
+    } catch (error: any) {
         console.error(error)
         
         emit("postSubmit", { 
@@ -105,7 +105,7 @@ const onSubmit = handleSubmit(async (body) => {
                         <FormLabel>Builder Name</FormLabel>
 
                         <FormControl>
-                            <Input v-bind="componentField" placeholder="Builder Hardware LLC" />
+                            <Input v-bind="componentField" placeholder="Builder Homes LLC" />
                         </FormControl>
 
                         <FormMessage />

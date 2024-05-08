@@ -20,7 +20,7 @@ const onSubmit = handleSubmit(async ({ email, password }) => {
         case "CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED": return navigateTo("/confirm-sign-in")
         default: throw new Error("Something went wrong")
         }
-    } catch (error: Error) {
+    } catch (error: any) {
         console.error(error)
 
         return navigateTo({ 

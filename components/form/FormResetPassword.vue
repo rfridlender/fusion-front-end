@@ -19,7 +19,7 @@ const onSubmit = handleSubmit(async ({ email }) => {
         }
         default: throw new Error("Something went wrong")
         }
-    } catch (error: Error) {
+    } catch (error: any) {
         console.error(error)
 
         return navigateTo({ 

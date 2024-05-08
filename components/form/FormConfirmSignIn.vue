@@ -26,7 +26,7 @@ const onSubmit = handleSubmit(async ({ givenName, familyName, phoneNumber, passw
         switch (nextStep.signInStep) {
         default: throw new Error("Something went wrong")
         }
-    } catch (error: Error) {
+    } catch (error: any) {
         console.error(error)
 
         let messageError: string
