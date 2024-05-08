@@ -7,6 +7,7 @@ import {
     LogOut, 
     MapPin, 
     Menu, 
+    SquareStack, 
     Store, 
     User,
 } from "lucide-vue-next"
@@ -28,6 +29,11 @@ const routesProtected = [
         displayText: "Builder",
         path: "/builder",
         icon: HardHat,
+    },
+    {
+        displayText: "Development",
+        path: "/development",
+        icon: SquareStack,
     },
     {
         displayText: "Person",
