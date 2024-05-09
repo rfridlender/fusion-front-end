@@ -75,6 +75,18 @@ const objectDevelopment = z.object({
 export type Development = z.infer<typeof objectDevelopment>
 export const schemaDevelopment = toTypedSchema(objectDevelopment)
 
+const objectLot = z.object({
+    lotId: z.string().uuid(),
+    lotNumber: z.string(),
+    address: objectAddress,
+    development: objectDevelopment,
+    contact: objectPerson,
+    lotUpdatedBy: z.string().uuid(),
+    lotUpdatedAt: z.string().datetime(),
+})
+export type Lot = z.infer<typeof objectLot>
+export const schemaLot = toTypedSchema(objectLot)
+
 const objectVendor = z.object({
     vendorId: z.string().uuid(),
     vendorName: z.string(),
@@ -149,6 +161,15 @@ const objectFormDevelopment = z.object({
 })
 export type FormDevelopment = z.infer<typeof objectFormDevelopment>
 export const schemaFormDevelopment = toTypedSchema(objectFormDevelopment)
+
+const objectFormLot = z.object({
+    lotNumber: z.string(),
+    contactId: z.string().uuid(),
+    developmentId: z.string().uuid(),
+    addressId: z.string().uuid(),
+})
+export type FormLot = z.infer<typeof objectFormLot>
+export const schemaFormLot = toTypedSchema(objectFormLot)
 
 const objectFormPerson = z.object({
     givenName: z.string(),

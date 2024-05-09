@@ -2,6 +2,7 @@
 import { 
     CircleUser, 
     HardHat, 
+    Home, 
     KeyRound, 
     LayoutDashboard, 
     LogOut, 
@@ -34,6 +35,11 @@ const routesProtected = [
         displayText: "Development",
         path: "/development",
         icon: SquareStack,
+    },
+    {
+        displayText: "Lot",
+        path: "/lot",
+        icon: Home,
     },
     {
         displayText: "Person",
