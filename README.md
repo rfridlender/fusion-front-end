@@ -1,5 +1,5 @@
 # To-Do List
-- Consolidate Navbar and Sidebar component navigation items
+- ~~Consolidate Navbar and Sidebar component navigation items~~
 - Add .nonempty() restriction to required model fields
 - Add restriction to prevent or trim off beginning and ending whitespace within model fields
 - Replace current data table body scroll behavior with ScrollArea component

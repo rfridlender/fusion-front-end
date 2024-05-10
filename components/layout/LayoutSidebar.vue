@@ -1,60 +1,5 @@
 <script setup lang="ts">
-import { 
-    Bell, 
-    HardHat,
-    Home,  
-    LayoutDashboard, 
-    MapPin, 
-    SquareStack, 
-    Store, 
-    User, 
-    Warehouse, 
-} from "lucide-vue-next"
-
-const route = useRoute()
-
-const routesProtected = [
-    {
-        displayText: "Dashboard",
-        path: "/dashboard",
-        icon: LayoutDashboard,
-    },
-    {
-        displayText: "Address",
-        path: "/address",
-        icon: MapPin,
-    },
-    {
-        displayText: "Builder",
-        path: "/builder",
-        icon: HardHat,
-    },
-    {
-        displayText: "Development",
-        path: "/development",
-        icon: SquareStack,
-    },
-    {
-        displayText: "Lot",
-        path: "/lot",
-        icon: Home,
-    },
-    {
-        displayText: "Person",
-        path: "/person",
-        icon: User,
-    },
-    {
-        displayText: "Vendor",
-        path: "/vendor",
-        icon: Store,
-    },
-    {
-        displayText: "Warehouse",
-        path: "/warehouse",
-        icon: Warehouse,
-    },
-]
+import { Bell } from "lucide-vue-next"
 </script>
 
 <template>
@@ -85,21 +30,8 @@ const routesProtected = [
             </div>
             
             <div class="flex-1">
-                <nav class="grid items-start px-2 text-sm font-medium">
-                    <NuxtLink 
-                        v-for="routeProtected in routesProtected" 
-                        :key="routeProtected.path" 
-                        class="flex items-center gap-3 rounded-lg px-3 py-2 
-                            transition-all hover:text-foreground"
-                        :class="{ 
-                            'bg-muted': routeProtected.path === route.path, 
-                            'text-muted-foreground': routeProtected.path !== route.path 
-                        }"
-                        :to="routeProtected.path"
-                    >
-                        <component :is="routeProtected.icon" class="size-4" />
-                        {{ routeProtected.displayText }}
-                    </NuxtLink>
+                <nav class="grid items-start px-2 text-md font-medium">
+                    <LayoutNavigationList />
                 </nav>
             </div>
         </div>
