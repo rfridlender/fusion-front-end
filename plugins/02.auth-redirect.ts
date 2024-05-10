@@ -10,6 +10,7 @@ export const routesProtected = [
     "/person",
     "/vendor",
     "/verify-email",
+    "/warehouse",
 ]
 
 export default defineNuxtPlugin({

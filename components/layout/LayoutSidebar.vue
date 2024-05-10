@@ -8,6 +8,7 @@ import {
     SquareStack, 
     Store, 
     User, 
+    Warehouse, 
 } from "lucide-vue-next"
 
 const route = useRoute()
@@ -47,6 +48,11 @@ const routesProtected = [
         displayText: "Vendor",
         path: "/vendor",
         icon: Store,
+    },
+    {
+        displayText: "Warehouse",
+        path: "/warehouse",
+        icon: Warehouse,
     },
 ]
 </script>
