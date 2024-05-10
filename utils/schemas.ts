@@ -1,6 +1,8 @@
 import { z } from "zod"
 
 const REGEX_FORBID_WHITESPACE = /^\S*$/
+const REGEX_FORBID_WHITESPACE_LEADING = /^\S+|^$/
+const REGEX_FORBID_WHITESPACE_TRAILING = /\S+$|^$/
 const REGEX_PHONE_NUMBER = /^\+1\d{10}$/
 const REGEX_REQUIRE_LOWERCASE = /[a-z]+/
 const REGEX_REQUIRE_UPPERCASE = /[A-Z]+/
@@ -11,8 +13,7 @@ const code = z.array(z.coerce.string()).length(6)
 
 const email = z.string().email()
 
-const password = z
-    .string()
+const password = z.string()
     .min(8)
     .max(99)
     .regex(REGEX_FORBID_WHITESPACE, "Must not contain whitespace")
@@ -22,6 +23,15 @@ const password = z
     .regex(REGEX_REQUIRE_SYMBOL, "Must contain at least (1) symbol (ex. $!@#%&)")
 
 const phoneNumber = z.string().regex(REGEX_PHONE_NUMBER, "Invalid format (ex. +12223334444)")
+
+const stringSanitizedWhitespace = z.string()
+    .regex(REGEX_FORBID_WHITESPACE_LEADING, "Must not contain leading whitespace")
+    .regex(REGEX_FORBID_WHITESPACE_TRAILING, "Must not contain trailing whitespace")
+
+const stringRequiredSanitizedWhitespace = z.string()
+    .min(1, "Required")
+    .regex(REGEX_FORBID_WHITESPACE_LEADING, "Must not contain leading whitespace")
+    .regex(REGEX_FORBID_WHITESPACE_TRAILING, "Must not contain trailing whitespace")
 
 const objectAddress = z.object({
     addressId: z.string().uuid(),
@@ -42,10 +52,8 @@ const objectPerson = z.object({
     personId: z.string().uuid(),
     givenName: z.string(),
     familyName: z.string(),
-    phoneNumber: z.string()
-        .regex(REGEX_PHONE_NUMBER, "Invalid format (ex. +12223334444)")
-        .nullish(),
-    email: z.string().email().nullish(),
+    phoneNumber: phoneNumber.nullish(),
+    email: email.nullish(),
     personUpdatedBy: z.string().uuid(),
     personUpdatedAt: z.string().datetime(),
 })
@@ -109,10 +117,10 @@ export type Warehouse = z.infer<typeof objectWarehouse>
 export const schemaWarehouse = toTypedSchema(objectWarehouse)
 
 const objectFormAddress = z.object({
-    streetOne: z.string(),
-    streetTwo: z.string().nullish(),
-    city: z.string(),
-    county: z.string().nullish(),
+    streetOne: stringRequiredSanitizedWhitespace,
+    streetTwo: stringSanitizedWhitespace.nullish(),
+    city: stringRequiredSanitizedWhitespace,
+    county: stringSanitizedWhitespace.nullish(),
     state: z.string().length(2),
     postalCode: z.string().min(5).max(10).nullish(),
     country: z.string().length(2),
@@ -121,7 +129,7 @@ export type FormAddress = z.infer<typeof objectFormAddress>
 export const schemaFormAddress = toTypedSchema(objectFormAddress)
 
 const objectFormBuilder = z.object({
-    builderName: z.string(),
+    builderName: stringRequiredSanitizedWhitespace,
     contactId: z.string().uuid(),
     addressId: z.string().uuid(),
 })
@@ -151,8 +159,8 @@ export type FormConfirmResetPassword = z.infer<typeof objectFormConfirmResetPass
 export const schemaFormConfirmResetPassword = toTypedSchema(objectFormConfirmResetPassword)
 
 const objectFormConfirmSignIn = z.object({
-    givenName: z.string().max(72),
-    familyName: z.string().max(72),
+    givenName: stringRequiredSanitizedWhitespace.max(72),
+    familyName: stringRequiredSanitizedWhitespace.max(72),
     phoneNumber: phoneNumber,
     password: password,
     passwordConfirmation: z.string(),
@@ -164,7 +172,7 @@ export type FormConfirmSignIn = z.infer<typeof objectFormConfirmSignIn>
 export const schemaFormConfirmSignIn = toTypedSchema(objectFormConfirmSignIn)
 
 const objectFormDevelopment = z.object({
-    developmentName: z.string(),
+    developmentName: stringRequiredSanitizedWhitespace,
     builderId: z.string().uuid(),
     contactId: z.string().uuid(),
     addressId: z.string().uuid(),
@@ -173,7 +181,7 @@ export type FormDevelopment = z.infer<typeof objectFormDevelopment>
 export const schemaFormDevelopment = toTypedSchema(objectFormDevelopment)
 
 const objectFormLot = z.object({
-    lotNumber: z.string(),
+    lotNumber: stringRequiredSanitizedWhitespace,
     contactId: z.string().uuid(),
     developmentId: z.string().uuid(),
     addressId: z.string().uuid(),
@@ -182,18 +190,16 @@ export type FormLot = z.infer<typeof objectFormLot>
 export const schemaFormLot = toTypedSchema(objectFormLot)
 
 const objectFormPerson = z.object({
-    givenName: z.string(),
-    familyName: z.string(),
-    phoneNumber: z.string()
-        .regex(REGEX_PHONE_NUMBER, "Invalid format (ex. +12223334444)")
-        .nullish(),
-    email: z.string().email().nullish(),
+    givenName: stringRequiredSanitizedWhitespace,
+    familyName: stringRequiredSanitizedWhitespace,
+    phoneNumber: phoneNumber.nullish(),
+    email: email.nullish(),
 })
 export type FormPerson = z.infer<typeof objectFormPerson>
 export const schemaFormPerson = toTypedSchema(objectFormPerson)
 
 const objectFormVendor = z.object({
-    vendorName: z.string(),
+    vendorName: stringRequiredSanitizedWhitespace,
     contactId: z.string().uuid(),
     addressId: z.string().uuid(),
 })
@@ -201,7 +207,7 @@ export type FormVendor = z.infer<typeof objectFormVendor>
 export const schemaFormVendor = toTypedSchema(objectFormVendor)
 
 const objectFormWarehouse = z.object({
-    warehouseName: z.string(),
+    warehouseName: stringRequiredSanitizedWhitespace,
     addressId: z.string().uuid(),
 })
 export type FormWarehouse = z.infer<typeof objectFormWarehouse>
@@ -211,7 +217,10 @@ const objectFormResetPassword = z.object({ email: email })
 export type FormResetPassword = z.infer<typeof objectFormResetPassword>
 export const schemaFormResetPassword = toTypedSchema(objectFormResetPassword)
 
-const objectFormSignIn = z.object({ email: email, password: password })
+const objectFormSignIn = z.object({ 
+    email: email, 
+    password: password, 
+})
 export type FormSignIn = z.infer<typeof objectFormSignIn>
 export const schemaFormSignIn = toTypedSchema(objectFormSignIn)
 

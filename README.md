@@ -1,9 +1,10 @@
 # To-Do List
-- ~~Consolidate Navbar and Sidebar component navigation items~~
-- Add .nonempty() restriction to required model fields
-- Add restriction to prevent or trim off beginning and ending whitespace within model fields
+- Convert all optional fields that are empty strings to null before sending to backend
 - Replace current data table body scroll behavior with ScrollArea component
 - Find way to programmatically detect which columns have a filter function and therefore, should have a faceted filter
+- ~~Add restriction to prevent or trim off beginning and ending whitespace within model fields~~
+- ~~Add .nonempty() restriction to required model fields~~
+- ~~Consolidate Navbar and Sidebar component navigation items~~
 - ~~Find error handling pattern for client side API fetching~~
 - ~~Slot faceted filters instead of hard-coding in DataTableFacetedFilter.vue~~
 - ~~Setup server API as proxy to backend~~
