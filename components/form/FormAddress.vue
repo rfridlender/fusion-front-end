@@ -97,7 +97,7 @@ const onSubmit = handleSubmit(async (body) => {
 
                         <FormFieldCombobox 
                             name="city"
-                            :options="cities"
+                            :options="optionsCities"
                             :set-values="setValues"
                             :values="values"
                         />
@@ -112,7 +112,7 @@ const onSubmit = handleSubmit(async (body) => {
 
                         <FormFieldCombobox 
                             name="county"
-                            :options="counties"
+                            :options="optionsCounties"
                             :set-values="setValues"
                             :values="values"
                         />
@@ -127,7 +127,7 @@ const onSubmit = handleSubmit(async (body) => {
 
                         <FormFieldCombobox 
                             name="state"
-                            :options="states"
+                            :options="optionsStates"
                             :set-values="setValues"
                             :values="values"
                         />
@@ -154,7 +154,7 @@ const onSubmit = handleSubmit(async (body) => {
 
                         <FormFieldCombobox 
                             name="country"
-                            :options="countries"
+                            :options="optionsCountries"
                             :set-values="setValues"
                             :values="values"
                         />

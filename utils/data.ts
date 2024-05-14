@@ -1,303 +1,188 @@
-export const cities = [
-    { 
-        label: "Atlanta", 
-        value: "Atlanta",
-    },
-    { 
-        label: "Augusta", 
-        value: "Augusta",
-    },
-    { 
-        label: "Columbus", 
-        value: "Columbus",
-    },
-    { 
-        label: "Macon-Bibb", 
-        value: "Macon-Bibb",
-    },
-    { 
-        label: "Savannah", 
-        value: "Savannah",
-    },
-    { 
-        label: "Athens", 
-        value: "Athens",
-    },
-    { 
-        label: "South Fulton", 
-        value: "South Fulton",
-    },
-    { 
-        label: "Sandy Springs", 
-        value: "Sandy Springs",
-    },
-    { 
-        label: "Roswell", 
-        value: "Roswell",
-    },
-    { 
-        label: "Johns Creek", 
-        value: "Johns Creek",
-    },
-    { 
-        label: "Warner Robins", 
-        value: "Warner Robins",
-    },
-    { 
-        label: "Albany", 
-        value: "Albany",
-    },
-    { 
-        label: "Alpharetta", 
-        value: "Alpharetta",
-    },
-    { 
-        label: "Marietta", 
-        value: "Marietta",
-    },
-    { 
-        label: "Stonecrest", 
-        value: "Stonecrest",
-    },
-    { 
-        label: "Brookhaven", 
-        value: "Brookhaven",
-    },
-    { 
-        label: "Smyrna", 
-        value: "Smyrna",
-    },
-    { 
-        label: "Valdosta", 
-        value: "Valdosta",
-    },
-    { 
-        label: "Dunwoody", 
-        value: "Dunwoody",
-    },
-    { 
-        label: "Gainesville", 
-        value: "Gainesville",
-    },
-    { 
-        label: "Newnan", 
-        value: "Newnan",
-    },
-    { 
-        label: "Peachtree Corners", 
-        value: "Peachtree Corners",
-    },
-    { 
-        label: "Mableton", 
-        value: "Mableton",
-    },
-    { 
-        label: "Milton", 
-        value: "Milton",
-    },
-    { 
-        label: "Peachtree City", 
-        value: "Peachtree City",
-    },
-    { 
-        label: "East Point", 
-        value: "East Point",
-    },
-    { 
-        label: "Rome", 
-        value: "Rome",
-    },
-    { 
-        label: "Evans", 
-        value: "Evans",
-    },
-    { 
-        label: "Tucker", 
-        value: "Tucker",
-    },
-    { 
-        label: "Douglasville", 
-        value: "Douglasville",
-    },
-    { 
-        label: "Woodstock", 
-        value: "Woodstock",
-    },
-    { 
-        label: "Hinesville", 
-        value: "Hinesville",
-    },
-    { 
-        label: "Dalton", 
-        value: "Dalton",
-    },
-    { 
-        label: "Martinez", 
-        value: "Martinez",
-    },
-    { 
-        label: "Canton", 
-        value: "Canton",
-    },
-    { 
-        label: "Kennesaw", 
-        value: "Kennesaw",
-    },
-    { 
-        label: "Statesboro", 
-        value: "Statesboro",
-    },
-    { 
-        label: "Duluth", 
-        value: "Duluth",
-    },
-    { 
-        label: "Redan", 
-        value: "Redan",
-    },
-    { 
-        label: "LaGrange", 
-        value: "LaGrange",
-    },
-    { 
-        label: "Lawrenceville", 
-        value: "Lawrenceville",
-    },
-    { 
-        label: "Chamblee", 
-        value: "Chamblee",
-    },
-    { 
-        label: "McDonough", 
-        value: "McDonough",
-    },
-    { 
-        label: "Stockbridge", 
-        value: "Stockbridge",
-    },
-    { 
-        label: "Union City", 
-        value: "Union City",
-    },
-    { 
-        label: "Carrollton", 
-        value: "Carrollton",
-    },
-    { 
-        label: "Pooler", 
-        value: "Pooler",
-    },
-    { 
-        label: "Sugar Hill", 
-        value: "Sugar Hill",
-    },
-    { 
-        label: "Decatur", 
-        value: "Decatur",
-    },
-    { 
-        label: "Griffin", 
-        value: "Griffin",
-    },
-    { 
-        label: "Cartersville", 
-        value: "Cartersville",
-    },
-    { 
-        label: "Candler-McAfee", 
-        value: "Candler-McAfee",
-    },
-    { 
-        label: "Acworth", 
-        value: "Acworth",
-    },
-    { 
-        label: "Perry", 
-        value: "Perry",
-    },
-    { 
-        label: "Suwanee", 
-        value: "Suwanee",
-    },
-    { 
-        label: "Snellville", 
-        value: "Snellville",
-    },
-    { 
-        label: "Forest Park", 
-        value: "Forest Park",
-    },
-    { 
-        label: "Fayetteville", 
-        value: "Fayetteville",
-    },
-    { 
-        label: "Thomasville", 
-        value: "Thomasville",
-    },
-    { 
-        label: "Kingsland", 
-        value: "Kingsland",
-    },
-    { 
-        label: "St. Marys", 
-        value: "St. Marys",
-    },
-    { 
-        label: "Winder", 
-        value: "Winder",
-    },
-    { 
-        label: "Norcross", 
-        value: "Norcross",
-    },
-    { 
-        label: "Conyers", 
-        value: "Conyers",
-    },
+export const optionsCategories = [
+    { label: "BATH", value: "BATH" },
+    { label: "BLIND", value: "BLIND" },
+    { label: "LOCK", value: "LOCK" },
+    { label: "MIRROR", value: "MIRROR" },
+    { label: "SCREEN", value: "SCREEN" },
+    { label: "SHELVING", value: "SHELVING" },
+    { label: "SHOWER_DOOR", value: "SHOWER_DOOR" },
+    { label: "SHUTTER", value: "SHUTTER" },
 ]
 
-export const counties = [
-    { 
-        label: "Cherokee", 
-        value: "Cherokee",
-    },
-    { 
-        label: "Fulton", 
-        value: "Fulton",
-    },
-    { 
-        label: "Gwinett", 
-        value: "Gwinett",
-    },
-    { 
-        label: "Cobb", 
-        value: "Cobb",
-    },
-    { 
-        label: "DeKalb", 
-        value: "DeKalb",
-    },
+export const optionsCities = [
+    { label: "Atlanta", value: "Atlanta" },
+    { label: "Augusta", value: "Augusta" },
+    { label: "Columbus", value: "Columbus" },
+    { label: "Macon-Bibb", value: "Macon-Bibb" },
+    { label: "Savannah", value: "Savannah" },
+    { label: "Athens", value: "Athens" },
+    { label: "South Fulton", value: "South Fulton" },
+    { label: "Sandy Springs", value: "Sandy Springs" },
+    { label: "Roswell", value: "Roswell" },
+    { label: "Johns Creek", value: "Johns Creek" },
+    { label: "Warner Robins", value: "Warner Robins" },
+    { label: "Albany", value: "Albany" },
+    { label: "Alpharetta", value: "Alpharetta" },
+    { label: "Marietta", value: "Marietta" },
+    { label: "Stonecrest", value: "Stonecrest" },
+    { label: "Brookhaven", value: "Brookhaven" },
+    { label: "Smyrna", value: "Smyrna" },
+    { label: "Valdosta", value: "Valdosta" },
+    { label: "Dunwoody", value: "Dunwoody" },
+    { label: "Gainesville", value: "Gainesville" },
+    { label: "Newnan", value: "Newnan" },
+    { label: "Peachtree Corners", value: "Peachtree Corners" },
+    { label: "Mableton", value: "Mableton" },
+    { label: "Milton", value: "Milton" },
+    { label: "Peachtree City", value: "Peachtree City" },
+    { label: "East Point", value: "East Point" },
+    { label: "Rome", value: "Rome" },
+    { label: "Evans", value: "Evans" },
+    { label: "Tucker", value: "Tucker" },
+    { label: "Douglasville", value: "Douglasville" },
+    { label: "Woodstock", value: "Woodstock" },
+    { label: "Hinesville", value: "Hinesville" },
+    { label: "Dalton", value: "Dalton" },
+    { label: "Martinez", value: "Martinez" },
+    { label: "Canton", value: "Canton" },
+    { label: "Kennesaw", value: "Kennesaw" },
+    { label: "Statesboro", value: "Statesboro" },
+    { label: "Duluth", value: "Duluth" },
+    { label: "Redan", value: "Redan" },
+    { label: "LaGrange", value: "LaGrange" },
+    { label: "Lawrenceville", value: "Lawrenceville" },
+    { label: "Chamblee", value: "Chamblee" },
+    { label: "McDonough", value: "McDonough" },
+    { label: "Stockbridge", value: "Stockbridge" },
+    { label: "Union City", value: "Union City" },
+    { label: "Carrollton", value: "Carrollton" },
+    { label: "Pooler", value: "Pooler" },
+    { label: "Sugar Hill", value: "Sugar Hill" },
+    { label: "Decatur", value: "Decatur" },
+    { label: "Griffin", value: "Griffin" },
+    { label: "Cartersville", value: "Cartersville" },
+    { label: "Candler-McAfee", value: "Candler-McAfee" },
+    { label: "Acworth", value: "Acworth" },
+    { label: "Perry", value: "Perry" },
+    { label: "Suwanee", value: "Suwanee" },
+    { label: "Snellville", value: "Snellville" },
+    { label: "Forest Park", value: "Forest Park" },
+    { label: "Fayetteville", value: "Fayetteville" },
+    { label: "Thomasville", value: "Thomasville" },
+    { label: "Kingsland", value: "Kingsland" },
+    { label: "St. Marys", value: "St. Marys" },
+    { label: "Winder", value: "Winder" },
+    { label: "Norcross", value: "Norcross" },
+    { label: "Conyers", value: "Conyers" },
 ]
 
-export const countries = [
-    { 
-        label: "US", 
-        value: "US",
-    },
+export const optionsCounties = [
+    { label: "Cherokee", value: "Cherokee" },
+    { label: "Fulton", value: "Fulton" },
+    { label: "Gwinett", value: "Gwinett" },
+    { label: "Cobb", value: "Cobb" },
+    { label: "DeKalb", value: "DeKalb" },
 ]
 
-export const states = [
-    { 
-        label: "GA", 
-        value: "GA",
-    },
-    { 
-        label: "FL", 
-        value: "FL",
-    },
-    { 
-        label: "TN", 
-        value: "TN",
-    },
+export const optionsCountries = [
+    { label: "US", value: "US" },
+]
+
+export const optionsStates = [
+    { label: "GA", value: "GA" },
+    { label: "FL", value: "FL" },
+    { label: "TN", value: "TN" },
+]
+
+export const optionsSubcategories = {
+    "BATH": [],
+    "BLIND": [],
+    "LOCK": [],
+    "MIRROR": [
+        { label: "BEVEL_STRIP", value: "BEVEL_STRIP" },
+        { label: "CLASSIC_FRAME", value: "CLASSIC_FRAME" },
+        { label: "EASY_FRAME", value: "EASY_FRAME" },
+        { label: "EDGE_WORK", value: "EDGE_WORK" },
+        { label: "FLEXIGLASS", value: "FLEXIGLASS" },
+        { label: "FRAME", value: "FRAME" },
+        { label: "FRAME_711", value: "FRAME_711" },
+        { label: "FRAME_SERIES_VALUE", value: "FRAME_SERIES_VALUE" },
+        { label: "FRAMED_MIRROR", value: "FRAMED_MIRROR" },
+        { label: "FRAMED_MIRROR_AMERICAN_PRIDE", value: "FRAMED_MIRROR_AMERICAN_PRIDE" },
+        { label: "FRAMED_MIRROR_NU_VIEW", value: "FRAMED_MIRROR_NU_VIEW" },
+        { label: "FRAMELESS_MIRROR_WITH_TILT", value: "FRAMELESS_MIRROR_WITH_TILT" },
+        { 
+            label: "FRAMELESS_MIRROR_WITH_TILT_HARDWARE", 
+            value: "FRAMELESS_MIRROR_WITH_TILT_HARDWARE",
+        },
+        { label: "GLASS_ANNEALED", value: "GLASS_ANNEALED" },
+        { label: "GLASS_INSULATED", value: "GLASS_INSULATED" },
+        { label: "GLASS_TEMPERED", value: "GLASS_TEMPERED" },
+        { label: "HARDWARE_GLASS_SHELF", value: "HARDWARE_GLASS_SHELF" },
+        { label: "LABOR", value: "LABOR" },
+        { label: "LIGHTED_MIRROR_LED", value: "LIGHTED_MIRROR_LED" },
+        { label: "MIRROR_COVER_PLATE", value: "MIRROR_COVER_PLATE" },
+        { label: "MOULDING_TRIM_CLIP", value: "MOULDING_TRIM_CLIP" },
+        { label: "ROUND_MIRROR", value: "ROUND_MIRROR" },
+        { label: "WINDOW_PASS_THRU", value: "WINDOW_PASS_THRU" },
+    ],
+    "SCREEN": [],
+    "SHELVING": [
+        { label: "LABOR", value: "LABOR" },
+        { label: "MELAMINE", value: "MELAMINE" },
+        { label: "MELAMINE_FAST_TRACK", value: "MELAMINE_FAST_TRACK" },
+        { label: "MISCELANNEOUS_HARDWARE", value: "MISCELANNEOUS_HARDWARE" },
+        { label: "MISCELANNEOUS_LABOR", value: "MISCELANNEOUS_LABOR" },
+        { label: "MISCELANNEOUS_MATERIAL", value: "MISCELANNEOUS_MATERIAL" },
+        { label: "MISCELANNEOUS_SHELVING", value: "MISCELANNEOUS_SHELVING" },
+        { label: "SIMPLE", value: "SIMPLE" },
+        { label: "VENTILATED", value: "VENTILATED" },
+        { label: "VENTILATED_ACCESSORY", value: "VENTILATED_ACCESSORY" },
+        { label: "VENTILATED_FAST_TRACK", value: "VENTILATED_FAST_TRACK" },
+    ],
+    "SHOWER_DOOR": [
+        { label: "CLAMP", value: "CLAMP" },
+        { label: "COMBO_TOWEL_BAR_HANDLE", value: "COMBO_TOWEL_BAR_HANDLE" },
+        { label: "CORAL", value: "CORAL" },
+        { label: "FRAMED_ADD_ON_GLASS", value: "FRAMED_ADD_ON_GLASS" },
+        { label: "FRAMED_ADD_ON_SHOWER_DOOR", value: "FRAMED_ADD_ON_SHOWER_DOOR" },
+        { label: "FRAMED_DOOR", value: "FRAMED_DOOR" },
+        { label: "FRAMED_ENCLOSURE", value: "FRAMED_ENCLOSURE" },
+        { label: "FRAMED_GRIDSCAPE", value: "FRAMED_GRIDSCAPE" },
+        { label: "FRAMED_INLINE_DOOR_PANEL", value: "FRAMED_INLINE_DOOR_PANEL" },
+        { label: "FRAMED_SHOWER_WINDOW", value: "FRAMED_SHOWER_WINDOW" },
+        { label: "FRAMELESS", value: "FRAMELESS" },
+        { label: "FRAMELESS_ADD_ON_GLASS", value: "FRAMELESS_ADD_ON_GLASS" },
+        { label: "FRAMELESS_BY_PASS", value: "FRAMELESS_BY_PASS" },
+        { label: "HANDLE", value: "HANDLE" },
+        { label: "HEADER", value: "HEADER" },
+        { label: "HINGE", value: "HINGE" },
+        { label: "HOLE_NOTCH", value: "HOLE_NOTCH" },
+        { label: "KNOB", value: "KNOB" },
+        { label: "LABOR", value: "LABOR" },
+        { label: "SEMI_FRAMELESS", value: "SEMI_FRAMELESS" },
+        { label: "SEMI_FRAMELESS_FREESTYLE", value: "SEMI_FRAMELESS_FREESTYLE" },
+        { label: "SEMI_FRAMELESS_QUEST", value: "SEMI_FRAMELESS_QUEST" },
+        { label: "SERIES_6000", value: "SERIES_6000" },
+        { label: "SLEEVE_OVER", value: "SLEEVE_OVER" },
+        { label: "SPEED_BUMP", value: "SPEED_BUMP" },
+        { label: "STABILIZER_BAR", value: "STABILIZER_BAR" },
+        { label: "TOWEL_BAR", value: "TOWEL_BAR" },
+        { label: "U_CHANNEL", value: "U_CHANNEL" },
+        { label: "VINYL_STOP", value: "VINYL_STOP" },
+    ],
+    "SHUTTER": [],
+}
+
+export const optionsUnitOfMeasurement = [
+    { label: "EA", value: "EA" },
+    { label: "FT", value: "FT" },
+    { label: "IN", value: "IN" },
+    { label: "LF", value: "LF" },
+    { label: "PK", value: "PK" },
+    { label: "PR", value: "PR" },
+    { label: "RL", value: "RL" },
+    { label: "SET", value: "SET" },
+    { label: "SF", value: "SF" },
+    { label: "UI", value: "UI" },
 ]

@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { 
+    Boxes,
     HardHat,
-    Home,  
-    LayoutDashboard, 
-    MapPin, 
-    SquareStack, 
-    Store, 
-    User, 
-    Warehouse, 
+    Home,
+    LayoutDashboard,
+    MapPin,
+    SquareStack,
+    Store,
+    User,
+    Warehouse,
 } from "lucide-vue-next"
 
 const route = useRoute()
@@ -32,6 +33,11 @@ const routesProtected = [
         displayText: "Development",
         path: "/development",
         icon: SquareStack,
+    },
+    {
+        displayText: "Item",
+        path: "/item",
+        icon: Boxes,
     },
     {
         displayText: "Lot",

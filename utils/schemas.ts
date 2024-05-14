@@ -106,6 +106,25 @@ const objectVendor = z.object({
 export type Vendor = z.infer<typeof objectVendor>
 export const schemaVendor = toTypedSchema(objectVendor)
 
+const objectItem = z.object({
+    itemId: z.string().uuid(),
+    itemCategory: z.string(),
+    itemSubcategory: z.string(),
+    sku: z.string(),
+    itemDescription: z.string(),
+    unitOfMeasurement: z.string(),
+    priceBuilder: z.number(),
+    priceHomeOwner: z.number(),
+    costBuilder: z.number(),
+    costHomeOwner: z.number(),
+    vendorPartNumber: z.string(),
+    vendor: objectVendor,
+    itemUpdatedBy: z.string().uuid(),
+    itemUpdatedAt: z.string().datetime(),
+})
+export type Item = z.infer<typeof objectItem>
+export const schemaItem = toTypedSchema(objectItem)
+
 const objectWarehouse = z.object({
     warehouseId: z.string().uuid(),
     warehouseName: z.string(),
@@ -179,6 +198,22 @@ const objectFormDevelopment = z.object({
 })
 export type FormDevelopment = z.infer<typeof objectFormDevelopment>
 export const schemaFormDevelopment = toTypedSchema(objectFormDevelopment)
+
+const objectFormItem = z.object({
+    itemCategory: stringRequiredSanitizedWhitespace,
+    itemSubcategory: stringRequiredSanitizedWhitespace,
+    sku: stringRequiredSanitizedWhitespace,
+    itemDescription: stringRequiredSanitizedWhitespace,
+    unitOfMeasurement: stringRequiredSanitizedWhitespace,
+    priceBuilder: z.number().min(0),
+    priceHomeOwner: z.number().min(0),
+    costBuilder: z.number().min(0),
+    costHomeOwner: z.number().min(0),
+    vendorPartNumber: stringSanitizedWhitespace.nullish(),
+    vendorId: z.string().uuid(),
+})
+export type FormItem = z.infer<typeof objectFormItem>
+export const schemaFormItem = toTypedSchema(objectFormItem)
 
 const objectFormLot = z.object({
     lotNumber: stringRequiredSanitizedWhitespace,
