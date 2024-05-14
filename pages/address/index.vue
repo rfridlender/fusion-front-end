@@ -18,7 +18,6 @@ watch(error, (errorNew) => toast({
 const isFormAddressOpen = useState<boolean>("isFormAddressOpen", () => false)
 const isAddressNew = useState<boolean>("isAddressNew", () => true)
 const addressBeingFormed = useState<Address | undefined>("addressBeingFormed")
-
 const isDialogDeleteAddressOpen = useState<boolean>("isDialogDeleteAddressOpen", () => false)
 
 const filters = [

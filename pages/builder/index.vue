@@ -9,17 +9,17 @@ const { toast } = useToast()
 
 const { data, error, refresh } = await useFetch<Builder[]>("/api/builder", { default: () => [] })
 
-const isFormBuilderOpen = useState<boolean>("isFormBuilderOpen", () => false)
-const isBuilderNew = useState<boolean>("isBuilderNew", () => true)
-const builderBeingFormed = useState<Builder | undefined>("builderBeingFormed")
-
-const isDialogDeleteBuilderOpen = useState<boolean>("isDialogDeleteBuilderOpen", () => false)
-
 watch(error, (errorNew) => toast({
     title: "Failed to retrieve builders", 
     description: errorNew?.data.message, 
     variant: "destructive",
 }))
+
+const isFormBuilderOpen = useState<boolean>("isFormBuilderOpen", () => false)
+const isBuilderNew = useState<boolean>("isBuilderNew", () => true)
+const builderBeingFormed = useState<Builder | undefined>("builderBeingFormed")
+const isDialogDeleteBuilderOpen = useState<boolean>("isDialogDeleteBuilderOpen", () => false)
+
 
 function onNew() {
     builderBeingFormed.value = undefined

@@ -11,17 +11,16 @@ const { data, error, refresh } = await useFetch<Warehouse[]>(
     "/api/warehouse", { default: () => [] },
 )
 
-const isFormWarehouseOpen = useState<boolean>("isFormWarehouseOpen", () => false)
-const isWarehouseNew = useState<boolean>("isWarehouseNew", () => true)
-const warehouseBeingFormed = useState<Warehouse | undefined>("warehouseBeingFormed")
-
-const isDialogDeleteWarehouseOpen = useState<boolean>("isDialogDeleteWarehouseOpen", () => false)
-
 watch(error, (errorNew) => toast({
     title: "Failed to retrieve warehouses", 
     description: errorNew?.data.message, 
     variant: "destructive",
 }))
+
+const isFormWarehouseOpen = useState<boolean>("isFormWarehouseOpen", () => false)
+const isWarehouseNew = useState<boolean>("isWarehouseNew", () => true)
+const warehouseBeingFormed = useState<Warehouse | undefined>("warehouseBeingFormed")
+const isDialogDeleteWarehouseOpen = useState<boolean>("isDialogDeleteWarehouseOpen", () => false)
 
 function onNew() {
     warehouseBeingFormed.value = undefined

@@ -11,19 +11,18 @@ const { data, error, refresh } = await useFetch<Development[]>(
     "/api/development", { default: () => [] },
 )
 
-const isFormDevelopmentOpen = useState<boolean>("isFormDevelopmentOpen", () => false)
-const isDevelopmentNew = useState<boolean>("isDevelopmentNew", () => true)
-const developmentBeingFormed = useState<Development | undefined>("developmentBeingFormed")
-
-const isDialogDeleteDevelopmentOpen = useState<boolean>(
-    "isDialogDeleteDevelopmentOpen", () => false,
-)
-
 watch(error, (errorNew) => toast({
     title: "Failed to retrieve developments", 
     description: errorNew?.data.message, 
     variant: "destructive",
 }))
+
+const isFormDevelopmentOpen = useState<boolean>("isFormDevelopmentOpen", () => false)
+const isDevelopmentNew = useState<boolean>("isDevelopmentNew", () => true)
+const developmentBeingFormed = useState<Development | undefined>("developmentBeingFormed")
+const isDialogDeleteDevelopmentOpen = useState<boolean>(
+    "isDialogDeleteDevelopmentOpen", () => false,
+)
 
 function onNew() {
     developmentBeingFormed.value = undefined

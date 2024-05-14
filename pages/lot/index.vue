@@ -11,19 +11,16 @@ const { data, error, refresh } = await useFetch<Lot[]>(
     "/api/lot", { default: () => [] },
 )
 
-const isFormLotOpen = useState<boolean>("isFormLotOpen", () => false)
-const isLotNew = useState<boolean>("isLotNew", () => true)
-const lotBeingFormed = useState<Lot | undefined>("lotBeingFormed")
-
-const isDialogDeleteLotOpen = useState<boolean>(
-    "isDialogDeleteLotOpen", () => false,
-)
-
 watch(error, (errorNew) => toast({
     title: "Failed to retrieve lots", 
     description: errorNew?.data.message, 
     variant: "destructive",
 }))
+
+const isFormLotOpen = useState<boolean>("isFormLotOpen", () => false)
+const isLotNew = useState<boolean>("isLotNew", () => true)
+const lotBeingFormed = useState<Lot | undefined>("lotBeingFormed")
+const isDialogDeleteLotOpen = useState<boolean>("isDialogDeleteLotOpen", () => false)
 
 function onNew() {
     lotBeingFormed.value = undefined

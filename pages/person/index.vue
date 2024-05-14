@@ -18,9 +18,7 @@ watch(error, (errorNew) => toast({
 const isFormPersonOpen = useState<boolean>("isFormPersonOpen", () => false)
 const isPersonNew = useState<boolean>("isPersonNew", () => true)
 const personBeingFormed = useState<Person | undefined>("personBeingFormed")
-
 const isDialogDeletePersonOpen = useState<boolean>("isDialogDeletePersonOpen", () => false)
-
 
 const filters = [{ columnId: "familyName", title: "Family Name" }]
 

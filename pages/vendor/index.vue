@@ -9,17 +9,16 @@ const { toast } = useToast()
 
 const { data, error, refresh } = await useFetch<Vendor[]>("/api/vendor", { default: () => [] })
 
-const isFormVendorOpen = useState<boolean>("isFormVendorOpen", () => false)
-const isVendorNew = useState<boolean>("isVendorNew", () => true)
-const vendorBeingFormed = useState<Vendor | undefined>("vendorBeingFormed")
-
-const isDialogDeleteVendorOpen = useState<boolean>("isDialogDeleteVendorOpen", () => false)
-
 watch(error, (errorNew) => toast({
     title: "Failed to retrieve vendors", 
     description: errorNew?.data.message, 
     variant: "destructive",
 }))
+
+const isFormVendorOpen = useState<boolean>("isFormVendorOpen", () => false)
+const isVendorNew = useState<boolean>("isVendorNew", () => true)
+const vendorBeingFormed = useState<Vendor | undefined>("vendorBeingFormed")
+const isDialogDeleteVendorOpen = useState<boolean>("isDialogDeleteVendorOpen", () => false)
 
 function onNew() {
     vendorBeingFormed.value = undefined
