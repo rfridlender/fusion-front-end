@@ -4,6 +4,7 @@ import {
     HardHat,
     Home,
     LayoutDashboard,
+    Map,
     MapPin,
     SquareStack,
     Store,
@@ -48,6 +49,11 @@ const routesProtected = [
         displayText: "Person",
         path: "/person",
         icon: User,
+    },
+    {
+        displayText: "Project",
+        path: "/project",
+        icon: Map,
     },
     {
         displayText: "Vendor",

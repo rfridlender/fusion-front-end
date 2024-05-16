@@ -1,5 +1,6 @@
 import { z } from "zod"
 
+const REGEX_DATE = /^[12]\d{3}-\d{2}-\d{2}$/
 const REGEX_FORBID_WHITESPACE = /^\S*$/
 const REGEX_FORBID_WHITESPACE_LEADING = /^\S+|^$/
 const REGEX_FORBID_WHITESPACE_TRAILING = /\S+$|^$/
@@ -135,6 +136,23 @@ const objectWarehouse = z.object({
 export type Warehouse = z.infer<typeof objectWarehouse>
 export const schemaWarehouse = toTypedSchema(objectWarehouse)
 
+const objectProject = z.object({
+    projectId: z.string().uuid(),
+    projectCategory: z.string(),
+    installDate: z.string(),
+    customerPurchaseOrderNumber: z.string(),
+    salesOrderNumber: z.string(),
+    lot: objectLot,
+    contact: objectPerson,
+    representative: objectPerson,
+    warehouse: objectWarehouse,
+    projectUpdatedBy: z.string().uuid(),
+    projectUpdatedAt: z.string().datetime(),
+    projectIsDeleted: z.boolean(),
+})
+export type Project = z.infer<typeof objectProject>
+export const schemaProject = toTypedSchema(objectProject)
+
 const objectFormAddress = z.object({
     streetOne: stringRequiredSanitizedWhitespace,
     streetTwo: stringSanitizedWhitespace.nullish(),
@@ -232,6 +250,19 @@ const objectFormPerson = z.object({
 })
 export type FormPerson = z.infer<typeof objectFormPerson>
 export const schemaFormPerson = toTypedSchema(objectFormPerson)
+
+const objectFormProject = z.object({
+    projectCategory: stringRequiredSanitizedWhitespace,
+    installDate: z.string().length(10).regex(REGEX_DATE),
+    customerPurchaseOrderNumber: stringSanitizedWhitespace.nullish(),
+    salesOrderNumber: stringSanitizedWhitespace.nullish(),
+    lotId: z.string().uuid(),
+    contactId: z.string().uuid(),
+    representativeId: z.string().uuid(),
+    warehouseId: z.string().uuid(),
+})
+export type FormProject = z.infer<typeof objectFormProject>
+export const schemaFormProject = toTypedSchema(objectFormProject)
 
 const objectFormVendor = z.object({
     vendorName: stringRequiredSanitizedWhitespace,

@@ -9,6 +9,7 @@ export const routesProtected = [
     "/item",
     "/lot",
     "/person",
+    "/project",
     "/vendor",
     "/verify-email",
     "/warehouse",
