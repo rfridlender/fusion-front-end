@@ -15,7 +15,10 @@ defineProps<{
         <PopoverTrigger as-child>
             <FormControl>
                 <Button
-                    :class="cn('justify-between', !values[name] && 'text-muted-foreground')"
+                    :class="cn(
+                        'justify-between font-normal', 
+                        !values[name] && 'text-muted-foreground'
+                    )"
                     variant="outline"
                     role="combobox"
                 >
