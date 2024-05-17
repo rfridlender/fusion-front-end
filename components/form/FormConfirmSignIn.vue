@@ -58,7 +58,7 @@ const onSubmit = handleSubmit(async ({ givenName, familyName, phoneNumber, passw
 
             <CardContent class="grid gap-4">
                 <FormField v-slot="{ componentField }" name="givenName">
-                    <FormItem v-auto-animate>
+                    <FormFieldItem v-auto-animate>
                         <FormLabel>Given Name</FormLabel>
 
                         <FormControl>
@@ -66,11 +66,11 @@ const onSubmit = handleSubmit(async ({ givenName, familyName, phoneNumber, passw
                         </FormControl>
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
 
                 <FormField v-slot="{ componentField }" name="familyName">
-                    <FormItem v-auto-animate>
+                    <FormFieldItem v-auto-animate>
                         <FormLabel>Family Name</FormLabel>
 
                         <FormControl>
@@ -78,11 +78,11 @@ const onSubmit = handleSubmit(async ({ givenName, familyName, phoneNumber, passw
                         </FormControl>
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
 
                 <FormField v-slot="{ componentField }" name="phoneNumber">
-                    <FormItem v-auto-animate>
+                    <FormFieldItem v-auto-animate>
                         <FormLabel>Phone Number</FormLabel>
 
                         <FormControl>
@@ -90,11 +90,11 @@ const onSubmit = handleSubmit(async ({ givenName, familyName, phoneNumber, passw
                         </FormControl>
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
 
                 <FormField v-slot="{ componentField }" name="password">
-                    <FormItem v-auto-animate>
+                    <FormFieldItem v-auto-animate>
                         <FormLabel>Password</FormLabel>
 
                         <FormControl>
@@ -102,11 +102,11 @@ const onSubmit = handleSubmit(async ({ givenName, familyName, phoneNumber, passw
                         </FormControl>
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
 
                 <FormField v-slot="{ componentField }" name="passwordConfirmation">
-                    <FormItem v-auto-animate>
+                    <FormFieldItem v-auto-animate>
                         <FormLabel>Confirm Password</FormLabel>
 
                         <FormControl>
@@ -114,7 +114,7 @@ const onSubmit = handleSubmit(async ({ givenName, familyName, phoneNumber, passw
                         </FormControl>
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
             </CardContent>
             

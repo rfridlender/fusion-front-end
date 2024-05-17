@@ -67,7 +67,7 @@ const onSubmit = handleSubmit(async (body) => {
 
             <div class="h-full flex flex-col gap-4">
                 <FormField v-slot="{ componentField }" name="givenName">
-                    <FormItem v-auto-animate>
+                    <FormFieldItem v-auto-animate>
                         <FormLabel>Given Name</FormLabel>
 
                         <FormControl>
@@ -75,11 +75,11 @@ const onSubmit = handleSubmit(async (body) => {
                         </FormControl>
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
 
                 <FormField v-slot="{ componentField }" name="familyName">
-                    <FormItem v-auto-animate>
+                    <FormFieldItem v-auto-animate>
                         <FormLabel>Family Name</FormLabel>
 
                         <FormControl>
@@ -87,11 +87,11 @@ const onSubmit = handleSubmit(async (body) => {
                         </FormControl>
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
 
                 <FormField v-slot="{ componentField }" name="phoneNumber">
-                    <FormItem v-auto-animate>
+                    <FormFieldItem v-auto-animate>
                         <FormLabel>Phone Number</FormLabel>
 
                         <FormControl>
@@ -99,11 +99,11 @@ const onSubmit = handleSubmit(async (body) => {
                         </FormControl>
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
 
                 <FormField v-slot="{ componentField }" name="email">
-                    <FormItem v-auto-animate>
+                    <FormFieldItem v-auto-animate>
                         <FormLabel>Email</FormLabel>
 
                         <FormControl>
@@ -114,7 +114,7 @@ const onSubmit = handleSubmit(async (body) => {
                         </FormControl>
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
             </div>
 

@@ -42,7 +42,7 @@ const onSubmit = handleSubmit(async ({ passwordCurrent, passwordNew }) => {
 
             <CardContent class="grid gap-4">
                 <FormField v-slot="{ componentField }" name="passwordCurrent">
-                    <FormItem v-auto-animate>
+                    <FormFieldItem v-auto-animate>
                         <FormLabel>Current Password</FormLabel>
 
                         <FormControl>
@@ -50,11 +50,11 @@ const onSubmit = handleSubmit(async ({ passwordCurrent, passwordNew }) => {
                         </FormControl>
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
 
                 <FormField v-slot="{ componentField }" name="passwordNew">
-                    <FormItem v-auto-animate>
+                    <FormFieldItem v-auto-animate>
                         <FormLabel>New Password</FormLabel>
 
                         <FormControl>
@@ -62,11 +62,11 @@ const onSubmit = handleSubmit(async ({ passwordCurrent, passwordNew }) => {
                         </FormControl>
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
 
                 <FormField v-slot="{ componentField }" name="passwordNewConfirmation">
-                    <FormItem v-auto-animate>
+                    <FormFieldItem v-auto-animate>
                         <FormLabel>Confirm New Password</FormLabel>
 
                         <FormControl>
@@ -74,7 +74,7 @@ const onSubmit = handleSubmit(async ({ passwordCurrent, passwordNew }) => {
                         </FormControl>
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
 
                 <p 

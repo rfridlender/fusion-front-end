@@ -46,7 +46,7 @@ const onSubmit = handleSubmit(async ({ email, password }) => {
 
             <CardContent v-auto-animate class="grid gap-4">
                 <FormField v-slot="{ componentField }" name="email">
-                    <FormItem v-auto-animate>
+                    <FormFieldItem v-auto-animate>
                         <FormLabel>Email</FormLabel>
 
                         <FormControl>
@@ -58,11 +58,11 @@ const onSubmit = handleSubmit(async ({ email, password }) => {
                         </FormControl>
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
 
                 <FormField v-slot="{ componentField }" name="password">
-                    <FormItem v-auto-animate>
+                    <FormFieldItem v-auto-animate>
                         <FormLabel>Password</FormLabel>
                         
                         <FormControl>
@@ -70,7 +70,7 @@ const onSubmit = handleSubmit(async ({ email, password }) => {
                         </FormControl>
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
 
                 <p 

@@ -132,7 +132,7 @@ const onSubmit = handleSubmit(async (body) => {
 
             <div class="h-full flex flex-col gap-4">
                 <FormField name="projectCategory">
-                    <FormItem class="flex flex-col">
+                    <FormFieldItem class="flex flex-col">
                         <FormLabel>Category</FormLabel>
 
                         <FormFieldCombobox 
@@ -144,11 +144,11 @@ const onSubmit = handleSubmit(async (body) => {
                         />
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
 
                 <FormField name="installDate">
-                    <FormItem class="flex flex-col">
+                    <FormFieldItem class="flex flex-col">
                         <FormLabel>Install Date</FormLabel>
 
                         <Popover>
@@ -191,11 +191,11 @@ const onSubmit = handleSubmit(async (body) => {
                         </Popover>
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
 
                 <FormField v-slot="{ componentField }" name="customerPurchaseOrderNumber">
-                    <FormItem v-auto-animate>
+                    <FormFieldItem v-auto-animate>
                         <FormLabel>Cust. P.O.</FormLabel>
 
                         <FormControl>
@@ -203,11 +203,11 @@ const onSubmit = handleSubmit(async (body) => {
                         </FormControl>
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
 
                 <FormField v-slot="{ componentField }" name="salesOrderNumber">
-                    <FormItem v-auto-animate>
+                    <FormFieldItem v-auto-animate>
                         <FormLabel>S.O.</FormLabel>
 
                         <FormControl>
@@ -215,11 +215,11 @@ const onSubmit = handleSubmit(async (body) => {
                         </FormControl>
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
 
                 <FormField name="lotId">
-                    <FormItem class="flex flex-col">
+                    <FormFieldItem class="flex flex-col">
                         <FormLabel>Lot</FormLabel>
 
                         <FormFieldCombobox 
@@ -231,11 +231,11 @@ const onSubmit = handleSubmit(async (body) => {
                         />
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
 
                 <FormField name="contactId">
-                    <FormItem class="flex flex-col">
+                    <FormFieldItem class="flex flex-col">
                         <FormLabel>Contact</FormLabel>
 
                         <FormFieldCombobox 
@@ -247,11 +247,11 @@ const onSubmit = handleSubmit(async (body) => {
                         />
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
 
                 <FormField name="representativeId">
-                    <FormItem class="flex flex-col">
+                    <FormFieldItem class="flex flex-col">
                         <FormLabel>Representative</FormLabel>
 
                         <FormFieldCombobox 
@@ -263,11 +263,11 @@ const onSubmit = handleSubmit(async (body) => {
                         />
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
 
                 <FormField name="warehouseId">
-                    <FormItem class="flex flex-col">
+                    <FormFieldItem class="flex flex-col">
                         <FormLabel>Warehouse</FormLabel>
 
                         <FormFieldCombobox 
@@ -279,7 +279,7 @@ const onSubmit = handleSubmit(async (body) => {
                         />
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
             </div>
 

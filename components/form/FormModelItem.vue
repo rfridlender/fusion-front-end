@@ -96,7 +96,7 @@ const onSubmit = handleSubmit(async (body) => {
 
             <div class="h-full flex flex-col gap-4">
                 <FormField name="itemCategory">
-                    <FormItem class="flex flex-col">
+                    <FormFieldItem class="flex flex-col">
                         <FormLabel>Category</FormLabel>
 
                         <FormFieldCombobox 
@@ -108,11 +108,11 @@ const onSubmit = handleSubmit(async (body) => {
                         />
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
 
                 <FormField name="itemSubcategory">
-                    <FormItem class="flex flex-col">
+                    <FormFieldItem class="flex flex-col">
                         <FormLabel>Subcategory</FormLabel>
 
                         <FormFieldCombobox 
@@ -124,11 +124,11 @@ const onSubmit = handleSubmit(async (body) => {
                         />
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
 
                 <FormField v-slot="{ componentField }" name="sku">
-                    <FormItem v-auto-animate>
+                    <FormFieldItem v-auto-animate>
                         <FormLabel>SKU</FormLabel>
 
                         <FormControl>
@@ -136,11 +136,11 @@ const onSubmit = handleSubmit(async (body) => {
                         </FormControl>
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
 
                 <FormField v-slot="{ componentField }" name="itemDescription">
-                    <FormItem v-auto-animate>
+                    <FormFieldItem v-auto-animate>
                         <FormLabel>Description</FormLabel>
 
                         <FormControl>
@@ -148,11 +148,11 @@ const onSubmit = handleSubmit(async (body) => {
                         </FormControl>
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
 
                 <FormField name="unitOfMeasurement">
-                    <FormItem class="flex flex-col">
+                    <FormFieldItem class="flex flex-col">
                         <FormLabel>UoM</FormLabel>
 
                         <FormFieldCombobox 
@@ -164,11 +164,11 @@ const onSubmit = handleSubmit(async (body) => {
                         />
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
 
                 <FormField v-slot="{ componentField }" name="priceBuilder">
-                    <FormItem v-auto-animate>
+                    <FormFieldItem v-auto-animate>
                         <FormLabel>Bldr. Price</FormLabel>
 
                         <FormControl>
@@ -181,11 +181,11 @@ const onSubmit = handleSubmit(async (body) => {
                         </FormControl>
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
 
                 <FormField v-slot="{ componentField }" name="priceHomeOwner">
-                    <FormItem v-auto-animate>
+                    <FormFieldItem v-auto-animate>
                         <FormLabel>H.O. Price</FormLabel>
 
                         <FormControl>
@@ -198,11 +198,11 @@ const onSubmit = handleSubmit(async (body) => {
                         </FormControl>
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
 
                 <FormField v-slot="{ componentField }" name="costBuilder">
-                    <FormItem v-auto-animate>
+                    <FormFieldItem v-auto-animate>
                         <FormLabel>Bldr. Cost</FormLabel>
 
                         <FormControl>
@@ -215,11 +215,11 @@ const onSubmit = handleSubmit(async (body) => {
                         </FormControl>
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
 
                 <FormField v-slot="{ componentField }" name="costHomeOwner">
-                    <FormItem v-auto-animate>
+                    <FormFieldItem v-auto-animate>
                         <FormLabel>H.O. Cost</FormLabel>
 
                         <FormControl>
@@ -232,11 +232,11 @@ const onSubmit = handleSubmit(async (body) => {
                         </FormControl>
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
 
                 <FormField v-slot="{ componentField }" name="vendorPartNumber">
-                    <FormItem v-auto-animate>
+                    <FormFieldItem v-auto-animate>
                         <FormLabel>Vendor P.N.</FormLabel>
 
                         <FormControl>
@@ -244,11 +244,11 @@ const onSubmit = handleSubmit(async (body) => {
                         </FormControl>
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
 
                 <FormField name="vendorId">
-                    <FormItem class="flex flex-col">
+                    <FormFieldItem class="flex flex-col">
                         <FormLabel>Vendor</FormLabel>
 
                         <FormFieldCombobox 
@@ -260,7 +260,7 @@ const onSubmit = handleSubmit(async (body) => {
                         />
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
             </div>
 

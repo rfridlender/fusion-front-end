@@ -71,7 +71,7 @@ const onSubmit = handleSubmit(async ({ codeConfirmation, password }) => {
 
             <CardContent class="grid gap-4">
                 <FormField v-slot="{ componentField, value }" name="codeConfirmation">
-                    <FormItem v-auto-animate>
+                    <FormFieldItem v-auto-animate>
                         <FormControl>
                             <PinInput
                                 id="codeConfirmation"
@@ -96,11 +96,11 @@ const onSubmit = handleSubmit(async ({ codeConfirmation, password }) => {
                         </FormControl>
 
                         <FormMessage class="text-center" />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
 
                 <FormField v-slot="{ componentField }" name="password">
-                    <FormItem v-auto-animate>
+                    <FormFieldItem v-auto-animate>
                         <FormLabel>New Password</FormLabel>
 
                         <FormControl>
@@ -108,11 +108,11 @@ const onSubmit = handleSubmit(async ({ codeConfirmation, password }) => {
                         </FormControl>
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
 
                 <FormField v-slot="{ componentField }" name="passwordConfirmation">
-                    <FormItem v-auto-animate>
+                    <FormFieldItem v-auto-animate>
                         <FormLabel>Confirm New Password</FormLabel>
 
                         <FormControl>
@@ -120,7 +120,7 @@ const onSubmit = handleSubmit(async ({ codeConfirmation, password }) => {
                         </FormControl>
 
                         <FormMessage />
-                    </FormItem>
+                    </FormFieldItem>
                 </FormField>
 
                 <p 
