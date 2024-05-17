@@ -72,7 +72,7 @@ async function onPostSubmit({ title, description, variant }: Toast) {
         </div>
 
         <Sheet v-model:open="isFormItemOpen">
-            <FormModelItem @post-submit="onPostSubmit" />
+            <FormItem @post-submit="onPostSubmit" />
         </Sheet>
 
         <Dialog v-model:open="isDialogDeleteItemOpen">
