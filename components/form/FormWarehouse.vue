@@ -122,7 +122,7 @@ const onSubmit = handleSubmit(async (body) => {
                     type="reset" 
                     :disabled="isSubmitting"
                 >
-                    <Eraser v-if="!isSubmitting" class="size-5 mr-2" />
+                    <Eraser class="size-5 mr-2" />
                     Clear
                 </Button>
                 
