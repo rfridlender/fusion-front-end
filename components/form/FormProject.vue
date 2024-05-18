@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import { Calendar } from "@/components/ui/calendar"
 import type { Toast } from "@/components/ui/toast/use-toast"
 import { DateFormatter, getLocalTimeZone, parseDate, today } from "@internationalized/date"
-import { Calendar as CalendarIcon, Eraser, LoaderCircle, Save } from "lucide-vue-next"
+import { Calendar as CalendarIcon, Eraser, LoaderCircle, Map, Save, X } from "lucide-vue-next"
 import { toDate } from "radix-vue/date"
-
 
 const emit = defineEmits<{ (_event: "postSubmit", _propsToast: Toast): void }>()
 
@@ -14,7 +12,7 @@ const {
 } = await useFetch<Lot[]>("/api/lot", { default: () => [] })
 
 const optionsLots = computed(() => dataLots.value.map(lot => ({ 
-    label: `Lot ${lot.lotNumber} ${lot.development.developmentName}`, 
+    label: `${lot.lotNumber} ${lot.development.developmentName}`, 
     value: lot.lotId,
 })))
 
@@ -50,6 +48,10 @@ watch(errorWarehouses, (errorNew) => console.error(errorNew))
 const isFormProjectOpen = useState<boolean>("isFormProjectOpen")
 const isProjectNew = useState<boolean>("isProjectNew")
 const projectBeingFormed = useState<Project | undefined>("projectBeingFormed")
+const isDialogConfirmLeaveProjectOpen = useState<boolean>(
+    "isDialogConfirmLeaveProjectOpen", 
+    () => false,
+)
 
 const { handleSubmit, setFieldValue, setValues, values, isSubmitting, resetForm } = useForm({ 
     validationSchema: schemaFormProject,
@@ -120,167 +122,338 @@ const onSubmit = handleSubmit(async (body) => {
 </script>
 
 <template>
-    <SheetContent aria-describedby="form">
+    <SheetContent 
+        class="h-full" 
+        aria-describedby="form" 
+        side="bottom"
+    >
         <form 
-            class="h-full flex flex-col gap-4" 
+            class="h-full flex flex-col" 
             @submit="onSubmit"
             @reset="() => resetForm()"
         >
-            <SheetHeader>
-                <SheetTitle>{{ isProjectNew ? "New" : "Edit" }} project</SheetTitle>
+            <SheetHeader class="flex flex-row justify-between">
+                <SheetTitle class="flex text-2xl">
+                    <Map class="size-8 mr-4" />
+                    {{ isProjectNew ? "New" : "Edit" }} project
+                </SheetTitle>
+
+                <Button 
+                    variant="ghost" 
+                    size="icon"
+                    :disabled="isSubmitting"
+                    @click="isDialogConfirmLeaveProjectOpen = true"
+                >
+                    <X class="size-8" />
+                </Button>
             </SheetHeader>
 
+            <Separator class="my-6" />
+
             <div class="h-full flex flex-col gap-4">
-                <FormField name="projectCategory">
-                    <FormFieldItem class="flex flex-col">
-                        <FormLabel>Category</FormLabel>
+                <FormField 
+                    v-slot="{ componentField }" 
+                    type="radio" 
+                    name="projectCategory"
+                >
+                    <FormFieldItem>
+                        <FormControl>
+                            <RadioGroup
+                                class="flex items-center gap-4"
+                                v-bind="componentField"
+                            >
+                                <FormFieldItem 
+                                    v-for="itemCategory in itemCategories"
+                                    :key="itemCategory"
+                                    class="flex items-center space-y-0 gap-x-2"
+                                >
+                                    <FormControl>
+                                        <RadioGroupItem :value="itemCategory" />
+                                    </FormControl>
 
-                        <FormFieldCombobox 
-                            name="projectCategory"
-                            placeholder="category"
-                            :options="optionsCategories"
-                            :set-values="setValues"
-                            :values="values"
-                        />
-
+                                    <FormLabel class="font-normal">
+                                        {{ itemCategory }}
+                                    </FormLabel>
+                                </FormFieldItem>
+                            </RadioGroup>
+                        </FormControl>
+                        
                         <FormMessage />
                     </FormFieldItem>
                 </FormField>
 
-                <FormField name="installDate">
-                    <FormFieldItem class="flex flex-col">
-                        <FormLabel>Install Date</FormLabel>
-
-                        <Popover>
-                            <PopoverTrigger as-child>
-                                <FormControl>
-                                    <Button
-                                        variant="outline" 
-                                        :class="cn(
-                                            'w-full ps-3 text-start font-normal',
-                                            !valueInstallDate && 'text-muted-foreground',
-                                        )"
-                                    >
-                                        <span>
-                                            {{ valueInstallDate ? 
-                                                df.format(toDate(valueInstallDate)) : 
-                                                "Pick a date" 
-                                            }}
-                                        </span>
-
-                                        <CalendarIcon class="ms-auto h-4 w-4 opacity-50" />
-                                    </Button>
-
-                                    <input hidden>
-                                </FormControl>
-                            </PopoverTrigger>
-
-                            <PopoverContent class="w-auto p-0">
-                                <Calendar
-                                    v-model:placeholder="placeholderInstallDate"
-                                    v-model="valueInstallDate"
-                                    calendar-label="Install date"
-                                    :min-value="today(getLocalTimeZone()).subtract({ months: 1 })"
-                                    :max-value="today(getLocalTimeZone()).add({ months: 5 })"
-                                    @update:model-value="(v) => setFieldValue(
-                                        'installDate',
-                                        v ? v.toString() : undefined
-                                    )"
+                <div class="w-full flex justify-center items-center gap-8">
+                    <FormField name="customer">
+                        <FormFieldItem class="w-full">
+                            <FormLabel>Customer</FormLabel>
+    
+                            <FormControl>
+                                <Input 
+                                    :value="dataLots.find(
+                                        ({ lotId }) => 
+                                            lotId === values.lotId)?.development.builder.builderName
+                                    " 
+                                    readonly 
                                 />
-                            </PopoverContent>
-                        </Popover>
+                            </FormControl>
+                        </FormFieldItem>
+                    </FormField>
 
-                        <FormMessage />
-                    </FormFieldItem>
-                </FormField>
+                    <FormField name="installDate">
+                        <FormFieldItem class="w-full">
+                            <FormLabel>Install Date</FormLabel>
 
-                <FormField v-slot="{ componentField }" name="customerPurchaseOrderNumber">
-                    <FormFieldItem v-auto-animate>
-                        <FormLabel>Cust. P.O.</FormLabel>
+                            <Popover>
+                                <PopoverTrigger as-child>
+                                    <FormControl>
+                                        <Button
+                                            variant="outline" 
+                                            :class="cn(
+                                                'w-full ps-3 text-start font-normal',
+                                                !valueInstallDate && 'text-muted-foreground',
+                                            )"
+                                        >
+                                            <span>
+                                                {{ valueInstallDate ? 
+                                                    df.format(toDate(valueInstallDate)) : 
+                                                    "Pick a date" 
+                                                }}
+                                            </span>
 
-                        <FormControl>
-                            <Input v-bind="componentField" placeholder="HF1234" />
-                        </FormControl>
+                                            <CalendarIcon class="ms-auto h-4 w-4 opacity-50" />
+                                        </Button>
 
-                        <FormMessage />
-                    </FormFieldItem>
-                </FormField>
+                                        <input hidden>
+                                    </FormControl>
+                                </PopoverTrigger>
 
-                <FormField v-slot="{ componentField }" name="salesOrderNumber">
-                    <FormFieldItem v-auto-animate>
-                        <FormLabel>S.O.</FormLabel>
+                                <PopoverContent class="w-auto p-0">
+                                    <Calendar
+                                        v-model:placeholder="placeholderInstallDate"
+                                        v-model="valueInstallDate"
+                                        calendar-label="Install date"
+                                        :min-value="today(getLocalTimeZone()).subtract(
+                                            { months: 1 }
+                                        )"
+                                        :max-value="today(getLocalTimeZone()).add(
+                                            { months: 5 }
+                                        )"
+                                        @update:model-value="(v) => setFieldValue(
+                                            'installDate',
+                                            v ? v.toString() : undefined
+                                        )"
+                                    />
+                                </PopoverContent>
+                            </Popover>
 
-                        <FormControl>
-                            <Input v-bind="componentField" placeholder="RM9876" />
-                        </FormControl>
+                            <FormMessage />
+                        </FormFieldItem>
+                    </FormField>
+                </div>
 
-                        <FormMessage />
-                    </FormFieldItem>
-                </FormField>
+                <div class="w-full flex justify-center items-center gap-8">
+                    <FormField name="contactId">
+                        <FormFieldItem class="w-full h-[72px] flex flex-col">
+                            <FormLabel class="leading-6">
+                                Contact
+                            </FormLabel>
 
-                <FormField name="lotId">
-                    <FormFieldItem class="flex flex-col">
-                        <FormLabel>Lot</FormLabel>
+                            <FormFieldCombobox 
+                                name="contactId"
+                                placeholder="contact"
+                                :options="optionsPersons"
+                                :set-values="setValues"
+                                :values="values"
+                            />
 
-                        <FormFieldCombobox 
-                            name="lotId"
-                            placeholder="lot"
-                            :options="optionsLots"
-                            :set-values="setValues"
-                            :values="values"
-                        />
+                            <FormMessage />
+                        </FormFieldItem>
+                    </FormField>
 
-                        <FormMessage />
-                    </FormFieldItem>
-                </FormField>
+                    <FormField name="lotId">
+                        <FormFieldItem class="w-full h-[72px] flex flex-col">
+                            <FormLabel class="leading-6">
+                                Lot
+                            </FormLabel>
 
-                <FormField name="contactId">
-                    <FormFieldItem class="flex flex-col">
-                        <FormLabel>Contact</FormLabel>
+                            <FormFieldCombobox 
+                                name="lotId"
+                                placeholder="lot"
+                                :options="optionsLots"
+                                :set-values="setValues"
+                                :values="values"
+                            />
 
-                        <FormFieldCombobox 
-                            name="contactId"
-                            placeholder="contact"
-                            :options="optionsPersons"
-                            :set-values="setValues"
-                            :values="values"
-                        />
+                            <FormMessage />
+                        </FormFieldItem>
+                    </FormField>
+                </div>
 
-                        <FormMessage />
-                    </FormFieldItem>
-                </FormField>
+                <div class="w-full flex justify-center items-center gap-8">
+                    <FormField name="phone">
+                        <FormFieldItem class="w-full">
+                            <FormLabel>Phone</FormLabel>
+    
+                            <FormControl>
+                                <Input 
+                                    :value="dataPersons.find(({ personId }) => 
+                                        personId === values.contactId)?.phoneNumber
+                                    " 
+                                    readonly 
+                                />
+                            </FormControl>
+                        </FormFieldItem>
+                    </FormField>
 
-                <FormField name="representativeId">
-                    <FormFieldItem class="flex flex-col">
-                        <FormLabel>Representative</FormLabel>
+                    <div class="w-full flex justify-center items-center gap-8">
+                        <FormField name="address">
+                            <FormFieldItem class="w-full">
+                                <FormLabel>Address</FormLabel>
+        
+                                <FormControl>
+                                    <Input 
+                                        :value="dataLots.find(({ lotId }) => 
+                                            lotId === values.lotId)?.address.streetOne
+                                        " 
+                                        readonly 
+                                    />
+                                </FormControl>
+                            </FormFieldItem>
+                        </FormField>
 
-                        <FormFieldCombobox 
-                            name="representativeId"
-                            placeholder="representative"
-                            :options="optionsPersons"
-                            :set-values="setValues"
-                            :values="values"
-                        />
+                        <FormField name="address">
+                            <FormFieldItem class="w-full">
+                                <FormLabel>Apartment, Suite, Etc. </FormLabel>
+        
+                                <FormControl>
+                                    <Input 
+                                        :value="dataLots.find(({ lotId }) => 
+                                            lotId === values.lotId)?.address.streetTwo
+                                        " 
+                                        readonly 
+                                    />
+                                </FormControl>
+                            </FormFieldItem>
+                        </FormField>
+                    </div>
+                </div>
 
-                        <FormMessage />
-                    </FormFieldItem>
-                </FormField>
+                <div class="w-full flex justify-center items-center gap-8">
+                    <FormField v-slot="{ componentField }" name="customerPurchaseOrderNumber">
+                        <FormFieldItem v-auto-animate class="w-full">
+                            <FormLabel>Customer PO</FormLabel>
 
-                <FormField name="warehouseId">
-                    <FormFieldItem class="flex flex-col">
-                        <FormLabel>Warehouse</FormLabel>
+                            <FormControl>
+                                <Input v-bind="componentField" placeholder="HF1234" />
+                            </FormControl>
 
-                        <FormFieldCombobox 
-                            name="warehouseId"
-                            placeholder="warehouse"
-                            :options="optionsWarehouses"
-                            :set-values="setValues"
-                            :values="values"
-                        />
+                            <FormMessage />
+                        </FormFieldItem>
+                    </FormField>
 
-                        <FormMessage />
-                    </FormFieldItem>
-                </FormField>
+                    <div class="w-full flex justify-center items-center gap-8">
+                        <FormField name="city">
+                            <FormFieldItem class="w-full">
+                                <FormLabel>City</FormLabel>
+        
+                                <FormControl>
+                                    <Input 
+                                        :value="dataLots.find(
+                                            ({ lotId }) => lotId === values.lotId)?.address.city
+                                        " 
+                                        readonly 
+                                    />
+                                </FormControl>
+                            </FormFieldItem>
+                        </FormField>
+    
+                        <FormField name="county">
+                            <FormFieldItem class="w-full">
+                                <FormLabel>County</FormLabel>
+        
+                                <FormControl>
+                                    <Input 
+                                        :value="dataLots.find(
+                                            ({ lotId }) => lotId === values.lotId)?.address.county
+                                        " 
+                                        readonly 
+                                    />
+                                </FormControl>
+                            </FormFieldItem>
+                        </FormField>
+                    </div>
+                </div>
+
+                <div class="w-full flex justify-center items-center gap-8">
+                    <FormField name="representativeId">
+                        <FormFieldItem class="w-full h-[72px] flex flex-col">
+                            <FormLabel class="leading-6">
+                                Rep
+                            </FormLabel>
+
+                            <FormFieldCombobox 
+                                name="representativeId"
+                                placeholder="representative"
+                                :options="optionsPersons"
+                                :set-values="setValues"
+                                :values="values"
+                            />
+
+                            <FormMessage />
+                        </FormFieldItem>
+                    </FormField>
+
+                    <div class="w-full flex justify-center items-center gap-8">
+                        <FormField name="warehouseId">
+                            <FormFieldItem class="w-full h-[72px] flex flex-col">
+                                <FormLabel class="leading-6">
+                                    WH
+                                </FormLabel>
+
+                                <FormFieldCombobox 
+                                    name="warehouseId"
+                                    placeholder="warehouse"
+                                    :options="optionsWarehouses"
+                                    :set-values="setValues"
+                                    :values="values"
+                                />
+
+                                <FormMessage />
+                            </FormFieldItem>
+                        </FormField>
+    
+                        <FormField v-slot="{ componentField }" name="salesOrderNumber">
+                            <FormFieldItem v-auto-animate class="w-full">
+                                <FormLabel>S.O.</FormLabel>
+
+                                <FormControl>
+                                    <Input v-bind="componentField" placeholder="RM9876" />
+                                </FormControl>
+
+                                <FormMessage />
+                            </FormFieldItem>
+                        </FormField>
+                    </div>
+                </div>
+
+                <div class="w-full flex justify-center items-center gap-8">
+                    <div class="w-full" />
+
+                    <FormField name="email">
+                        <FormFieldItem class="w-full">
+                            <FormLabel>Email</FormLabel>
+    
+                            <FormControl>
+                                <Input 
+                                    :value="dataPersons.find(
+                                        ({ personId }) => personId === values.contactId)?.email
+                                    " 
+                                    readonly 
+                                />
+                            </FormControl>
+                        </FormFieldItem>
+                    </FormField>
+                </div>
             </div>
 
             <SheetFooter>
@@ -290,7 +463,7 @@ const onSubmit = handleSubmit(async (body) => {
                     type="reset" 
                     :disabled="isSubmitting"
                 >
-                    <Eraser v-if="!isSubmitting" class="size-5 mr-2" />
+                    <Eraser class="size-5 mr-2" />
                     Clear
                 </Button>
                 
@@ -306,4 +479,8 @@ const onSubmit = handleSubmit(async (body) => {
             </SheetFooter>
         </form>
     </SheetContent>
+
+    <Dialog v-model:open="isDialogConfirmLeaveProjectOpen">
+        <DialogConfirmLeaveProject />
+    </Dialog>
 </template>

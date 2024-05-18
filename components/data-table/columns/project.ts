@@ -53,14 +53,14 @@ export const columns: ColumnDef<Project>[] = [
     {
         id: "lot",
         accessorFn: (originalRow) => 
-            `Lot ${originalRow.lot.lotNumber} ${originalRow.lot.development.developmentName}`,
+            `${originalRow.lot.lotNumber} ${originalRow.lot.development.developmentName}`,
         header: ({ column }) => h(DataTableColumnHeader, { column: column, title: "Lot" }),
         cell: ({ row }) => h(
             "div", 
             { class: `text-left font-medium ${row.original.projectIsDeleted ? 
                 " text-muted-foreground line-through" : ""}`,
             },
-            `Lot ${row.original.lot.lotNumber} ${row.original.lot.development.developmentName}`,
+            `${row.original.lot.lotNumber} ${row.original.lot.development.developmentName}`,
         ),
         filterFn: (row, id, value) => value.includes(row.getValue(id)),
     },

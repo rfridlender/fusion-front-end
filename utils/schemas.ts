@@ -14,6 +14,17 @@ const code = z.array(z.coerce.string()).length(6)
 
 const email = z.string().email()
 
+const itemCategory = z.enum([
+    "BATH",
+    "BLIND",
+    "LOCK",
+    "MIRROR",
+    "SCREEN",
+    "SHELVING",
+    "SHOWER_DOOR",
+    "SHUTTER",
+])
+
 const password = z.string()
     .min(8)
     .max(99)
@@ -109,7 +120,7 @@ export const schemaVendor = toTypedSchema(objectVendor)
 
 const objectItem = z.object({
     itemId: z.string().uuid(),
-    itemCategory: z.string(),
+    itemCategory: itemCategory,
     itemSubcategory: z.string(),
     sku: z.string(),
     itemDescription: z.string(),
@@ -138,7 +149,7 @@ export const schemaWarehouse = toTypedSchema(objectWarehouse)
 
 const objectProject = z.object({
     projectId: z.string().uuid(),
-    projectCategory: z.string(),
+    projectCategory: itemCategory,
     installDate: z.string(),
     customerPurchaseOrderNumber: z.string(),
     salesOrderNumber: z.string(),
@@ -218,7 +229,7 @@ export type FormDevelopment = z.infer<typeof objectFormDevelopment>
 export const schemaFormDevelopment = toTypedSchema(objectFormDevelopment)
 
 const objectFormItem = z.object({
-    itemCategory: stringRequiredSanitizedWhitespace,
+    itemCategory: itemCategory,
     itemSubcategory: stringRequiredSanitizedWhitespace,
     sku: stringRequiredSanitizedWhitespace,
     itemDescription: stringRequiredSanitizedWhitespace,
@@ -252,7 +263,7 @@ export type FormPerson = z.infer<typeof objectFormPerson>
 export const schemaFormPerson = toTypedSchema(objectFormPerson)
 
 const objectFormProject = z.object({
-    projectCategory: stringRequiredSanitizedWhitespace,
+    projectCategory: itemCategory,
     installDate: z.string().length(10).regex(REGEX_DATE),
     customerPurchaseOrderNumber: stringSanitizedWhitespace.nullish(),
     salesOrderNumber: stringSanitizedWhitespace.nullish(),

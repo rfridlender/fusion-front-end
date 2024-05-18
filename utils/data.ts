@@ -1,12 +1,12 @@
-export const optionsCategories = [
-    { label: "BATH", value: "BATH" },
-    { label: "BLIND", value: "BLIND" },
-    { label: "LOCK", value: "LOCK" },
-    { label: "MIRROR", value: "MIRROR" },
-    { label: "SCREEN", value: "SCREEN" },
-    { label: "SHELVING", value: "SHELVING" },
-    { label: "SHOWER_DOOR", value: "SHOWER_DOOR" },
-    { label: "SHUTTER", value: "SHUTTER" },
+export const itemCategories = [
+    "BATH",
+    "BLIND",
+    "LOCK",
+    "MIRROR",
+    "SCREEN",
+    "SHELVING",
+    "SHOWER_DOOR",
+    "SHUTTER",
 ]
 
 export const optionsCities = [
