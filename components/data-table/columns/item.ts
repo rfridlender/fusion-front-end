@@ -67,21 +67,12 @@ export const columns: ColumnDef<Item>[] = [
         ),
     },
     {
-        accessorKey: "costBuilder",
-        header: ({ column }) => h(DataTableColumnHeader, { column: column, title: "Bldr. Cost" }),
+        accessorKey: "cost",
+        header: ({ column }) => h(DataTableColumnHeader, { column: column, title: "Cost" }),
         cell: ({ row }) => h(
             "div", 
             { class: "text-left font-medium" }, 
-            row.getValue("costBuilder"),
-        ),
-    },
-    {
-        accessorKey: "costHomeOwner",
-        header: ({ column }) => h(DataTableColumnHeader, { column: column, title: "H.O. Cost" }),
-        cell: ({ row }) => h(
-            "div", 
-            { class: "text-left font-medium" }, 
-            row.getValue("costHomeOwner"),
+            row.getValue("cost"),
         ),
     },
     {

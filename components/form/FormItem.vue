@@ -39,8 +39,7 @@ watch(isFormItemOpen, (isFormItemOpenNew) => {
                 unitOfMeasurement: itemBeingFormed.value.unitOfMeasurement,
                 priceBuilder: itemBeingFormed.value.priceBuilder,
                 priceHomeOwner: itemBeingFormed.value.priceHomeOwner,
-                costBuilder: itemBeingFormed.value.costBuilder,
-                costHomeOwner: itemBeingFormed.value.costHomeOwner,
+                cost: itemBeingFormed.value.cost,
                 vendorPartNumber: itemBeingFormed.value.vendorPartNumber,
                 vendorId: itemBeingFormed.value.vendor.vendorId,
             })
@@ -201,32 +200,15 @@ const onSubmit = handleSubmit(async (body) => {
                     </FormFieldItem>
                 </FormField>
 
-                <FormField v-slot="{ componentField }" name="costBuilder">
+                <FormField v-slot="{ componentField }" name="cost">
                     <FormFieldItem v-auto-animate>
-                        <FormLabel>Bldr. Cost</FormLabel>
+                        <FormLabel>Cost</FormLabel>
 
                         <FormControl>
                             <Input 
                                 v-bind="componentField"
                                 type="number" 
                                 placeholder="1.25" 
-                                step="0.01"
-                            />
-                        </FormControl>
-
-                        <FormMessage />
-                    </FormFieldItem>
-                </FormField>
-
-                <FormField v-slot="{ componentField }" name="costHomeOwner">
-                    <FormFieldItem v-auto-animate>
-                        <FormLabel>H.O. Cost</FormLabel>
-
-                        <FormControl>
-                            <Input 
-                                v-bind="componentField"
-                                type="number" 
-                                placeholder="1.75" 
                                 step="0.01"
                             />
                         </FormControl>
