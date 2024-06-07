@@ -10,6 +10,7 @@ const personBeingFormed = useState<Person | undefined>("personBeingFormed")
 
 const { handleSubmit, setValues, isSubmitting, resetForm } = useForm({ 
     validationSchema: schemaFormPerson,
+    initialValues: {},
 })
 
 watch(isFormPersonOpen, (isFormPersonOpenNew) => {
