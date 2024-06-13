@@ -87,9 +87,9 @@ watch(values, (v) => console.log(JSON.stringify(v, null, 2)))
 
 watch(isFormProjectOpen, (isFormProjectOpenNew) => {
     if (isFormProjectOpenNew) {
-        !projectBeingFormed.value ? 
+        if (!projectBeingFormed.value) {
             resetForm() 
-            : 
+        } else {
             setValues({ 
                 projectCategory: projectBeingFormed.value.projectCategory,
                 installDate: projectBeingFormed.value.installDate,
@@ -109,6 +109,7 @@ watch(isFormProjectOpen, (isFormProjectOpenNew) => {
                     }
                 }),
             })
+        } 
     }
 })
 
@@ -120,6 +121,14 @@ const valueInstallDate = computed({
     get: () => values.installDate ? parseDate(values.installDate) : undefined,
     set: v => v,
 })
+
+const valueLot = computed(
+    () => dataLots.value.find(({ lotId }) => lotId === values.lotId) ?? newLot(),
+)
+
+const valuePerson = computed(
+    () => dataPersons.value.find(({ personId }) => personId === values.contactId) ?? newPerson(),
+)
 
 function onSelect(i: number, optionValue: string) {
     const item = dataItems.value.find(({ itemId }) => itemId === optionValue)
@@ -267,10 +276,7 @@ const onSubmit = handleSubmit(async (body) => {
     
                             <FormControl>
                                 <Input 
-                                    :value="dataLots.find(
-                                        ({ lotId }) => 
-                                            lotId === values.lotId)?.development.builder.builderName
-                                    " 
+                                    v-model="valueLot.development.builder.builderName" 
                                     readonly 
                                 />
                             </FormControl>
@@ -374,9 +380,7 @@ const onSubmit = handleSubmit(async (body) => {
     
                             <FormControl>
                                 <Input 
-                                    :value="dataPersons.find(({ personId }) => 
-                                        personId === values.contactId)?.phoneNumber
-                                    " 
+                                    v-model="valuePerson.phoneNumber" 
                                     readonly 
                                 />
                             </FormControl>
@@ -390,9 +394,7 @@ const onSubmit = handleSubmit(async (body) => {
         
                                 <FormControl>
                                     <Input 
-                                        :value="dataLots.find(({ lotId }) => 
-                                            lotId === values.lotId)?.address.streetOne
-                                        " 
+                                        v-model="valueLot.address.streetOne" 
                                         readonly 
                                     />
                                 </FormControl>
@@ -405,9 +407,7 @@ const onSubmit = handleSubmit(async (body) => {
         
                                 <FormControl>
                                     <Input 
-                                        :value="dataLots.find(({ lotId }) => 
-                                            lotId === values.lotId)?.address.streetTwo
-                                        " 
+                                        v-model="valueLot.address.streetTwo" 
                                         readonly 
                                     />
                                 </FormControl>
@@ -436,9 +436,7 @@ const onSubmit = handleSubmit(async (body) => {
         
                                 <FormControl>
                                     <Input 
-                                        :value="dataLots.find(
-                                            ({ lotId }) => lotId === values.lotId)?.address.city
-                                        " 
+                                        v-model="valueLot.address.city" 
                                         readonly 
                                     />
                                 </FormControl>
@@ -451,9 +449,7 @@ const onSubmit = handleSubmit(async (body) => {
         
                                 <FormControl>
                                     <Input 
-                                        :value="dataLots.find(
-                                            ({ lotId }) => lotId === values.lotId)?.address.county
-                                        " 
+                                        v-model="valueLot.address.county" 
                                         readonly 
                                     />
                                 </FormControl>
@@ -523,9 +519,7 @@ const onSubmit = handleSubmit(async (body) => {
     
                             <FormControl>
                                 <Input 
-                                    :value="dataPersons.find(
-                                        ({ personId }) => personId === values.contactId)?.email
-                                    " 
+                                    v-model="valuePerson.email" 
                                     readonly 
                                 />
                             </FormControl>
