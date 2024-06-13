@@ -136,6 +136,21 @@ const objectItem = z.object({
 export type Item = z.infer<typeof objectItem>
 export const schemaItem = toTypedSchema(objectItem)
 
+const objectLineItemDepopulated = z.object({
+    lineItemId: z.string().uuid(),
+    lineNumber: z.number(),
+    description: z.string(),
+    quantity: z.number(),
+    priceUnit: z.number(),
+    itemId: z.string().uuid(),
+    projectId: z.string().uuid(),
+    lineItemUpdatedBy: z.string().uuid(),
+    lineItemUpdatedAt: z.string().datetime(),
+    lineItemIsDeleted: z.boolean(),
+})
+export type LineItemDepopulated = z.infer<typeof objectLineItemDepopulated>
+export const schemaLineItemDepopulated = toTypedSchema(objectLineItemDepopulated)
+
 const objectWarehouse = z.object({
     warehouseId: z.string().uuid(),
     warehouseName: z.string(),
@@ -156,12 +171,28 @@ const objectProject = z.object({
     contact: objectPerson,
     representative: objectPerson,
     warehouse: objectWarehouse,
+    lineItems: z.array(objectLineItemDepopulated),
     projectUpdatedBy: z.string().uuid(),
     projectUpdatedAt: z.string().datetime(),
     projectIsDeleted: z.boolean(),
 })
 export type Project = z.infer<typeof objectProject>
 export const schemaProject = toTypedSchema(objectProject)
+
+const objectLineItem = z.object({
+    lineItemId: z.string().uuid(),
+    lineNumber: z.number(),
+    description: z.string(),
+    quantity: z.number(),
+    priceUnit: z.number(),
+    item: objectItem,
+    project: objectProject,
+    lineItemUpdatedBy: z.string().uuid(),
+    lineItemUpdatedAt: z.string().datetime(),
+    lineItemIsDeleted: z.boolean(),
+})
+export type LineItem = z.infer<typeof objectLineItem>
+export const schemaLineItem = toTypedSchema(objectLineItem)
 
 const objectFormAddress = z.object({
     streetOne: stringRequiredSanitizedWhitespace,
@@ -242,6 +273,27 @@ const objectFormItem = z.object({
 export type FormItem = z.infer<typeof objectFormItem>
 export const schemaFormItem = toTypedSchema(objectFormItem)
 
+const objectFormLineItem = z.object({
+    lineNumber: z.number(),
+    description: stringSanitizedWhitespace.nullish(),
+    quantity: z.number(),
+    priceUnit: z.number(),
+    itemId: z.string().uuid(),
+    projectId: z.string().uuid(),
+})
+export type FormLineItem = z.infer<typeof objectFormLineItem>
+export const schemaFormLineItem = toTypedSchema(objectFormLineItem)
+
+const objectFormLineItemEmbedded = z.object({
+    lineNumber: z.number(),
+    description: stringSanitizedWhitespace.nullish(),
+    quantity: z.number(),
+    priceUnit: z.number(),
+    itemId: z.string().uuid(),
+})
+export type FormLineItemEmbedded = z.infer<typeof objectFormLineItemEmbedded>
+export const schemaFormLineItemEmbedded = toTypedSchema(objectFormLineItemEmbedded)
+
 const objectFormLot = z.object({
     lotNumber: stringRequiredSanitizedWhitespace,
     contactId: z.string().uuid(),
@@ -269,6 +321,7 @@ const objectFormProject = z.object({
     contactId: z.string().uuid(),
     representativeId: z.string().uuid(),
     warehouseId: z.string().uuid(),
+    lineItems: z.array(objectFormLineItemEmbedded),
 })
 export type FormProject = z.infer<typeof objectFormProject>
 export const schemaFormProject = toTypedSchema(objectFormProject)

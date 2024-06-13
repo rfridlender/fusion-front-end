@@ -24,7 +24,7 @@ function onLeave() {
         <Separator />
 
         <div class="flex justify-center items-center space-x-2 px-2">
-            You'll lose any changes you made.
+            You'll lose any changes you've made.
         </div>
         
         <DialogFooter class="sm:justify-between px-2 gap-4">

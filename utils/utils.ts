@@ -14,3 +14,7 @@ export function valueUpdater<T extends Updater<any>>(updaterOrValue: T, ref: Ref
 export function titlize(str: string) {
     return str.slice(0, 1).toUpperCase() + str.slice(1)
 }
+
+export function dollarize(amount: number) {
+    return `$${amount.toFixed(2)}`
+}
