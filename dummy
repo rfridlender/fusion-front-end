@@ -179,7 +179,7 @@ case $1 in
         echo "    ./dummy delete [build|common|stack|user]"
         echo "    ./dummy deploy"
         echo "    ./dummy env"
-        echo "    ./dummy user {email} {temporary-password}"
+        echo "    ./dummy user {EMAIL} {PASSWORD}"
         echo
         ;;
 esac
