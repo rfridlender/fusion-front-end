@@ -1,5 +1,4 @@
 # <img src="./assets/home-fusion-logo.png" alt="Home Fusion Logo" width="32"/> Home Fusion OMS
-
 *Home Fusion OMS* is an order management system in development that classifies clientele, consolidates data, and automates the order process of *Home Fusion*, a North Georgia new-home construction subcontractor. 
 
 The current order process relies on the handwritten transcription of line items, referencing an item master that requires frequent changes. Once these orders are transcribed, they are relayed to an individual who separates items by vendor and places an order through a vendor representative. This application aims to address these process bottlenecks by eliminating the need for handwritten transcription as well as creating an automated order pipeline between business and vendor.
@@ -53,7 +52,16 @@ Future features consist of the conversion of the current *PostgreSQL* relational
 - Icons from [lucide](https://github.com/lucide-icons/lucide)
 
 ## Front-End Dummy Tools Documentation
-- Note: The front-end stack is dependent on environment variables and resources deployed in the back-end stack; as a result, the [back-end stack](https://github.com/rfridlender/fusion-back-end) must be deployed first
+*Dummy Tools* are a collection of *Bash* scripts created to expedite development. Alongside *Bash*, these scripts leverage the *AWS*, *Go*, and popular *golang-migrate* CLI tools to execute full units of work that are commonly needed during development. These units of work include building, deploying, or destroying *AWS CloudFormation* stacks, performing database migrations, and creating *AWS Cognito* users to generate tokens for API testing.
+
+### Front-End Dependencies
+- *Linux*
+- *Bash*
+- *git*
+- [*npm*](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) (for optionally building the front end locally outside of *AWS Amplify*)
+- [*AWS CLI*](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
+
+The front-end stack is dependent on environment variables and resources deployed in the back-end stack; as a result, the [back-end stack](https://github.com/rfridlender/fusion-back-end) must be deployed first.
 
 ### Deploying *common* stack
 - Note: The *common* stack contains resources that are shared between all environments; resources include this code repository, build artifact bucket, and basic build configuration
