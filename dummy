@@ -9,21 +9,21 @@ fi
 
 if [[ -z $CODEBUILD_INITIATOR ]];
 then
-    FRONTEND_NAME=${PWD##*/}
+    FRONT_END_NAME=${PWD##*/}
     ENVIRONMENT=$([[ $(git branch --show-current) == "main" ]] && echo "prod" || echo "dev")
 else
     CODEPIPELINE_NAME=${CODEBUILD_INITIATOR##*/}
-    FRONTEND_NAME_ENVIRONMENT_LIST=(${CODEPIPELINE_NAME/"-pipeline-"/" "})
+    FRONT_END_NAME_ENVIRONMENT_LIST=(${CODEPIPELINE_NAME/"-pipeline-"/" "})
 
-    FRONTEND_NAME=${FRONTEND_NAME_ENVIRONMENT_LIST[0]}
-    ENVIRONMENT=${FRONTEND_NAME_ENVIRONMENT_LIST[1]}
+    FRONT_END_NAME=${FRONT_END_NAME_ENVIRONMENT_LIST[0]}
+    ENVIRONMENT=${FRONT_END_NAME_ENVIRONMENT_LIST[1]}
 fi
-COMMON_NAME=${FRONTEND_NAME%-front-end}
-BACKEND_NAME=$COMMON_NAME-back-end
-STACK_NAME=$FRONTEND_NAME-$ENVIRONMENT
+COMMON_NAME=${FRONT_END_NAME%-front-end}
+BACK_END_NAME=$COMMON_NAME-back-end
+STACK_NAME=$FRONT_END_NAME-$ENVIRONMENT
 PARAMETER_OVERRIDES="\
-    FrontendName=$FRONTEND_NAME \
-    BackendName=$BACKEND_NAME \
+    FrontEndName=$FRONT_END_NAME \
+    BackEndName=$BACK_END_NAME \
     Environment=$ENVIRONMENT \
 "
 CAPABILITIES="CAPABILITY_NAMED_IAM CAPABILITY_IAM"
@@ -34,7 +34,7 @@ build() {
 
 common() {
     aws cloudformation deploy \
-        --stack-name $FRONTEND_NAME \
+        --stack-name $FRONT_END_NAME \
         --template-file template-common.yaml \
         --parameter-overrides $PARAMETER_OVERRIDES \
         --capabilities $CAPABILITIES
@@ -47,7 +47,7 @@ delete() {
             ;;
         common)
             aws cloudformation delete-stack \
-		        --stack-name $FRONTEND_NAME
+		        --stack-name $FRONT_END_NAME
             ;;
         stack)
             aws cloudformation delete-stack \
@@ -80,7 +80,7 @@ deploy() {
 env() {
     OUTPUTS_ARRAY=($( \
         aws cloudformation describe-stacks \
-            --stack-name $BACKEND_NAME-$ENVIRONMENT \
+            --stack-name $BACK_END_NAME-$ENVIRONMENT \
             --output text \
             --query "Stacks[0].Outputs" \
     ))
@@ -100,7 +100,7 @@ env() {
         fi
 
         KEY_RAW=${OUTPUTS_ARRAY[$i]}
-        KEY_SLICE=${KEY_RAW#"$BACKEND_NAME-"}
+        KEY_SLICE=${KEY_RAW#"$BACK_END_NAME-"}
         KEY_UPPER=${KEY_SLICE^^}
         KEY=${KEY_UPPER//-/_}
 
@@ -121,7 +121,7 @@ env() {
 
     OUTPUTS_ARRAY=($( \
         aws cloudformation describe-stacks \
-            --stack-name $FRONTEND_NAME-$ENVIRONMENT \
+            --stack-name $FRONT_END_NAME-$ENVIRONMENT \
             --output text \
             --query "Stacks[0].Outputs" \
     ))
@@ -134,7 +134,7 @@ env() {
         fi
 
         KEY_RAW=${OUTPUTS_ARRAY[$i]}
-        KEY_SLICE=${KEY_RAW#"$FRONTEND_NAME-"}
+        KEY_SLICE=${KEY_RAW#"$FRONT_END_NAME-"}
         KEY_UPPER=${KEY_SLICE^^}
         KEY=${KEY_UPPER//-/_}
 

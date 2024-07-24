@@ -2,7 +2,7 @@ AWSTemplateFormatVersion: 2010-09-09
 Transform: AWS::Serverless-2016-10-31
 
 Parameters:
-  FrontendName:
+  FrontEndName:
     Type: String
 
 Resources:
@@ -10,7 +10,7 @@ Resources:
   App:
     Type: AWS::Amplify::App
     Properties:
-      Name: !Sub ${FrontendName}-app
+      Name: !Sub ${FrontEndName}-app
       IAMServiceRole: 
         Fn::ImportValue:
           !Sub common-cloudformation-service-role-${AWS::Region}-arn
@@ -31,14 +31,14 @@ Resources:
   Repository:
     Type: AWS::CodeCommit::Repository
     Properties:
-      RepositoryName: !Sub ${FrontendName}-repository
+      RepositoryName: !Sub ${FrontEndName}-repository
   # CodeCommit
 
   # CodeBuild
   Project:
     Type: AWS::CodeBuild::Project
     Properties:
-      Name: !Sub ${FrontendName}-project
+      Name: !Sub ${FrontEndName}-project
       ServiceRole:
         Fn::ImportValue: !Sub common-cloudformation-service-role-${AWS::Region}-arn
       Artifacts:
@@ -56,36 +56,36 @@ Resources:
   ArtifactStore:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Sub ${FrontendName}-artifact-store
+      BucketName: !Sub ${FrontEndName}-artifact-store
   # S3
 
 Outputs:
   AppIdOutput:
     Value: !GetAtt App.AppId
     Export:
-      Name: !Sub ${FrontendName}-app-id
+      Name: !Sub ${FrontEndName}-app-id
 
   AppDefaultDomainOutput:
     Value: !GetAtt App.DefaultDomain
     Export:
-      Name: !Sub ${FrontendName}-app-default-domain
+      Name: !Sub ${FrontEndName}-app-default-domain
 
   ArtifactStoreNameOutput:
     Value: !Ref ArtifactStore
     Export:
-      Name: !Sub ${FrontendName}-artifact-store-name
+      Name: !Sub ${FrontEndName}-artifact-store-name
 
   ProjectNameOutput:
     Value: !Ref Project
     Export:
-      Name: !Sub ${FrontendName}-project-name
+      Name: !Sub ${FrontEndName}-project-name
 
   RepositoryArnOutput:
     Value: !GetAtt Repository.Arn
     Export:
-      Name: !Sub ${FrontendName}-repository-arn
+      Name: !Sub ${FrontEndName}-repository-arn
 
   RepositoryNameOutput:
     Value: !GetAtt Repository.Name
     Export:
-      Name: !Sub ${FrontendName}-repository-name
+      Name: !Sub ${FrontEndName}-repository-name

@@ -2,9 +2,9 @@ AWSTemplateFormatVersion: 2010-09-09
 Transform: AWS::Serverless-2016-10-31
 
 Parameters:
-  FrontendName:
+  FrontEndName:
     Type: String
-  BackendName:
+  BackEndName:
     Type: String
   Environment:
     Type: String
@@ -26,26 +26,26 @@ Resources:
     Properties:
       BranchName: !If [IsProd, main, dev]
       AppId: 
-        Fn::ImportValue: !Sub ${FrontendName}-app-id
+        Fn::ImportValue: !Sub ${FrontEndName}-app-id
       Stage: !If [IsProd, PRODUCTION, DEVELOPMENT]
       EnableAutoBuild: true
       EnvironmentVariables:
         - Name: NUXT_HTTP_API_INVOKE_URL
           Value: 
-            Fn::ImportValue: !Sub ${BackendName}-http-api-invoke-url
+            Fn::ImportValue: !Sub ${BackEndName}-http-api-invoke-url
         - Name: NUXT_PUBLIC_USER_POOL_ID
           Value: 
-            Fn::ImportValue: !Sub ${BackendName}-user-pool-id
+            Fn::ImportValue: !Sub ${BackEndName}-user-pool-id
         - Name: NUXT_PUBLIC_USER_POOL_CLIENT_ID
           Value: 
-            Fn::ImportValue: !Sub ${BackendName}-user-pool-client-id
+            Fn::ImportValue: !Sub ${BackEndName}-user-pool-client-id
   # Amplify
 
   # CodePipeline
   Pipeline:
     Type: AWS::CodePipeline::Pipeline
     Properties:
-      Name: !Sub ${FrontendName}-pipeline-${Environment}
+      Name: !Sub ${FrontEndName}-pipeline-${Environment}
       RoleArn:
         Fn::ImportValue: !Sub common-cloudformation-service-role-${AWS::Region}-arn
       Stages:
@@ -59,7 +59,7 @@ Resources:
                 Provider: CodeCommit
               Configuration:
                 RepositoryName:
-                  Fn::ImportValue: !Sub ${FrontendName}-repository-name
+                  Fn::ImportValue: !Sub ${FrontEndName}-repository-name
                 BranchName: !If [IsProd, main, dev]
                 PollForSourceChanges: false
               OutputArtifacts:
@@ -81,8 +81,8 @@ Resources:
                 TemplatePath: !Sub src-${Environment}::template.yaml
                 ParameterOverrides: !Sub |
                   {
-                    "FrontendName": "${FrontendName}",
-                    "BackendName": "${BackendName}",
+                    "FrontEndName": "${FrontEndName}",
+                    "BackEndName": "${BackEndName}",
                     "Environment": "${Environment}"
                   }
                 Capabilities: CAPABILITY_IAM,CAPABILITY_NAMED_IAM,CAPABILITY_AUTO_EXPAND
@@ -93,21 +93,21 @@ Resources:
       ArtifactStore:
         Type: S3
         Location:
-          Fn::ImportValue: !Sub ${FrontendName}-artifact-store-name
+          Fn::ImportValue: !Sub ${FrontEndName}-artifact-store-name
   # CodePipeline
 
   # Events
   Rule:
     Type: AWS::Events::Rule
     Properties:
-      Name: !Sub ${FrontendName}-rule-${Environment}
+      Name: !Sub ${FrontEndName}-rule-${Environment}
       EventPattern:
         source:
           - aws.codecommit
         detail-type:
           - "CodeCommit Repository State Change"
         resources:
-          - Fn::ImportValue: !Sub ${FrontendName}-repository-arn
+          - Fn::ImportValue: !Sub ${FrontEndName}-repository-arn
         detail:
           event:
             - referenceCreated
@@ -129,6 +129,6 @@ Outputs:
       - http://${BranchName}.${AppDefaultDomain}
       - BranchName: !GetAtt Branch.BranchName 
         AppDefaultDomain:
-          Fn::ImportValue: !Sub ${FrontendName}-app-default-domain
+          Fn::ImportValue: !Sub ${FrontEndName}-app-default-domain
     Export:
-      Name: !Sub ${FrontendName}-app-branch-domain
+      Name: !Sub ${FrontEndName}-app-branch-domain
