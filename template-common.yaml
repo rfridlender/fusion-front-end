@@ -15,7 +15,7 @@ Resources:
         Fn::ImportValue:
           !Sub common-cloudformation-service-role-${AWS::Region}-arn
       Platform: WEB_COMPUTE
-      Repository: !GetAtt Repository.CloneUrlHttp
+      Repository: !Sub https://github.com/${GitHubRepository}.git
       EnvironmentVariables:
         - Name: _CUSTOM_IMAGE
           Value: amplify:al2023
@@ -27,20 +27,14 @@ Resources:
           Value: ''
   # Amplify
 
-  # CodeCommit
-  Repository:
-    Type: AWS::CodeCommit::Repository
-    Properties:
-      RepositoryName: !Sub ${FrontEndName}-repository
-  # CodeCommit
-
   # CodeBuild
   Project:
     Type: AWS::CodeBuild::Project
     Properties:
       Name: !Sub ${FrontEndName}-project
       ServiceRole:
-        Fn::ImportValue: !Sub common-cloudformation-service-role-${AWS::Region}-arn
+        Fn::ImportValue: 
+          !Sub common-cloudformation-service-role-${AWS::Region}-arn
       Artifacts:
         Type: CODEPIPELINE
       Environment:
@@ -51,6 +45,16 @@ Resources:
         Type: CODEPIPELINE
       TimeoutInMinutes: 10
   # CodeBuild
+
+  # CodeStar
+  GitHubRepository:
+    Type: AWS::CodeStar::GitHubRepository
+    Properties:
+      IsPrivate: true
+      RepositoryAccessToken: "{{resolve:ssm:/common/github/access-token}}"
+      RepositoryName: !Sub ${FrontEndName}
+      RepositoryOwner: "{{resolve:ssm:/common/github/name}}"
+  # CodeStar
 
   # S3
   ArtifactStore:
@@ -80,12 +84,7 @@ Outputs:
     Export:
       Name: !Sub ${FrontEndName}-project-name
 
-  RepositoryArnOutput:
-    Value: !GetAtt Repository.Arn
+  GitHubRepositoryNameOutput:
+    Value: !Ref GitHubRepository
     Export:
-      Name: !Sub ${FrontEndName}-repository-arn
-
-  RepositoryNameOutput:
-    Value: !GetAtt Repository.Name
-    Export:
-      Name: !Sub ${FrontEndName}-repository-name
+      Name: !Sub ${FrontEndName}-github-repository-name

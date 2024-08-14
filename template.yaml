@@ -55,13 +55,16 @@ Resources:
               ActionTypeId:
                 Category: Source
                 Owner: AWS
-                Version: "1"
-                Provider: CodeCommit
+                Version: '1'
+                Provider: CodeStarSourceConnection
               Configuration:
-                RepositoryName:
-                  Fn::ImportValue: !Sub ${FrontEndName}-repository-name
+                ConnectionArn:
+                  Fn::ImportValue:
+                    !Sub common-github-connection-arn
+                FullRepositoryId: 
+                  Fn::ImportValue:
+                    !Sub ${BackEndName}-github-repository-name
                 BranchName: !If [IsProd, main, dev]
-                PollForSourceChanges: false
               OutputArtifacts:
                 - Name: !Sub src-${Environment}
               RunOrder: 1
@@ -72,7 +75,7 @@ Resources:
                 Category: Deploy
                 Owner: AWS
                 Provider: CloudFormation
-                Version: "1"
+                Version: '1'
               Configuration:
                 ActionMode: CREATE_UPDATE
                 StackName: !Ref AWS::StackName
@@ -94,34 +97,7 @@ Resources:
         Type: S3
         Location:
           Fn::ImportValue: !Sub ${FrontEndName}-artifact-store-name
-  # CodePipeline
-
-  # Events
-  Rule:
-    Type: AWS::Events::Rule
-    Properties:
-      Name: !Sub ${FrontEndName}-rule-${Environment}
-      EventPattern:
-        source:
-          - aws.codecommit
-        detail-type:
-          - "CodeCommit Repository State Change"
-        resources:
-          - Fn::ImportValue: !Sub ${FrontEndName}-repository-arn
-        detail:
-          event:
-            - referenceCreated
-            - referenceUpdated
-          referenceType:
-            - branch
-          referenceName:
-            - !If [IsProd, main, dev]
-      Targets:
-        - Arn: !Sub arn:aws:codepipeline:${AWS::Region}:${AWS::AccountId}:${Pipeline}
-          RoleArn:
-            Fn::ImportValue: !Sub common-cloudformation-service-role-${AWS::Region}-arn
-          Id: !Sub ${Pipeline}-target
-  # Events
+  # CodePipeline"1"
 
 Outputs:
   AppBranchDomainOutput:

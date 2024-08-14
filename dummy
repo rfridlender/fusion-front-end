@@ -63,7 +63,7 @@ delete() {
             echo "    ./dummy delete build"
             echo "    ./dummy delete common"
             echo "    ./dummy delete stack"
-            echo "    ./dummy delete user {email}"
+            echo "    ./dummy delete user {EMAIL}"
             echo
             ;;
     esac

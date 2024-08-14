@@ -17,7 +17,7 @@
                 alt="Modern House"
             >
             
-            <div class="absolute start=0 top-0 w-full h-screen bg-background opacity-75" />
+            <div class="absolute left-0 top-0 w-full h-screen bg-background opacity-75" />
         </div>
     </main>
 </template>
